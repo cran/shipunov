@@ -1,0 +1,11 @@
+Jclust(): make "all" cluster numbers through "n.cl" cycle, then extend print and plot
+
+Dotchart1(): send this as dotchart() correction to R base
+
+Life(): add interactive filling with locator() like in Miney(); decrease borders in image()
+
+Gap.code(): try to optimize more; use possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
+
+Make Root1() based on ape::root() which automatically restricts outgroups to one (e.g., first) if they are "not monophyletic"
+
+Biokey() -- develop converters between dichotomous keys, Newick and rpart trees, and classification schemes ("classifs"), textual and tabulated
