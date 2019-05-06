@@ -1,31 +1,33 @@
 \name{Overlap}
 \alias{Overlap}
-\alias{Overlap2}
 \alias{summary.Overlap}
 
 \title{Polygons' overlap}
 
-\description{Polygons' overlap}
+\description{Measures polygons' overlap}
 
 \usage{
-Overlap(ppts)
-Overlap2(ppts)
+Overlap(ppts, Hulls=TRUE)
 \method{summary}{Overlap}(object, ...)
 }
 
 \arguments{
-\item{ppts}{Hulls information (e.g., output from 'Hulls()')}
+\item{ppts}{List with hulls information (e.g., output from Hulls())}
+\item{Hulls}{Did the information came from Hulls()?}
 \item{object}{Object of the class 'Overlap'}
 \item{...}{Additional arguments}
 }
 
 \details{
-Overlap() calculates polygons (hulls) overlap (it requires 'PBSmapping' package).
+'Overlap()' calculates polygons (hulls) overlap (it requires 'PBSmapping' package).
 
-'Overlap2()' is deprecated (it requires 'gpclib' package).
+If 'Hulls=FALSE', then list components with names 'centers' and 'outliers'
+will not be attempted to delete from 'ppts' list.
 }
 
-% \value{}
+\value{
+Object of class 'Overlap', ot nothing.
+}
 
 % \references{}
 
@@ -36,10 +38,9 @@ Overlap() calculates polygons (hulls) overlap (it requires 'PBSmapping' package)
 \examples{
 iris.pca <- prcomp(iris[, 1:4], scale=TRUE)
 iris.p <- iris.pca$x[, 1:2]
-iris.h <- Hulls(iris.p[, 1:2], as.numeric(iris[, 5]), plot=FALSE)
+iris.h <- Hulls(iris.p[, 1:2], iris[, 5], plot=FALSE)
 iris.o <- Overlap(iris.h)
 summary(iris.o)
 }
 
-\keyword{Plots}
-
+\keyword{Multivariate}

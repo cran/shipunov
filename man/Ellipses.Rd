@@ -14,7 +14,7 @@ Ellipses(pts, groups, match.color=TRUE, usecolors=NULL, centers=FALSE,
 \item{level}{Confidence level}
 \item{match.color}{Match colors}
 \item{usecolors}{Use colors (palette)}
-\item{centers}{Show centrs?}
+\item{centers}{Show centers?}
 \item{c.pch}{Color of center points}
 \item{c.cex}{Scale of center points}
 \item{...}{Arguments to 'Confelli()' and finally to 'plot()'}

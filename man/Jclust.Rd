@@ -31,11 +31,7 @@ Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=
 \details{
 Simple bootstrap and jackknife clustering, requires the desired number of clusters.
 
-This is how you can boostrap \emph{all} reliable cluster numbers:
-
-'for (i in 2:(nrow(t(mo)) - 1)) print(J.Clust(t(mo), i, iter=1000, boot=TRUE))'
-
-Alternatives: 'pvc::pvc()'; 'fpc::clusterboot()'; 'ClassDiscovery::BootstrapClusterTest()'
+Alternatives: 'pvc::pvc()'; 'fpc::clusterboot()'.
 }
 
 % \value{}
@@ -44,12 +40,22 @@ Alternatives: 'pvc::pvc()'; 'fpc::clusterboot()'; 'ClassDiscovery::BootstrapClus
 
 \author{Alexey Shipunov}
 
-% \seealso{}
+\seealso{
+  \code{\link{Bclust}}, \code{link{BootA}}
+}
 
 \examples{
-mo <- read.table("http://ashipunov.info/shipunov/open/moldino.txt", h=TRUE, sep="\t", row.names=1)
+
+mo <- read.table("http://ashipunov.info/shipunov/open/moldino.txt", h=TRUE,
+ sep="\t", row.names=1)
 (mo.j <- Jclust(t(mo), 3, iter=1000))
 plot(mo.j)
+
+\donttest{
+## This is how one can boostrap _all_ reliable cluster numbers:
+for (i in 2:(nrow(t(mo)) - 1)) print(Jclust(t(mo), i, iter=1000, boot=TRUE))
+}
+
 }
 
 \keyword{Statistics}

@@ -15,7 +15,8 @@
 
 It is a variant of Fligner-Policello test.
 
-Alternatives: 'robustrank::mod.wmw.test()'; 'npsm::fp.test()'; 'NSM3::pFligPoli()'; 'RVAideMemoire::fp.test()'; 'robustrank' package.
+Possible alternatives: 'robustrank::mod.wmw.test()'; 'npsm::fp.test()';
+'NSM3::pFligPoli()'; 'RVAideMemoire::fp.test()'.
 }
 
 \value{Returns z statistic and p-value.}

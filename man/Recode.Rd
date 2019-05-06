@@ -27,6 +27,7 @@ Recode4R(var, from, to, missed="")
 Inspired from Paul Johnston (Univ. of Kansas) 'recode()' function.
 
 Alternatives are 'car::recode()', 'lessR::Recode()' and 'mgsub' package.
+First two are much more complicated, third is much slower and less flexible.
 
 To understand the idea better, look on the examples.
 

@@ -17,7 +17,7 @@
 }
 
 \details{Histr plots histogram with overlaid normal curve or density, optionally with rug.
-Modified from Stephen Turner's 'Tmisc' package.}
+Based on analogouf function from Stephen Turner's 'Tmisc' package.}
 
 % \value{}
 

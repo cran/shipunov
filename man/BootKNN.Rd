@@ -36,4 +36,3 @@ iris.bootknn <- BootKNN(iris[, -5], iris[, 5], sub=iris.sub)
 }
 
 \keyword{Statistics}
-

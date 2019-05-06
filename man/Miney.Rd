@@ -23,7 +23,7 @@
 % \seealso{}
 
 \examples{
-\donttest{
+\dontrun{
 ## interactive command:
 Miney(3)
 }

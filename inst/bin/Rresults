@@ -11,7 +11,7 @@ fi
 
 Rfname="${Rfile%.*}"
 
-Rscript -e "options(warn=1); source(\"$Rfile\", echo=TRUE, keep.source=TRUE, max.deparse.length=Inf)" 2>&1 | tee "$Date$Rfname"_rresults.txt
+Rscript -e "options(warn=1); source(\"$Rfile\", echo=TRUE, keep.source=TRUE, max.deparse.length=Inf)" 2>&1 | tee "$Rfname"_"$Date"rresults.txt
 RET=${PIPESTATUS[0]}
 
 # to join multiple PDFs, pdftk required
@@ -24,7 +24,7 @@ fi
 fi
 
 if [[ $Renameplots && -f Rplots.pdf ]]; then
- mv Rplots.pdf "$Date$Rfname"_rplots.pdf
+ mv Rplots.pdf "$Rfname"_"$Date"rplots.pdf
 fi
 
 exit $RET

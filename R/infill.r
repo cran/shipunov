@@ -1,4 +1,4 @@
-## Strictrly biological
+## Strictly biological
 
 Read.fasta <- function(file) {
  fasta <- readLines(file)

@@ -16,7 +16,8 @@
 
 \details{
 Pairwise Chi-squared or Fisher test for 2-dimensional tables.
-Alternatives: 'NCStats::chisqPostHoc()'; 'fifer::chisq.post.hoc()'.
+
+Possible alternatives: 'NCStats::chisqPostHoc()'; 'fifer::chisq.post.hoc()'.
 }
 
 \value{List with test outputs.}

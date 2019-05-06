@@ -40,9 +40,10 @@
 
 \details{
 Correlation circles (correlation pleiads).
-Based on the works of Petr Terentjev's (Saint Petersburg) school
-Alternatives: packages "igraph", "circlize" and similar
-It is probably a good idea to order data entries with hierarchical clustering results to optimize resulted graph
+Based on the works of Petr Terentjev's (Saint Petersburg) school.
+Alternatives: those graph plotting packages which are able to plot "correlogram".
+It is probably a good idea to order data entries with hierarchical clustering results to optimize resulted graph.
+The plot has no margins so consider second 'legend()' to add any text to the plot (see examples).
 }
 
 \value{Retunts data frame with position of points, helps in subsequent plot enhancing}
@@ -56,6 +57,7 @@ It is probably a good idea to order data entries with hierarchical clustering re
 \examples{
 l.c <- cor(datasets::longley, method="spearman", use="pairwise")
 Pleiad(l.c, corr=TRUE, legtext=2, pch=21, cex=2, bg="white", breaks=3, gr=3, hoff=1, show.int=TRUE)
+legend("topleft", legend="Title", text.font=2, bty="n")
 
 dr <- read.table("http://ashipunov.info/shipunov/open/drosera.txt", h=TRUE)
 dr.c <- cor(dr[, -1], method="spearman", use="pairwise")

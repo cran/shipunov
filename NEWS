@@ -1,2 +1,21 @@
+shipunov 1.1:
+ option "mad" added for pairwise.Eff();
+ Gen.cl.data() function to generate 'scikit-learn'-like examples;
+ Misclass() is now able to search for the best table;
+ new Class.sample() function;
+ new Classproj() function;
+ Hulls(..., outliers=FALSE) now plots smoothed convex hulls and outputs outliers;
+ Overlap(..., Hulls=FALSE) might use non-Hulls() object;
+ Overlap2() removed;
+ new BestOverlap() function;
+ help files improved;
+ new Bclust() function and its allies;
+ new Updist() function;
+ Misclass(..., quiet=TRUE) now suppresses output;
+ 'Rresults' script improved;
+ new Root1() function;
+ Draw.arrow() removed;
+ Histp() removed()
+
 shipunov 1.0: first release
 

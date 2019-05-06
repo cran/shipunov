@@ -22,7 +22,6 @@
 \details{
 Changes the appearance of cluster dendrogram.
 Be sure to check plot margins!
-Alternatives: "dendextend" package.
 }
 
 % \value{}

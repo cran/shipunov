@@ -17,7 +17,7 @@ Two approaches are in use: through '==' operation and through the conversion int
 
 First approach also constructs new names of variables whereas the second ('convert.names=FALSE') makes variable names from names of factor levels (i.e., labels).
 
-Other alternatives: "*dumm*" packages (there are few in CRAN).
+Alternatives: "*dumm*" packages (there are few in CRAN).
 }
 
 \value{Matrix with binary columns}

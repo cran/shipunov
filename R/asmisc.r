@@ -319,10 +319,10 @@ magnitudes[findInterval(ifelse(squared, sqrt(abs(x)), abs(x)), magnitudev) + 1]
 
 ## ===
 
-pairwise.Eff <- function(vec, fac, eff="K", dec=2) {
+pairwise.Eff <- function(vec, fac, eff="K", dec=2, mad=FALSE) {
 lst <- split(vec, fac)
 if (eff == "K") {
- ee <- sapply(lst, function(.x) sapply(lst, function(.y) K(.x, .y)))
+ ee <- sapply(lst, function(.x) sapply(lst, function(.y) K(.x, .y, mad=mad)))
  mm <- sapply(lst, function(.x) sapply(lst, function(.y) summary(K(.x, .y))[[2]]))
  }
 if (eff == "cohen.d") {
@@ -457,23 +457,6 @@ Phyllotaxis <- function(n, angle=FALSE)
  numerator <- Fibonacci(n)
  denominator <- Fibonacci(n+2)
  if (!angle) paste(numerator, denominator, sep="/") else 180*numerator/denominator
-}
-
-## ===
-
-Misclass <- function(pred, obs)
-{
-tbl <- table(pred, obs)
-sum <- colSums(tbl)
-dia <- diag(tbl)
-msc <- (sum - dia)/sum * 100
-m.m <- mean(msc)
-cat("Classification table:", "\n")
-print(tbl)
-cat("Misclassification errors:", "\n")
-print(round(msc, 1))
-cat("Mean misclassification error: ", round(m.m, 1), "%", "\n", sep="")
-invisible(tbl)
 }
 
 ## ===
@@ -635,83 +618,6 @@ DEV
 
 ## ===
 
-Jclust <- function(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=TRUE)
-{
-j.res <- matrix(rep(0, nrow(data)^2), ncol=nrow(data))
-if (method.c == "ward.D" & sum(grep("ward.D", body(hclust))) == 0) method.c <- "ward"
-if (bootstrap)
-{
-for (i in 1:iter)
- {
- j.sample <- sample(1:ncol(data), replace=TRUE)
- j.data <- data[, j.sample]
- j.dist <- dist(j.data, method=method.d)
- j.clust <- cutree(hclust(j.dist, method=method.c), k=n.cl)
- j.mat <- outer(j.clust, j.clust, "==")
- j.res <- j.res + j.mat
- }
-} else {
-iter <- ncol(data)
-for (i in 1:ncol(data))
- {
- j.data <- data[, -i]
- j.dist <- dist(j.data, method=method.c)
- j.clust <- cutree(hclust(j.dist, method=method.d), k=n.cl)
- j.mat <- outer(j.clust, j.clust, "==")
- j.res <- j.res + j.mat
- }
-}
-j.supp <- c(rep(0, n.cl))
-j.hcl <- hclust(dist(j.res, method=method.d), method=method.c)
-j.group <- cutree(j.hcl, k=n.cl)
-for(j in 1:n.cl)
- {
- j.which <- which(j.group == j)
- j.subset <- j.res[j.which, j.which]
- j.supp[j] <- median(as.vector(j.subset), na.rm=TRUE)/iter
- }
-j.meth <- ifelse(bootstrap, "Bootstrap", "Jackknife")
-j.clust <- list(meth=j.meth, mat=j.res, hcl=j.hcl, gr=j.group, supp=j.supp, iter=iter, n.cl=n.cl)
-class(j.clust) <- "Jclust"
-j.clust
-}
-##
-print.Jclust <- function(x, ...)
-{
-cat("\n", x$meth, "support for", x$n.cl, "clusters,", x$iter, "iterations: \n")
-cat("\n")
-if (is.null(names(x$gr))) names(x$gr) <- as.character(x$gr)
-clus <- aggregate(names(x$gr), list(x$gr), toString)
-clus <- cbind(x$supp*100, clus)
-colnames(clus) <- c("support", "cluster", "members")
-print(clus[rev(order(clus$support)),], row.names=FALSE, ...)
-}
-##
-plot.Jclust <- function(x, main="", xlab="", sub=NULL, rect.lty=3, rect.col=1, ...)
-{
-if (is.null(sub)) sub <- paste(x$meth, ", ", x$iter, " replicates", sep="")
-plot(x$hcl, main=main, xlab=xlab, sub=sub, ...)
-tree <- x$hcl
-k <- x$n.cl
-cluster <- x$gr
-clusorder <- unique(cluster[tree$order]) # order of clusters
-clustab <- table(cluster)[clusorder] # widths of clusters
-m <- c(0, cumsum(clustab)) # position of each cluster
-which <- 1L:k # clusters
-for (n in seq_along(which))
-{
- xleft <- m[which[n]] + .7
- ybottom <- par("usr")[3L]
- xright <- m[which[n] + 1] + .32
- xmid <- (xleft + xright)/2
- ytop <- mean(rev(tree$height)[(k - 1):k])
- rect(xleft, ybottom, xright, ytop, lty=rect.lty, border=rect.col)
- text(xmid, ybottom, labels=paste0(round(x$sup[clusorder[n]]*100, 1), "%"), pos=3)
-}
-}
-
-## ===
-
 BootA <- function(dat, FUN=function(.x) ape::nj(dist(.x)), iter=1000, mc.cores=1, tresh=50, cons=TRUE, prop=0.5) {
 tree <- FUN(dat)
 boots <- ape::boot.phylo(tree, dat, FUN, B=iter, trees=TRUE, mc.cores=mc.cores)
@@ -803,15 +709,6 @@ PPoints <- function(groups, x, y, cols=as.numeric(groups), pchs=as.numeric(group
  if (length(cols) == 1) cols <- rep(cols, length(groups))
  na.omit <- !na.omit.all # to save resources
  for (i in 1:n) Points(x[a==i], y[a==i], col=(cols[a==i]), pch=(pchs[a==i]), na.omit=na.omit, ...)
-}
-
-## ===
-
-Histp <- function(x, breaks="Sturges", ...) {
- H <- hist(x, plot=FALSE, breaks=breaks)
- H$density <- with(H, 100 * density* diff(breaks)[1])
- labs <- paste(round(H$density), "%", sep="")
- plot(H, freq=FALSE, labels=labs, ylim=c(0, 1.08 * max(H$density)), ...)
 }
 
 ## ===
@@ -1076,138 +973,6 @@ Ellipses <- function(pts, groups, match.color=TRUE, usecolors=NULL, centers=FALS
  if (length(gr) > 1) Confelli(c.X, cov(X), col=m.col, ...)
  if (centers) points(c.X[1], c.X[2], pch=c.pch, cex=c.cex, col=m.col)
  }
-}
-
-## ===
-
-Hulls <- function(pts, groups, match.color=TRUE, usecolors=NULL, plot=TRUE, centers=FALSE, c.pch=0, c.cex=3, ...)
-{
-ppts <- list()
-out <- seq(along=groups)
-inds <- names(table(groups))
-for (is in inds) {
- if (match.color) {m.col <- is} else {m.col <- "black"}
- if (!is.null(usecolors)) m.col <- usecolors[inds == is]
- gr <- out[groups == is]
- if (length(gr) > 1) {
- X <- pts[gr, ]
- hpts <- chull(X)
- ppts[[is]] <- X[hpts, ]
- hpts.l <- c(hpts, hpts[1])
- if (plot) {lines(X[hpts.l, ], col=m.col, ...)}
- }
- }
-if(centers)
- {
- ppol <- ppts
- len <- length(ppol)
- for (i in 1:len)
- {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
- names(ppol[[i]])[1:2] <- c("X", "Y")
- }
- centers <- matrix(ncol=2, nrow=len)
- for (i in 1:len) centers[i,] <- unlist(PBSmapping::calcCentroid(ppol[[i]])[c("X", "Y")])
- if (match.color) {m.col <- 1:len} else {m.col <- "black"}
- if (!is.null(usecolors)) m.col <- usecolors
- if (plot) {points(centers, pch=c.pch, cex=c.cex, col=m.col)}
- row.names(centers) <- names(ppol)
- ppts$centers <- centers
- }
-invisible(ppts)
-}
-
-## ===
-
-Overlap2 <- function(ppts)
-{
-if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
-len <- length(ppts)
-ppol <- lapply(ppts, function(x) as(x, "gpclib::gpc.poly"))
-over.m <- matrix(ncol=len, nrow=len)
-for (i in 2:len)
- {
- for (j in 1:i)
- {
- p.i <- ppol[[i]]
- p.j <- ppol[[j]]
- ij <- intersect(p.i, p.j)
- if (length(attr(ij, "pts")) == 0)
- {
- over.m[j,i] <- over.m[i,j] <- NA
- } else {
- ij.a <- gpclib::area.poly(ij)
- over.m[j,i] <- ij.a/gpclib::area.poly(p.j)
- over.m[i,j] <- ij.a/gpclib::area.poly(p.i)
- }
- }
- }
-diag(over.m) <- NA
-dimnames(over.m) <- list(names(ppts), names(ppts))
-class(over.m) <- "Overlap"
-return(over.m)
-}
-##
-Overlap <- function(ppts)
-{
-if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
-ppol <- ppts
-len <- length(ppol)
-for (i in 1:len)
- {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
- names(ppol[[i]])[1:2] <- c("X","Y")
- }
-over.m <- matrix(ncol=len, nrow=len)
-for (i in 2:len)
- {
- for (j in 1:i)
- {
- p.i <- ppol[[i]]
- p.j <- ppol[[j]]
- ij <- PBSmapping::joinPolys(p.i, p.j, "INT")
- if (is.null(ij))
- {
- over.m[j,i] <- over.m[i,j] <- NA
- } else {
- ij.a <- PBSmapping::calcArea(ij)$area
- over.m[j,i] <- ij.a/PBSmapping::calcArea(p.j)$area
- over.m[i,j] <- ij.a/PBSmapping::calcArea(p.i)$area
- }
- }
- }
-diag(over.m) <- NA
-dimnames(over.m) <- list(names(ppts), names(ppts))
-class(over.m) <- "Overlap"
-return(over.m)
-}
-##
-summary.Overlap <- function(object, ...)
-{
-total.overlap <- round(rowSums(object, na.rm=TRUE)*100, 2)
-mean.overlap <- round(rowMeans(object, na.rm=TRUE)*100, 2)
-res <- data.frame(mean.overlap, total.overlap)
-overall.overlap <- round(mean(object, na.rm=TRUE)*100, 2)
-cat("Overlaps for each hull, %:\n")
-print(res)
-cat("Mean overlap for the whole dataset", overall.overlap, "%\n")
-}
-
-## ===
-
-Squares <- function(ppts, relative=FALSE) {
-if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
-ppol <- ppts
-len <- length(ppol)
-sq <- numeric(len)
-for (i in 1:len)
- {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
- names(ppol[[i]])[1:2] <- c("X", "Y")
- sq[i] <- PBSmapping::calcArea(ppol[[i]])$area
- }
-if (relative) sq <- sq/(sum(sq))
-sq
 }
 
 ## ===

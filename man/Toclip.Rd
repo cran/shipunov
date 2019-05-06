@@ -13,7 +13,7 @@
 \item{...}{argumants to 'write.table()'}
 }
 
-\details{Linux-specific. Inserts data frame to Linux X11 clipboard (not primary or secondary). 
+\details{Linux-specific. Inserts data frame to Linux X11 clipboard (not primary or secondary).
 Useful for interface with speadsheets.
 
 Works if 'xclip' utility is already installed.

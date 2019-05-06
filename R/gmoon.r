@@ -257,19 +257,6 @@ text(x, y, "R", font=2, cex=cex, col=col.l)
 
 ## ===
 
-Draw.arrow <- function(reverse=FALSE, horizontal=FALSE, vertical=FALSE, length=0.1, ...){
- x <- locator(2)
- if(reverse) x <- lapply(x, rev)
- if(horizontal) x[[2]] <- rep(mean(x[[2]]), 2)
- if(vertical) x[[1]] <- rep(mean(x[[1]]), 2)
- arrows(x[[1]][1], x[[2]][1], x[[1]][2], x[[2]][2], length=length, ...)
- x <- matrix(unlist(x), ncol=2)
- dimnames(x) <- list(c("tail","head"), c("x","y"))
- invisible(x)
-}
-
-## ===
-
 Miney <- function(n, ucol="black", gcol="white", bcol="red") { # 'n' indicates the size of the matrix to play, i.e. n=5 results in n x n = 5 x 5 matrix.
  create.matrix <- function(n, proportion=0.15) { # creates a matrix on which the game is played
 ## n: numeric scalar  size of square matrix

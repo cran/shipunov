@@ -20,6 +20,8 @@
 \details{There are many ways to represent groups in data. One is trellis plots. 'Boxplots()' make grouped plots which fit the plot box linearly and therefore easy to compare. So the main idea for grouped plots is to make comparison easier.
 
 Please note that because characters within group are likely of different nature, they are scaled. Consequently, tick marks are removed as they have no sense.
+
+Alternatives: trellis designs.
 }
 
 \value{For the efficiency reasons, the function does not return anything.}

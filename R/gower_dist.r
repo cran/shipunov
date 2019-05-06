@@ -1,5 +1,3 @@
-## Gower distance
-
 Gower.dist<- function(data.x, data.y=data.x, rngs=NULL, KR.corr=TRUE) {
 gower.fcn <- function(x, y, rng=NULL, KR.corr=TRUE) {
 nx <- length(x)
