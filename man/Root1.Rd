@@ -13,11 +13,11 @@ Root1(phy, outgroup, select=1, ...)
 }
 
 \arguments{
-  \item{phy}{an object of class \code{"phylo"}.}
-  \item{outgroup}{a vector of mode numeric or character specifying the
+  \item{phy}{An object of class \code{"phylo"}.}
+  \item{outgroup}{A vector of mode numeric or character specifying the
     new outgroup.}
-  \item{select}{Which e;ement of outgroup to select if it is not monyphyletic.}
-  \item{\dots}{arguments passed to ape::root().}
+  \item{select}{Which element of outgroup to select if it is not monophyletic.}
+  \item{\dots}{Arguments passed to ape::root().}
 }
 
 \details{

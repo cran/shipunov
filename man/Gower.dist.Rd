@@ -13,7 +13,7 @@
 }
 
 \details{
-Gower.dist() code was taken (and slightly amended to keep dimnames and return 'dist' object in case of one matrix)
+Gower.dist() code was taken (and amended to keep dimnames and return 'dist' object in case of one matrix)
 from 'StatMatch' package; please see this package for the original code and full documentation.
 
 This function computes the Gower's distance (dissimilarity) among units in a dataset or among observations in two distinct datasets.
@@ -22,8 +22,8 @@ columns of class ordered will be considered as categorical ordinal variables and
 Missing values (NA) are allowed.
 If only data.x is supplied, the dissimilarities between _rows_ of data.x will be computed.
 
-For 'rngs', in correspondence of non-numeric variables, just put 1 or NA.
-When rngs=NULL (default) the range of a numeric variable is estimated by jointly considering the values for the variable in 'data.x' and those in 'data.y'.
+For 'rngs', in correspondence of non-numeric variables, just put 1 or NA. When rngs=NULL (default),
+the range of a numeric variable is estimated by jointly considering the values for the variable in 'data.x' and those in 'data.y'.
 }
 
 \value{A matrix object with distances among rows of data.x and those of data.y}
@@ -34,7 +34,7 @@ Gower J.C. 1971. A general coefficient of similarity and some of its properties.
 Kaufman L., Rousseeuw P.J. 1990. Finding Groups in Data: An Introduction to Cluster Analysis. Wiley, New York.
 }
 
-\author{Marcello D'Orazio, <mdo.statmatch@gmail.com>}
+\author{Alexey Shipunov}
 
 \seealso{\code{\link{dist}}, cluster::\code{\link[cluster]{daisy}}}
 

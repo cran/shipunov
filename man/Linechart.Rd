@@ -19,7 +19,7 @@
 \item{...}{arguments to 'plot()'}
 }
 
-\details{Dotchart-based plot showing medians and IQRs (or mads) for every scaled
+\details{Dotchart-based plot showing medians and IQRs (or MADs) for every scaled
 variable grouped by 'groups' factor.
 
 Alternatives: trellis designs.

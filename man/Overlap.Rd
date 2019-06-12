@@ -26,7 +26,7 @@ will not be attempted to delete from 'ppts' list.
 }
 
 \value{
-Object of class 'Overlap', ot nothing.
+Object of class 'Overlap', or nothing.
 }
 
 % \references{}

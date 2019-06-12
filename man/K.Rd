@@ -3,7 +3,7 @@
 \alias{print.K}
 \alias{summary.K}
 \title{Coefficient of divergence}
-\description{Lyubishchev's coefficient of divergence (SSMD^2)}
+\description{Lubischew's coefficient of divergence (SSMD^2)}
 
 \usage{
 K(x, y=NULL, data=NULL, mad=FALSE, na.rm=TRUE)
@@ -15,7 +15,7 @@ K(x, y=NULL, data=NULL, mad=FALSE, na.rm=TRUE)
 \item{x}{Numeric vector, or formula, or object of the class 'K'}
 \item{y}{Second numeric vector, or nothing}
 \item{data}{Data with two columns (in case of formula)}
-\item{mad}{Non-parametric variant of K (not Lyubishchev's)}
+\item{mad}{Non-parametric variant of K (not Lubischew's)}
 \item{na.rm}{Remove NAs?}
 \item{object}{Object of the class 'K'}
 \item{num}{Digits to round}
@@ -23,13 +23,17 @@ K(x, y=NULL, data=NULL, mad=FALSE, na.rm=TRUE)
 }
 
 \details{
-One of the effect size measures, Lyubishchev's K, coefficient of divergence (Lyubishchev, 1959).
-Interestingly, the recently invented "striclty standardized mean difference" SSMD ('https://en.wikipedia.org/wiki/Strictly_standardized_mean_difference') is just a square root of K.
+One of the effect size measures, Lubischew's K, coefficient of divergence (Lubischew, 1959).
+Interestingly, the recently invented "striclty standardized mean difference"
+SSMD (see, for example, "https://en.wikipedia.org/wiki/Strictly_standardized_mean_difference")
+is just a square root of K.
 }
 
-\value{Value of K, or nothing.}
+\value{
+K() returns value of K, or nothing. summary.K() returns also magnitude and P, "probability of misclassification".
+}
 
-\references{Lyubishchev A. A. 1959. How to apply biometry to systematics. Leningrad University Herald. N 9. P. 128--136. [In Russian, English abstract].}
+\references{Lubischew A. A. 1959. How to apply biometry to systematics. Leningrad University Herald. N 9. P. 128--136. [In Russian, English abstract].}
 
 \author{Alexey Shipunov}
 
@@ -37,9 +41,8 @@ Interestingly, the recently invented "striclty standardized mean difference" SSM
 
 \examples{
 K(1:3, 2:100)
-eq2 <- read.table("http://ashipunov.info/data/eq.txt", h=TRUE)
-sapply(eq2[, -1], function(.x) K(.x ~ eq2[, 1]))
+sapply(eq[, -1], function(.x) K(.x ~ eq[, 1]))
+summary(K(x17 ~ Species, data=haltica), num=5)
 }
 
 \keyword{Statistics}
-

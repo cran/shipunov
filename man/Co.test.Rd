@@ -6,7 +6,7 @@
 \usage{Co.test(hclust, dist, method="spearman")}
 
 \arguments{
-\item{hclust}{Hclust object}
+\item{hclust}{'hclust' object}
 \item{dist}{Distance matrix}
 \item{method}{How to calculate correlation}
 }

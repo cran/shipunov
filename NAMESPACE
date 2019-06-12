@@ -16,10 +16,11 @@ importFrom("stats", "IQR", "aggregate", "as.dendrogram", "as.dist",
            "dist", "dnorm", "embed", "fisher.test", "fivenum",
            "hclust", "is.leaf", "lm", "mad", "median", "model.frame",
            "na.omit", "pairwise.table", "pf", "pnorm", "prcomp",
-           "predict", "quantile", "qf", "rnorm", "runif", "sd", 
+           "predict", "quantile", "qf", "rnorm", "runif", "sd",
            "shapiro.test", "var", "reorder")
 importFrom("utils", "capture.output", "combn", "head", "menu",
-           "object.size", "savehistory", "str", "write.table")
+           "object.size", "savehistory", "str", "write.table",
+           "as.roman")
 # Register S3 methods:
 S3method(plot, Infill)
 S3method(plot, Jclust)

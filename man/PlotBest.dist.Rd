@@ -15,7 +15,7 @@
 
 \details{
 Plots the "best" base distance method.
-Uses correlation between multidimentional scaling of distance object and PCA of data.
+Uses correlation between multidimensional scaling of distance object and PCA of data.
 Two dimensions are default, change it with "dim" option.
 }
 

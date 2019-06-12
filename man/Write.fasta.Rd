@@ -10,7 +10,8 @@
 \item{file}{File name}
 }
 
-\details{Simple writing of 'FASTA' files. If the data frame has more then two columns, only two first columns will be used (with warning).}
+\details{Simple writing of 'FASTA' files. If the data frame has more then two columns,
+only two first columns will be used (with warning).}
 
 \value{'FASTA' file on the disk.}
 

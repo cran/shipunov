@@ -11,9 +11,9 @@
 \item{FUN}{how to bootstrap (see examples)}
 \item{iter}{number of iterations, default 1000}
 \item{mc.cores}{how many cores to employ (system-dependent)}
-\item{tresh}{Treshold for printing bootstrap values}
+\item{tresh}{Threshold for printing bootstrap values}
 \item{cons}{Calculate consensus tree?}
-\item{prop}{0.5 is majority-rule consenus (default), 1 is strict consensus}
+\item{prop}{0.5 is majority-rule consensus (default), 1 is strict consensus}
 }
 
 \details{

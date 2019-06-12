@@ -25,9 +25,9 @@ Result is a sort of consensus distances. Useful, for example, for clustering hea
 % \seealso{}
 
 \examples{
-aa <- read.table("http://ashipunov.info/data/atmospheres.txt", h=TRUE, sep="\t", row.names=1)
-aa.d1 <- hclust(dist(t(aa)))
-aa.d2 <- hclust(as.dist(1 - abs(cor(aa, method="s"))), method="ward.D")
+aa.d1 <- hclust(dist(t(atmospheres)))
+aa.d2 <- hclust(as.dist(1 - abs(cor(atmospheres, method="spearman"))),
+ method="ward.D")
 aa12.match <- Hclust.match(aa.d1, aa.d2)
 heatmap(aa12.match, scale="none")
 }

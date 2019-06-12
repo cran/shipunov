@@ -266,50 +266,6 @@ values
 
 ## ===
 
-K <- function(x, y=NULL, data=NULL, mad=FALSE, na.rm=TRUE)
-{
-if(class(x) == "formula")
-{
-mf <- model.frame(formula=x, data=data)
-x <- mf[[2]]
-y <- mf[[1]]
-vals = split(y, x)
-x = vals[[1]]
-y = vals[[2]]
-}
-if(na.rm)
-{
-x <- na.omit(x)
-y <- na.omit(y)
-}
-if(!mad)
-{
-K <- ((mean(x) - mean(y))^2)/(var(x) + var(y))
-} else {
-K <- ((median(x) - median(y))^2)/(mad(x)^2 + mad(y)^2)
-}
-class(K) <- "K"
-K
-}
-##
-print.K <- function(x, ...)
-{
-cat(x, "\n")
-}
-##
-summary.K <- function(object, ..., num=2)
-{
-ssmd.levels <- c(0, 0.25, 0.5, 0.75, 1, 1.28, 1.645, 2, 3, 5)
-levels <- ssmd.levels^2
-magnitude <- c("No effect", "Extremely weak", "Very weak", "Weak", "Fairly weak", "Fairly moderate", "Moderate",
- "Fairly strong", "Strong", "Very strong", "Extremely strong")
-effect <- magnitude[findInterval(object, levels) + 1]
-res <- c("Lyubishchev's K"=round(object, num), "Effect"=effect)
-noquote(res)
-}
-
-## ===
-
 Mag <- function(x, squared=TRUE)
 {
 magnitudev <- c(0.1, 0.3, 0.5, 0.7)
@@ -681,38 +637,6 @@ return(M)
 
 ## ===
 
-Points <- function(x, y, pch=1, centers=FALSE, scale=1, cex.min=1, col=1, na.omit=TRUE, ...)
-{
- M.s <- na.omit(cbind(x, y))
- if (na.omit) {
- TAB.s <- table(paste(M.s[, 1], M.s[, 2]))
- } else {
- TAB.s <- table(paste(x, y))
- }
- TAB.x <- as.numeric(unlist(strsplit(names(TAB.s), " "))[seq(1, 2*length(TAB.s), by=2)])
- TAB.y <- as.numeric(unlist(strsplit(names(TAB.s), " "))[seq(2, 2*length(TAB.s), by=2)])
- addsize <- (as.numeric(cut(TAB.s, 7)) - 1) * scale
- points(TAB.x, TAB.y, cex=cex.min + addsize, pch=pch, col=col, ...)
- if (centers) points(TAB.x, TAB.y, cex=1, pch=".", col=col)
-}
-##
-PPoints <- function(groups, x, y, cols=as.numeric(groups), pchs=as.numeric(groups), na.omit.all=TRUE, ...)
-{
- if (na.omit.all) {
- D <- na.omit(data.frame(groups=groups, x=x, y=y))
- x <- D$x ; y <- D$y ; groups <- D$groups
- }
- if (!is.factor(groups)) stop("Grouping variable must be a factor")
- n <- nlevels(groups)
- a <- as.numeric(groups)
- if (length(pchs) == 1) pchs <- rep(pchs, length(groups))
- if (length(cols) == 1) cols <- rep(cols, length(groups))
- na.omit <- !na.omit.all # to save resources
- for (i in 1:n) Points(x[a==i], y[a==i], col=(cols[a==i]), pch=(pchs[a==i]), na.omit=na.omit, ...)
-}
-
-## ===
-
 Histr <- function(x, overlay="normal", rug=FALSE, col="gray80", ...) {
 stopifnot(is.numeric(x) & is.vector(x))
 stopifnot(overlay == "normal" | overlay == "density")
@@ -940,38 +864,6 @@ Dotchart3 <- function(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1
  for (i in 1:length(values)) {
   lines(x=c(left[i], right[i]), y=c(i, i), lty=lty, lwd=lwd)
   points(x=values[i], y=i, pch=pch, bg=bg, cex=pt.cex)
- }
-}
-
-## ===
-
-Ellipses <- function(pts, groups, match.color=TRUE, usecolors=NULL, centers=FALSE, c.pch=0, c.cex=3, level=0.95, ...)
-{
- # Confelli() code from Roger Koenker (roger@ysidro.econ.uiuc.edu)
- # Plot an ellipse with covariance matrix C, center b, and P-content level according the F(2, df) distribution
- Confelli <- function(b, C, df=1000, xlab="", ylab ="", add=TRUE, prec=51, ...)
- {
- d <- sqrt(diag(C))
- dfvec <- c(2, df)
- phase <- acos(C[1, 2]/(d[1] * d[2]))
- angles <- seq( - (pi), pi, len=prec)
- mult <- sqrt(dfvec[1] * qf(level, dfvec[1], dfvec[2]))
- xpts <- b[1] + d[1] * mult * cos(angles)
- ypts <- b[2] + d[2] * mult * cos(angles + phase)
- if(add) lines(xpts, ypts, ...)
- else plot(xpts, ypts, type="l", xlab=xlab, ylab=ylab, ...)
- }
- out <- seq(along=groups)
- inds <- names(table(groups))
- for (is in inds)
- {
- if (match.color) {m.col <- is} else {m.col <- "black"}
- if (!is.null(usecolors)) m.col <- usecolors[inds == is]
- gr <- out[groups == is]
- X <- pts[gr,]
- c.X <- apply(X, 2, median)
- if (length(gr) > 1) Confelli(c.X, cov(X), col=m.col, ...)
- if (centers) points(c.X[1], c.X[2], pch=c.pch, cex=c.cex, col=m.col)
  }
 }
 

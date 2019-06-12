@@ -22,7 +22,7 @@ Gen.cl.data(type=c("blobs", "moons", "circles"), N=100, noise=NULL,
 }
 
 \details{
-Algorihms were taken partly from Python 'scikit-learn' and from 'https://github.com/elbamos/clusteringdatasets/'.
+Algorihms were taken partly from Python 'scikit-learn' and from Github 'elbamos/clusteringdatasets'.
 }
 
 % \value{}

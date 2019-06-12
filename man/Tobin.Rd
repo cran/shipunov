@@ -2,7 +2,7 @@
 \alias{Tobin}
 
 \title{Binarize (make dummy variables)}
-\description{Converts vector into matrix with binary colums}
+\description{Converts vector into matrix with binary columns}
 
 \usage{Tobin(var, convert.names=TRUE)}
 

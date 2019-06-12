@@ -14,7 +14,7 @@
 }
 
 \details{
-Plots the "best" hclust method.
+Plots the "best" hierarchical clustering method.
 Uses cophenetic correlation.
 }
 

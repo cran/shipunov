@@ -52,48 +52,6 @@ return(gc)
 
 # ===
 
-MrBayes <- function(x, file = "", nst = 6, rates = "invgamma", ngammacat = 4,
-    nruns = 2, ngen = 1e+06, printfreq = 100, samplefreq = 10,
-    nchains = 4, savebrlens = "yes", temp = 0.2, burnin = 10,
-    contype = "allcompat", run = FALSE,
-    simple = TRUE, exec="mb-mpi")                                             # two new options
-{
-    requireNamespace("ips")
-    if (!inherits(x, "DNAbin")) 
-        stop("object 'x' is not of class 'DNAbin'")
-    bayes <- c("\nbegin mrbayes;", paste("\tlset nst=", nst,
-        " rates=", rates, " ngammacat=", ngammacat, ";", sep = ""),
-        paste("\tmcmc nruns=", nruns, " ngen=", as.integer(ngen),
-            " printfreq=", printfreq, " samplefreq=", samplefreq,
-            " nchains=", nchains, " savebrlens=", savebrlens,
-            " temp=", temp, ";", sep = ""), paste("\tsumt filename=",
-            file, " burnin=", burnin, " contype=", contype,
-            if(simple) { " conformat=simple;" },                              # 'simple format' allows to import node labels
-            sep = ""), "end;")
-    if (file == "") {
-        nexus <- ips::write.nex(x, interleave = FALSE)
-        nexus <- c(nexus, bayes)
-        cat(bayes, sep = "\n")
-    }
-    else {
-        nexus <- ips::write.nex(x, file = "", interleave = FALSE)
-        nexus <- c(nexus, bayes)
-        write(nexus, file = file)
-    }
-    if (run) {
-        if (.Platform$OS.type == "unix") {
-            system(paste(exec, file, "| tee -a", paste0(file, ".out")))        # use 'exec' and view _and_ save output (into specific files)
-        }
-        else {
-            system(paste("mrbayes ", file, ".bayes", sep = ""))
-        }
-        tr <- ape::read.nexus(paste(file, ".con.tre", sep = ""))
-        tr
-    }
-}
-
-# ===
-
 Is.tax.inform.char <- function(vec) sum(table(vec, useNA="no") > 1) > 1
 
 ## ===

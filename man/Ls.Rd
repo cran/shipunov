@@ -14,7 +14,7 @@
 \item{exclude}{exclude functions (default), "none" to include all}
 \item{sort}{sort by name (default), "size" to sort by size}
 \item{pos}{specify environment, passed to ls()}
-\item{pattern}{optional reguler expression, passed to ls()}
+\item{pattern}{optional regular expression, passed to ls()}
 }
 
 \details{Based on 'ls()' but outputs data frame.}

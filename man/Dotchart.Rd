@@ -64,8 +64,8 @@ For better explanations of options, see 'help(dotchart)'.
 ## Compare:
 aa <- table(c(1, 1, 1, 2, 2, 3))
 ##
-Dotchart1(aa, ylab="Ylab") # shows ylab; outputs message instead of warning
-dotchart(aa, ylab="Ylab") # does not show ylab; produces warning
+Dotchart1(aa, ylab="Ylab") # shows 'ylab'; outputs message instead of warning
+dotchart(aa, ylab="Ylab") # does not show 'ylab'; produces warning
 ##
 ## changes all margins (note: Dotchart1() cannot forcedly _decrease_ left margin)
 old.par <- par(mar=c(1, 10, 1, 1)) ; Dotchart1(aa, ylab="Ylab") ; par(old.par)

@@ -16,7 +16,7 @@ Save.history()
 \details{
 System date / time in compact formats. These formats are by experience, the most appropriate formats both for file systems and for spreadsheets.
 
-There is also easy 'savehistory' (does not work under macOS R GUI -- but works under macOS Terminal.app R).
+There is also easy 'savehistory' (does not work under macOS R GUI -- but works under macOS 'Terminal.app' R).
 }
 
 % \value{}

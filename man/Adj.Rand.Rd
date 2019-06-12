@@ -6,7 +6,7 @@
 \usage{Adj.Rand(cl1, cl2)}
 
 \arguments{
-\item{cl1}{Fisrt classification (character vector of group names)}
+\item{cl1}{First classification (character vector of group names)}
 \item{cl2}{Second classification}
 }
 

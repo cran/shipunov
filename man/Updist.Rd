@@ -2,6 +2,8 @@
 \alias{Updist}
 \title{Educated distances for semi-supervised clustering}
 
+\description{Updates distance matrix to help link or unlink objects}
+
 \usage{
   Updist(dst, link=NULL, unlink=NULL, dmax=max(dst), dmin=min(dst))
 }
@@ -16,7 +18,7 @@
   \item{dmin}{Distance to set for linked objects}
 }
 
-\description{
+\details{
   This function borrows the idea of MPCKM semi-supervised k-means (Bilenko et al., 2004)
   but instead of updating distances on the run, it simply updates the distances object
   beforehand in accordance with 'link' and 'unlink' constraints.
@@ -55,11 +57,9 @@ iris.uh <- cutree(hclust(iris.upd, method="ward.D"), k=3)
 Misclass(iris.ukm$cluster, iris$Species, best=TRUE)
 Misclass(iris.uh, iris$Species, best=TRUE)
 
-# ===
+## ===
 
-aa <- read.table("http://ashipunov.info/data/atmospheres.txt", h=TRUE, sep="\t", row.names=1)
-aad <- dist(t(aa))
-
+aad <- dist(t(atmospheres))
 plot(hclust(aad))
 
 aadu <- Updist(aad, unlink=list(c("Earth", "Mercury")))

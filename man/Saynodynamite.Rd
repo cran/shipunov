@@ -7,7 +7,11 @@
 
 % \arguments{}
 
-\details{'Poster' plot to emphazise the harmfullness of so called dynamite plots. See, for example, 'http://emdbolker.wikidot.com/blog\%3Adynamite'.}
+\details{
+'Poster' plot to emphasize the harmfulness of so called dynamite plots.
+
+See, for example, thorough analysis at "http://emdbolker.wikidot.com/blog\%3Adynamite".
+}
 
 % \value{}
 

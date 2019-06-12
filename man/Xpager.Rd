@@ -9,12 +9,13 @@
 \item{pager}{name of the terminal application to use, or "old" for the default}
 }
 
-\details{Linux pager in the new terminal window. 'xterm' is default, there is also setting for 'mate-terminal';
+\details{Linux pager in the new terminal window. 'xterm' is default,
+there is also setting for 'mate-terminal';
 'konsole' (KDE terminal) and 'gnome-terminal' are easy to add.
 
 Run Xpager("old") to restore default behavior.
 
-BTW, for some reason 'editor()' does not work this way.
+BTW, for some reason, 'editor()' does not work this way.
 }
 
 % \value{}

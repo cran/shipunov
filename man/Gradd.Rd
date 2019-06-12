@@ -7,7 +7,7 @@
  palette=NULL, type="ids", ...)}
 
 \arguments{
-\item{model2var}{model based on data2var}
+\item{model2var}{model based on 'data2var' (see below)}
 \item{data2var}{data with exactly 2 variables}
 \item{spacing}{space between points}
 \item{trnsp}{transparency}
@@ -23,7 +23,7 @@
 
 Requires model with 'predict' method to be computed first.
 
-Model should use ids (to make colors) and exactly 2 variables with names same as data2var column names, e.g:
+Model should use ids (to make colors) and exactly 2 variables with names same as 'data2var' column names, e.g:
 
 model2var <- somefunction(ids ~ ., data=cbind(ids, data2var))
 

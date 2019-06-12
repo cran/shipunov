@@ -6,15 +6,15 @@
 \usage{Toclip(x, sep="\t", row.names=FALSE, col.names=TRUE, ...)}
 
 \arguments{
-\item{x}{data frame}
-\item{sep}{separator, tab by default}
+\item{x}{Data frame}
+\item{sep}{Separator, tab by default}
 \item{row.names}{FALSE by default}
 \item{col.names}{TRUE by default}
-\item{...}{argumants to 'write.table()'}
+\item{...}{Arguments to 'write.table()'}
 }
 
 \details{Linux-specific. Inserts data frame to Linux X11 clipboard (not primary or secondary).
-Useful for interface with speadsheets.
+Useful for interface with spreadsheets.
 
 Works if 'xclip' utility is already installed.
 
@@ -32,7 +32,7 @@ Alternative with more flexibility: 'clipr' package.
 \examples{
 \dontrun{
 aa <- data.frame(1:3) # Linux- (and X11-) specific
-Toclip(aa) # then load the content into speadsheet
+Toclip(aa) # then load the content into spreadsheet
 }
 }
 

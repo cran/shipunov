@@ -1,53 +1,31 @@
-Supply datasets:
-
-atmospheres: Bclust, Hclust.match, Plot.phylocl, Updist
-dolbli: Coml, Infill
-drosera: Pleiad
-eq, eq_l, eq_s: Boxplots, K
-hwc, hwc2, hwc3: pairwise.Eff
-moldino: Bclabels, Jclust, PlotBest.mdist
-salix_leaves: Missing.map
-distances.nts from example(Read.tri.nts): probably, create file like in example(Read.fasta)
-
-MRH() to make two MRPs (by k's and by h's) plus MRC (cophenetic); handle 'phylo' with ape::chronos()
-
-Classif2tree(): 2 var (num_rank + taxon_id) df, then factor(num_rank), dif, if dif = 0, make comma
-(or parenthesis if delinearise); if > 0, then open parenthesis and remember rank and name in stack;
-if < 0, closing parenthesis, times equal to reach dif, then add colon and name from stack equal to next rank.
-
-Also Rank2num() to assist in convesion characters into numbers: use English and Latin, lowercase, remove non-letters,
-RecodeR4() and stop with report if not entirely converted.
-
-Key2tree() to use standardized key, df with this_id, char and next_id columns. Probably, could be converted to dendrogramm.
-
-Fill() to fill down empty values (see examples)
-
-===
-
-Tree2classif(): e.g., cut based on numerous h, then find peaks; on bootstrap with Bclust(Hcl2mat())
-
-Misstats() to take Misclass() output and print it like Misclass() replacing "0" with "-";
-to print also 'binom.test(sum(diag(x)), sum(x))$conf.int' and 'mcnemar.test(x)$p.value',
-
-BestMisclass() -- similar but mODuch simpler then BestOverlap(), good for "whibo"
-
-Misplot() based on Dotchart3() with CIs and double obs/pred labels
-
 Life(): decrease borders in image()
 
-Check how alternatives of shipunov::pairwise.Table2.test() and shipunov::Rro.test() work
-and change help files accordingly
+Add jacknife option to Bclust()
 
-Try parallel::mclapply() for BestOverlap()
+Biokey(): convert all to "typographic"; convert all to "latex" (relative or not); try rpart-like objects; use shortcuts; add checks; [assign attributes]
 
-Life(): try to add interactive filling with locator() like in Miney()
+Bivariate plots better to use xy.coords()
+
+Check how alternatives of shipunov::pairwise.Table2.test() and shipunov::Rro.test() work and change help files accordingly
 
 Dotchart1(): send this as dotchart() correction to R base
 
-Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match
-(and check inclusions) sequence gaps in the union of all gaps
+Ellipses() and Hulls() better to calculate "coords" first, then plot
+
+Misstats() to take Misclass() output and print it like Misclass() replacing "0" with "-"; to print also 'binom.test(sum(diag(x)), sum(x))$conf.int' and 'mcnemar.test(x)$p.value',
+
+BestMisclass() -- similar but much simpler then BestOverlap(), good for "whibo"
+
+Think how to make BestOverlap() work with Ellipses() and return all total overlaps (and maybe everything at all) if needed
+
+Try parallel::mclapply() for BestOverlap()
+
+Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
+
+Life(): try to add interactive filling with locator() like in Miney()
+
+Misplot() based on Dotchart3() with CIs and double obs/pred labels
 
 Re-structure Boot...() functions to use Class.sample() and Misclass() (their reduced versions are using internally)
 
-Think how extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within
-shiopunov::; however, in that case Windows distribution will become more complicated
+Think how extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated

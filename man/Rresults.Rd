@@ -25,9 +25,9 @@ The script has one option "-d" which adds the timestamp to the file name of text
 % \seealso{}
 
 \examples{
-cat("\"Hello, world!\"\n", "plot(1:20)\n", file="hello.r")
 \donttest{
 ## works only if the script is properly installed
+cat("\"Hello, world!\"\n", "plot(1:20)\n", file="hello.r")
 system("Rresults hello.r")
 system("Rresults -d hello.r")
 ## interactive command

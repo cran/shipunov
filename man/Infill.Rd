@@ -24,7 +24,7 @@ Infill(x, n=10)
 
 'Infill' uses checklists of biological organisms to build rarefaction curves. You can estimate how many taxa will appear in the next sample to plan your investigations (e.g. revealing flora or fauna of the certain area).
 
-If cells contain taxa abundance it will be automatically replaced with 1 or 0. Permutation is a random shuffle of the samples to get more valid estimation of the taxa accumulation process. It does not matter which sample appeared first. The resulting plot gives information on the process of taxa revealing during the investigation. High number of permutations gives more presize results, but the calculations are more slow. Empirically, 100 permutations are enough. The plot indicates full taxa number which has been accumulated in this and all the previous samples.
+If cells contain taxa abundance it will be automatically replaced with 1 or 0. Permutation is a random shuffle of the samples to get more valid estimation of the taxa accumulation process. It does not matter which sample appeared first. The resulting plot gives information on the process of taxa revealing during the investigation. High number of permutations gives more precise results, but the calculations are more slow. Empirically, 100 permutations are enough. The plot indicates full taxa number which has been accumulated in this and all the previous samples.
 }
 
 \value{Object of the class "Infill", or nothing}
@@ -42,7 +42,7 @@ Soberon J.M., Llorente J.B. 1993. The use of species accumulation functions for 
 % \seealso{}
 
 \examples{
-x <- t(read.table("http://ashipunov.info/shipunov/open/dolbli.txt", h=TRUE, sep="\t"))
+x <- t(dolbli)
 data <- x[1:45, ] # one of two lakes selected
 data.I <- Infill(data)
 summary(data.I)

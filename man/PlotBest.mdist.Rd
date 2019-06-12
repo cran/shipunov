@@ -20,7 +20,7 @@
 
 \details{
 Plots the "best" distance method, uses many non-base distances from diverse packages.
-Uses correlation between multidimentional scaling of distance object and PCA of data.
+Uses correlation between multidimensional scaling of distance object and PCA of data.
 Does not include "mountford" and "raup" from vegdist() as they are very special.
 Two dimensions are default, change it with "dim" option.
 }
@@ -36,9 +36,8 @@ involved)}
 
 \examples{
 PlotBest.mdist(iris[, -5], scale.pca=TRUE)
-mo <- read.table("http://ashipunov.info/shipunov/open/moldino.txt", h=TRUE, sep="\t",
- row.names=1)
-m1 <- t((mo > 0) * 1)
+
+m1 <- t((moldino > 0) * 1)
 PlotBest.mdist(m1, binary.only=TRUE)
 }
 

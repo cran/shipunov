@@ -12,13 +12,13 @@
 
 \arguments{
 \item{tbl}{Data: square matrix}
-\item{abs}{If TRUE, uses absolute values istead of real}
-\item{corr}{If TRUE, uses absolute values istead of real and cuts from 0 to 1, this is good for correlation matrices}
+\item{abs}{If TRUE, uses absolute values instead of real}
+\item{corr}{If TRUE, uses absolute values instead of real and cuts from 0 to 1, this is good for correlation matrices}
 \item{dist}{If TRUE, converts distance matrix to the data frame -- good for "dist" objects}
 \item{treshold}{If this is (saying) =.5, selects for plotting (with lty=1) only those values which are >.5}
 \item{circ}{Line type, width and color for the cirle; if first or third =0, no cicrle}
 \item{breaks}{How to cut() values, if "cramer", then =c(0, .1, .3, .5, 1)}
-\item{auto}{If FALSE, specify lwd, lty and lcol}
+\item{auto}{If FALSE, specify 'lwd', 'lty' and 'lcol'}
 \item{gr}{Grayscale scheme starts from 6 breaks}
 \item{lwd}{If autolines=FALSE, change to vector concerted with breaks}
 \item{lty}{If autolines=FALSE, change to vector concerted with breaks}
@@ -27,8 +27,8 @@
 \item{lbltext}{If this is a vector starting from something else, will replace dimnames}
 \item{lblcex}{Magnification of labels}
 \item{off}{Radial offset of labels, be careful!}
-\item{hofft}{Treshold determining which labels are rigtmost/leftmost, hofft=0 put all labes into this group}
-\item{hoff}{Horizontal offset for rightmost/leftmost labels; hoff=1 removes offset}
+\item{hofft}{Treshold determining which labels are rigtmost/leftmost, 'hofft=0' put all labels into this group}
+\item{hoff}{Horizontal offset for rightmost/leftmost labels; 'hoff=1' removes offset}
 \item{legend}{If FALSE, no legend}
 \item{legtext}{If =1 then "weaker ... stronger"; if =2, shows cutting intervals; if =3, then 1:5; if >3, issues error}
 \item{legpos}{This is from 'legend()'}
@@ -46,7 +46,7 @@ It is probably a good idea to order data entries with hierarchical clustering re
 The plot has no margins so consider second 'legend()' to add any text to the plot (see examples).
 }
 
-\value{Retunts data frame with position of points, helps in subsequent plot enhancing}
+\value{Data frame with position of points, helps in subsequent plot enhancing}
 
 % \references{}
 
@@ -56,11 +56,11 @@ The plot has no margins so consider second 'legend()' to add any text to the plo
 
 \examples{
 l.c <- cor(datasets::longley, method="spearman", use="pairwise")
-Pleiad(l.c, corr=TRUE, legtext=2, pch=21, cex=2, bg="white", breaks=3, gr=3, hoff=1, show.int=TRUE)
+Pleiad(l.c, corr=TRUE, legtext=2, pch=21, cex=2, bg="white",
+ breaks=3, gr=3, hoff=1, show.int=TRUE)
 legend("topleft", legend="Title", text.font=2, bty="n")
 
-dr <- read.table("http://ashipunov.info/shipunov/open/drosera.txt", h=TRUE)
-dr.c <- cor(dr[, -1], method="spearman", use="pairwise")
+dr.c <- cor(drosera[, -1], method="spearman", use="pairwise")
 Pleiad(dr.c, corr=TRUE, legtext=2, pch=19, cex=1.2)
 }
 

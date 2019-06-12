@@ -1,9 +1,11 @@
 \name{Bclust}
 \alias{Bclust}
-\title{Bclust}
+\title{Bootstrapped hclust}
+
+\description{Bootstraps hierarchical clustering}
 
 \usage{
-  Bclust(data, method.d="manhattan", method.c="ward.D",
+Bclust(data, method.d="manhattan", method.c="ward.D",
 FUN=function(.x) hclust(dist(.x, method=method.d), method=method.c),
 iter=1000, mc.cores=1, monitor=TRUE)
 }
@@ -27,12 +29,12 @@ iter=1000, mc.cores=1, monitor=TRUE)
 }
 
 \value{
-  List with components: 'values' for bootstraped frequencies of each node,
+  List with components: 'values' for bootstrapped frequencies of each node,
   'hcl' for original 'hclust' object,
   'consensus' which is a sum of all Hcl2mat() matrices.
 }
 
-\description{
+\details{
   This function provides bootstrapping for hierarchical
   clustering (\code{\link{hclust}} objects).
 
@@ -56,9 +58,7 @@ iter=1000, mc.cores=1, monitor=TRUE)
 }
 
 \examples{
-aa <- read.table("http://ashipunov.info/data/atmospheres.txt", h=TRUE, sep="\t", row.names=1)
-
-bb <- Bclust(t(aa)) # specify 'mc.cores=4' or similar to speed up the process
+bb <- Bclust(t(atmospheres)) # specify 'mc.cores=4' or similar to speed up the process
 bb
 
 plot(bb$hclust)
@@ -85,7 +85,7 @@ par(oldpar)
 
 plot(hclust(dist(bb$consensus)), main="Net consensus tree")
 
-bb1 <- Bclust(t(aa), FUN=function(.x) hclust(Gower.dist(.x)), monitor=FALSE)
+bb1 <- Bclust(t(atmospheres), FUN=function(.x) hclust(Gower.dist(.x)), monitor=FALSE)
 plot(bb1$hclust)
 Bclabels(bb1$hclust, bb1$values, col="green", pos=3, offset=0.1)
 }

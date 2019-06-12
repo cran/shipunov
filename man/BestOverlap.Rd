@@ -5,7 +5,7 @@
 
 \description{Uses multiple datasets, measures overlaps between class-related convex hulls and reports
 the best dataset, the best overlap table and summary with confidence intervals. Can be used to assess
-bootstrap or jacknife results, to compare different dimension reduction and/or clustering methods,
+bootstrap or jackknife results, to compare different dimension reduction and/or clustering methods,
 and to average results of stochastic methods.}
 
 \usage{

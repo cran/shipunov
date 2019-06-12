@@ -6,7 +6,8 @@
 \description{Number of cases in each location reflected in the point size}
 
 \usage{
-Points(x, y, pch=1, centers=FALSE, scale=1, cex.min=1, col=1, na.omit=TRUE, ...)
+Points(x, y, pch=1, centers=FALSE, scale=1, cex.min=1, col=1,
+ na.omit=TRUE, plot=TRUE, ...)
 PPoints(groups, x, y, cols=as.numeric(groups), pchs=as.numeric(groups),
  na.omit.all=TRUE, ...)
 }
@@ -20,12 +21,12 @@ PPoints(groups, x, y, cols=as.numeric(groups), pchs=as.numeric(groups),
 \item{col}{Color of points}
 \item{cols}{Color of point groups}
 \item{na.omit}{If TRUE (default), skip data points with NAs}
+\item{plot}{If FALSE, does not plot}
 \item{na.omit.all}{If TRUE (default), skip data points and corresponding factor
- values with NAs, then make 'na.omit' for internal 'Points()' FALSE}
+ values with NAs, then make 'na.omit' for internal Points() FALSE}
 \item{scale}{Scale factor for point size}
 \item{groups}{Factor defining groups}
-\item{...}{'Points()' passes other arguments to 'points()', 'PPoints()' passes other
- arguments to 'Points()'}
+\item{...}{Points() passes other arguments to points(), PPoints() passes other arguments to Points()}
 }
 
 \details{
@@ -39,10 +40,16 @@ graphic function, analogous to 'points()'.
 
 To prettify plot, it is recommended to change 'scale' and optionally also 'cex.min'.
 
-Alternative is base R 'sunflowerplot()' but it is hard to read and there is no possibility to show multiple groups in data.
+Alternative is the base R 'sunflowerplot()' but it is hard to read and there is no possibility
+to show multiple groups in data. Another alternative might be points with transparent color.
 }
 
-% \value{}
+\value{
+Invisibly returns vector of "multiplication indexes", in case of PPoints() it is group-wise
+so overplotting between groups does not count. Please keep in mind that these
+indexes only indicate how many times the point is overplotted, but do not show groups of duplicates.
+Use Alldups() for groups.
+}
 
 % \references{}
 

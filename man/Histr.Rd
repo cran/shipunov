@@ -16,8 +16,8 @@
 \item{...}{arguments to 'hist()'}
 }
 
-\details{Histr plots histogram with overlaid normal curve or density, optionally with rug.
-Based on analogouf function from Stephen Turner's 'Tmisc' package.}
+\details{Histr() plots histogram with overlaid normal curve or density, optionally with rug.
+Based on analogous function from Stephen Turner's 'Tmisc' package.}
 
 % \value{}
 

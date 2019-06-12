@@ -18,7 +18,7 @@ Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=
 \item{iter}{Number of iterations}
 \item{method.d}{Distance method}
 \item{method.c}{Hierarchical clustering method}
-\item{bootstrap}{Bootstrap or jacknife?}
+\item{bootstrap}{Bootstrap or jackknife?}
 \item{x}{Object of the class 'Jclust'}
 \item{rect.lty}{Line type for the rectangles}
 \item{rect.col}{Color of rectangles}
@@ -31,7 +31,7 @@ Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=
 \details{
 Simple bootstrap and jackknife clustering, requires the desired number of clusters.
 
-Alternatives: 'pvc::pvc()'; 'fpc::clusterboot()'.
+Alternative: 'pvc::pvc()'.
 }
 
 % \value{}
@@ -45,17 +45,13 @@ Alternatives: 'pvc::pvc()'; 'fpc::clusterboot()'.
 }
 
 \examples{
-
-mo <- read.table("http://ashipunov.info/shipunov/open/moldino.txt", h=TRUE,
- sep="\t", row.names=1)
-(mo.j <- Jclust(t(mo), 3, iter=1000))
+(mo.j <- Jclust(t(moldino), 3, iter=1000))
 plot(mo.j)
 
 \donttest{
-## This is how one can boostrap _all_ reliable cluster numbers:
-for (i in 2:(nrow(t(mo)) - 1)) print(Jclust(t(mo), i, iter=1000, boot=TRUE))
+## This is how one can bootstrap _all_ reliable cluster numbers:
+for (i in 2:(nrow(t(moldino)) - 1)) print(Jclust(t(moldino), i, iter=1000, boot=TRUE))
 }
-
 }
 
 \keyword{Statistics}

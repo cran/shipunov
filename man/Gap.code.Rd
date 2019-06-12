@@ -19,7 +19,10 @@ Likely too straightforward, and only weakly optimized (really slow).
 
 % \value{}
 
-\references{Borchsenius F. 2009. FastGap 1.2. Department of Biosciences, Aarhus University, Denmark. Published online at <http://www.aubot.dk/FastGap_home.htm>}
+\references{
+Borchsenius F. 2009. FastGap 1.2. Department of Biosciences, Aarhus University, Denmark.
+Published online at "http://www.aubot.dk/FastGap_home.htm".
+}
 
 \author{Alexey Shipunov}
 

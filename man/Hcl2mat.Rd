@@ -1,6 +1,8 @@
 \name{Hcl2mat}
 \alias{Hcl2mat}
-\title{Plot bootstrap values}
+\title{Clustering to matrix}
+
+\description{Converts clustering to matrix}
 
 \usage{
   Hcl2mat(hcl)
@@ -10,13 +12,16 @@
   \item{hcl}{\code{hclust} object}
 }
 
-\description{
-  This function converts 'hclust' object into binaty matrix
+\details{
+  This function converts 'hclust' object into binary matrix
   in accordance with clusterings.
+
+  It has many uses: clustering bootstrap, clustering compare, and
+  matrix representation of hierarchical clustering.
 }
 
 \seealso{
-  \code{\link{Bclust}}
+  \code{\link{Bclust}}, \code{\link{MRH}}
 }
 
 \examples{

@@ -19,7 +19,7 @@ This is an example of how to bootstrap with 'class::knn1()'.
 
 Samples equal numbers ('nsam') of training items from \emph{each level} of grouping factor.
 
-Allows to use \emph{sub}set of data which will be used for subsampling of training data.
+Allows to use \emph{sub}set of data which will be used for sub-sampling of training data.
 }
 
 \value{Returns all predictions as character matrix, each boot is a column}

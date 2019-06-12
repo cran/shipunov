@@ -1,8 +1,8 @@
 \name{Files}
 \alias{Files}
-\title{Textual filesystem browser}
+\title{Textual file system browser}
 
-\description{Textual filesystem browser}
+\description{Textual file system browser}
 
 \usage{Files(root=getwd(), multiple=FALSE, hidden=FALSE)}
 
@@ -17,7 +17,7 @@ Interactive text-based file chooser dialog.
 Alternatives for Linux: 'tcltk::tk_choose.files()' and 'tcltk::tk_choose.dir()'
 }
 
-\value{Returns character vector of selected files, or dirname (useful for 'setwd()'), or new user-defined file name with full path.}
+\value{Returns character vector of selected files, or directory name (useful for 'setwd()'), or new user-defined file name with full path.}
 
 % \references{}
 

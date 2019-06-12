@@ -9,7 +9,7 @@
 \arguments{
 \item{X}{Data frame or matrix with values}
 \item{GROUP}{Number of grouping variable}
-\item{...}{Aguments to 'Cor.vec()'}
+\item{...}{Arguments to 'Cor.vec()'}
 }
 
 \details{Calculates multiple correlation matrices (via GROUP) and stacks them together.

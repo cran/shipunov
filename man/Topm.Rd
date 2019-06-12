@@ -7,7 +7,7 @@
 
 \arguments{
 \item{X}{Data frame or matrix with values}
-\item{level}{Treschold}
+\item{level}{Threshold}
 \item{values}{If > 0, ignores "level" and outputs until reaches number, if "all", outputs all values}
 \item{corr}{If FALSE, does not show magnitude}
 \item{square}{If FALSE, does not use lower triangle, some rows could be redundant}

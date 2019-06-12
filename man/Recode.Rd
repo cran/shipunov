@@ -15,32 +15,35 @@ Recode4R(var, from, to, missed="")
 }
 
 \arguments{
-\item{var}{variable to recode}
+\item{var}{Variable to recode}
 \item{from}{'from' column of the recoding table}
 \item{to}{'to' column}
-\item{char}{if TRUE, do not treat character vectors as factors}
-\item{missed}{replace missed with something, default is ""}
+\item{char}{If TRUE, do not treat character vectors as factors}
+\item{missed}{Replace missed with something, default is ""}
 }
 
 \details{Recode Basic multiple recoding are similar to 'SQL' left join.
 
-Inspired from Paul Johnston (Univ. of Kansas) 'recode()' function.
+Inspired from Paul Johnston (Univ. of Kansas) recode() function.
 
-Alternatives are 'car::recode()', 'lessR::Recode()' and 'mgsub' package.
+Alternatives are car::recode(), lessR::Recode() and 'mgsub' package.
 First two are much more complicated, third is much slower and less flexible.
 
 To understand the idea better, look on the examples.
 
 There are four functions:
 
-1. Recode() -- base function. If starting points ("from") are the same, only the \emph{last} rule ("from-to" pair) has an effect
+1. Recode() -- base function. If starting points ("from") are the same,
+only the \emph{last} rule ("from-to" pair) has an effect.
 If rules are chained, they still work independently (i.e., chaining has no effect).
 
-2. Recode4() -- considers missing. By default, this will change non-Recode()'d entries with empty string ("")
+2. Recode4() -- considers missing. By default, this will change non-Recode()'d entries with empty string ("").
 
-3. RecodeR() -- running recode. If starting points ("from") are the same, only the \emph{first} rule ("from-to" pair) has an effect. Chaining is possible
+3. RecodeR() -- running recode. If starting points ("from") are the same,
+only the \emph{first} rule ("from-to" pair) has an effect.
+Chaining is possible.
 
-4. Recode4R() -- running plus considers missing. By default, this will change non-RecodeR()'ed entries with empty string ("")
+4. Recode4R() -- running plus considers missing. By default, this will change non-RecodeR()'ed entries with empty string ("").
 }
 
 \value{Recoded vector}
@@ -52,6 +55,7 @@ If rules are chained, they still work independently (i.e., chaining has no effec
 % \seealso{}
 
 \examples{
+## recoding a phrase
 phrase <- "The quick brown fox jumps over 123 lazy dogs"
 var <- unlist(strsplit(phrase, split=""))
 from <- letters[1:20]
@@ -63,6 +67,14 @@ Recode4R.result <- paste(Recode4R(var, from, to, missed="-"), collapse="")
 from.rule <- paste(from, collapse=" ")
 to.rule <- paste(to, collapse=" ")
 rbind(from.rule, to.rule, phrase, Recode.result, Recode4.result, RecodeR.result, Recode4R.result)
+
+## reverse complement of DNA sequence
+dna <- "GAATTC" # EcoR1 palindromic sequence
+paste(Recode(rev(strsplit(dna, NULL)[[1]]),
+ c("A", "T", "G", "C"), c("T", "A", "C", "G")), collapse="") # = 'dna', as expected
+dna <- "ATTCGGC" # something random
+paste(Recode(rev(strsplit(dna, NULL)[[1]]),
+ c("A", "T", "G", "C"), c("T", "A", "C", "G")), collapse="")
 }
 
 \keyword{Multiple recode}

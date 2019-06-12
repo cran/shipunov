@@ -1,6 +1,21 @@
+shipunov 1.2:
+ new Fill() function;
+ datasets are now integrated;
+ new MRH() function;
+ new "chaetocnema" and "haltica" datasets;
+ Ellipses() extended;
+ Points() and PPoints() extended;
+ new DNN() function for distance matrix based kNN;
+ new S.value() function;
+ K() and Misclass() extended;
+ MrBayes() extended to handle mixed analysis;
+ help files improved;
+ new Biokey() and Numranks() functions;
+ new datasets "plantago", "classifs" and "keys"
+
 shipunov 1.1:
  option "mad" added for pairwise.Eff();
- Gen.cl.data() function to generate 'scikit-learn'-like examples;
+ Gen.cl.data() function to generate "scikit-learn"-like examples;
  Misclass() is now able to search for the best table;
  new Class.sample() function;
  new Classproj() function;
@@ -18,4 +33,3 @@ shipunov 1.1:
  Histp() removed()
 
 shipunov 1.0: first release
-

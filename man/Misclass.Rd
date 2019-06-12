@@ -22,12 +22,13 @@ The simple variant ('best=FALSE') assumes that class labels are concerted (same 
 Advanced variant ('best=TRUE') can search for the best classification table (with minimal misclassification rate),
 this is especially useful in case of unsupervised classifications which typically return numeric labels. However,
 it internally generates all permutations of factor levels which could be very slow if there are many class labels.
-It might also add empty rows (filled with zeroes)  to table in case if numbers of classes are not equal.
+It might also add empty rows (filled with zeros)  to table in case if numbers of classes are not equal.
 
-It is possible to ignore some class labels, this is useful for methods like DBSCAN which output the special label for
+It is possible to ignore some class labels, this is useful for methods like DBSCAN which outputs the special label for
 outliers.
 
-Additional arguments could be passed for 'table()', for example, 'useNA="ifany"'.
+Additional arguments could be passed for 'table()', for example, 'useNA="ifany"'. If supplied data contains NAs, there
+will be also note in the end.
 
 Alternatives: confusion matrix from 'caret::confusionMatrix()' which is more feature rich but much less flexible.
 
@@ -35,7 +36,7 @@ Please note that partial "Misclassification errors" are reverse sensitivities, a
 "Mean misclassification error" is a reverse accuracy.
 }
 
-\value{Invbisibly returns the table of class comparison}
+\value{Invisibly returns the table of class comparison}
 
 % \references{}
 

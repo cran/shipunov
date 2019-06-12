@@ -15,7 +15,7 @@ Association between categorical variables.
 
 Calculates Cramer's V and Tschuprow's, original and corrected (Bergsma, 2013)
 
-Alternative: 'vcd::assocstats()'
+Alternative: vcd::assocstats()
 
 Includes magnitude interpretation for original Cramer's V (for df < 6).
 }

@@ -2,6 +2,8 @@
 \alias{Bclabels}
 \title{Plot bootstrap values}
 
+\description{Print (bootstrap) values on 'hclust' plot}
+
 \usage{
   Bclabels(hcl, values, coords=NULL, horiz=FALSE, method="text", threshold=NULL, ...)
 }
@@ -22,9 +24,9 @@
   \item{...}{If "text" (default), additional arguments to text(), if "points", to points()}
 }
 
-\description{
+\details{
   This low-level plot function plots text or points in accordance with bootstrap values to the
-  corresponding node of the plotted hclust object.
+  corresponding node of the plotted 'hclust' object.
 }
 
 \value{
@@ -37,13 +39,9 @@
 }
 
 \examples{
-
-mo <- read.table("http://ashipunov.info/shipunov/open/moldino.txt", h=TRUE,
- sep="\t", row.names=1)
-bb <- Bclust(t(mo)) # specify 'mc.cores=4' or similar to speed up the process
+bb <- Bclust(t(moldino)) # specify 'mc.cores=4' or similar to speed up the process
 plot(bb$hclust)
 Bclabels(bb$hclust, bb$values, col="red", pos=3, offset=0.1, threshold=0.5)
-
 }
 
 \keyword{Multivariate}

@@ -63,6 +63,7 @@ print(tbl)
 cat("Misclassification errors (%):\n")
 print(round(msc, 1))
 cat("Mean misclassification error: ", round(m.m, 1), "%\n", sep="")
+if (sum(is.na(c(pred, obs))) > 0) cat("Note: data contains NAs\n")
 }
 invisible(tbl)
 }

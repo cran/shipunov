@@ -17,7 +17,7 @@ Ex.points(extras=c("*", ".", "+", "a"), cex=2, col="black", bg="gray",
 \item{extras}{which extra symbols to show}
 \item{cex}{point scale, default 2}
 \item{col}{point color, default black}
-\item{bg}{point background (for symbols with a 'bg'-colored interior), default grey}
+\item{bg}{point background (for symbols with a 'bg'-colored interior), default gray}
 \item{coltext}{text color, default black}
 \item{cextext}{text scale, default 1.2}
 \item{main}{plot title, no title by default}

@@ -33,8 +33,7 @@ Finds names of "indicators" most characteristic to each group
 % \seealso{}
 
 \examples{
-y <- read.table("http://ashipunov.info/shipunov/open/dolbli.txt", h=TRUE, sep="\t")
-y.Coml <- Coml(y[1:45], y[46:79])
+y.Coml <- Coml(dolbli[1:45], dolbli[46:79])
 summary(y.Coml, n=5)
 }
 

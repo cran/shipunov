@@ -25,11 +25,11 @@
 \item{ct.off}{default 0, text offset of clade labels}
 \item{ct.fnt}{default 1, text font of clade labels}
 \item{longer}{default "0\%", percent to increase xlim to fit longer clade labels}
-\item{...}{options to 'ape::plot.phylo()'}
+\item{...}{options to ape::plot.phylo()}
 }
 
 \details{
-'Plot.phylocl()' plots phylogenetic tree with clades collapsed into triangles or rectangles.
+Plot.phylocl() plots phylogenetic tree with clades collapsed into triangles or rectangles.
 
 Alternative is phytools::plot.backbonePhylo() which however requires more manual work.
 
@@ -51,9 +51,7 @@ list of clade names is invisibly returned in the end.
 \seealso{phytools::plot.backbonePhylo()}
 
 \examples{
-aa <- read.table("http://ashipunov.info/data/atmospheres.txt", h=TRUE, sep="\t",
- as.is=TRUE)
-aa.d <- hclust(dist(t(aa)))
+aa.d <- hclust(dist(t(atmospheres)))
 tree <- ape::unroot(ape::as.phylo(aa.d))
 cl <- data.frame(planet=c("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn",
  "Uranus", "Neptune"),

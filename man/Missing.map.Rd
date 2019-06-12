@@ -21,8 +21,7 @@
 % \seealso{}
 
 \examples{
-sl <- read.table("http://ashipunov.info/shipunov/open/salix_leaves.txt", h=TRUE)
-Missing.map(sl)
+Missing.map(salix_leaves)
 }
 
 \keyword{Statistics}

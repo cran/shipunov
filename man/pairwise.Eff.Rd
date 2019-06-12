@@ -17,7 +17,8 @@
 \details{
 Pairwise table of effect sizes.
 
-At the moment, classic Lyubischev's K (a.k.a. SSSMD), 'effsize::cliff.delta()' and 'effsize::cohen.d()' supported.
+At the moment, classic Lyubischev's K (a.k.a. SSSMD),
+effsize::cliff.delta() and effsize::cohen.d() are supported.
 }
 
 \value{List with test outputs.}
@@ -29,7 +30,6 @@ At the moment, classic Lyubischev's K (a.k.a. SSSMD), 'effsize::cliff.delta()' a
 % \seealso{}
 
 \examples{
-hwc <- read.table("http://ashipunov.info/data/hwc.txt", h=TRUE)
 pairwise.Eff(hwc$WEIGHT, hwc$COLOR)
 pairwise.Eff(hwc$WEIGHT, hwc$COLOR, mad=TRUE)
 pairwise.Eff(hwc$WEIGHT, hwc$COLOR, eff="cohen.d")

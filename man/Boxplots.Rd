@@ -37,11 +37,8 @@ Trees <- trees
 Trees[, 4] <- sample(letters[1:3], nrow(Trees), replace=TRUE)
 Boxplots(Trees[, 1:3], factor(Trees[, 4]), srt=0, adj=c(.5, 1)) # horizontal labels
 
-lo <- read.table("http://ashipunov.info/shipunov/open/eq_l.txt", h=TRUE, sep=";")
-me <- read.table("http://ashipunov.info/shipunov/open/eq_s.txt", h=TRUE, sep=";")
-## uses Recode() from this same package
-sp <- Recode(me$N.POP, lo$N.POP, as.character(lo$SPECIES))
-eq <- cbind(sp, me[-1])
+sp <- Recode(eq_s$N.POP, eq_l$N.POP, as.character(eq_l$SPECIES))
+eq <- cbind(sp, eq_s[-1])
 eq3 <- eq[eq$sp \%in\% levels(eq$sp)[1:3], ]
 Boxplots(eq3[, 2:9], eq3[, 1], boxcols=grey(1:3/3), slty=0) # no border lines
 }
