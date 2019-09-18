@@ -3,19 +3,22 @@
 \title{Classification grid}
 \description{Adds to the 2D ordination plot small semi-transparent points which make color classification grid}
 
-\usage{Gradd(model2var, data2var, spacing=75, trnsp=0.3, pch=20, cex=0.2,
- palette=NULL, type="ids", ...)}
+\usage{
+Gradd(model2var, data2var, spacing=75, trnsp=0.3, pch=20, cex=0.2,
+ palette=NULL, type="ids", User.Predict=function(model2var, X) {}, ...)
+}
 
 \arguments{
-\item{model2var}{model based on 'data2var' (see below)}
-\item{data2var}{data with exactly 2 variables}
-\item{spacing}{space between points}
-\item{trnsp}{transparency}
-\item{pch}{type of point}
-\item{cex}{scale of point}
-\item{palette}{palette to use}
-\item{type}{type of the model: "ids", "lda", "neuralnet", "tree", or "user" (see examples)}
-\item{...}{arguments to 'plot()'}
+\item{model2var}{Model based on 'data2var' (see below).}
+\item{data2var}{Data with exactly 2 variables.}
+\item{spacing}{Space between points.}
+\item{trnsp}{Transparency.}
+\item{pch}{Type of point.}
+\item{cex}{Scale of points.}
+\item{palette}{Palette to use.}
+\item{type}{Type of the model: "ids", "lda", "neuralnet", "tree", or "user" (see examples).}
+\item{User.Predict}{Function to define in case of 'type="user"'.}
+\item{...}{Additional arguments to plot().}
 }
 
 \details{
@@ -51,7 +54,7 @@ plot(iris.p, type="n", main="SVM")
 Gradd(iris.svm.pca, iris.p)
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## LDA:
 library(MASS)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -60,7 +63,7 @@ plot(iris.p, type="n", main="LDA")
 Gradd(iris.lda.pca, iris.p, type="lda")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## 'tree::tree':
 library(tree)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -69,7 +72,7 @@ plot(iris.p, type="n", main="tree")
 Gradd(iris.tree.pca, iris.p, type="tree")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## randomForest:
 library(randomForest)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -78,7 +81,7 @@ plot(iris.p, type="n", main="randomForest")
 Gradd(iris.rf.pca, iris.p)
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## naiveBayes:
 library(e1071)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -87,7 +90,7 @@ plot(iris.p, type="n", main="naiveBayes")
 Gradd(iris.nb.pca, iris.p)
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## neuralnet:
 library(neuralnet)
 iris.p2 <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -98,7 +101,7 @@ plot(iris.p, type="n", main="neuralnet")
 Gradd(iris.nn.pca, iris.p, type="neuralnet")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## rpart + MDS for the base plot:
 iris.dist <- dist(iris[, 1:4], method="manhattan")
 iris.dist[iris.dist == 0] <- abs(jitter(0))
@@ -111,7 +114,7 @@ plot(iris.m, type="n", main="rpart + MDS")
 Gradd(iris.rpart.mds, iris.m, type="tree")
 text(iris.m, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## QDA:
 library(MASS)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -120,7 +123,7 @@ plot(iris.p, type="n", main="QDA")
 Gradd(iris.qda.pca, iris.p, type="lda")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
 ## AdaBoost:
 \donttest{
 library(adabag)
@@ -131,17 +134,7 @@ Gradd(iris.ada.pca, iris.p, type="lda")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
 }
-##
-## kNN:
-library(class)
-iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
-plot(iris.p, type="n", main="kNN")
-User.Predict <- function(model2var, X) knn(train=model2var[, 2:3], test=X,
- cl=model2var[, 1], k=5)
-Gradd(cbind(iris[5], iris.p), iris.p, type="user")
-text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
- method="both.sides"))
-##
+
 ## nnet:
 library(nnet)
 iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
@@ -150,8 +143,15 @@ plot(iris.p, type="n", main="nnet")
 Gradd(iris.nnet.pca, iris.p, type="tree")
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
-##
+
+## kNN:
+library(class)
+iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
+plot(iris.p, type="n", main="kNN")
+Gradd(cbind(iris[5], iris.p), iris.p, type="user",
+ User.Predict=function(model2var, X) knn(model2var[, 2:3], X, model2var[, 1], k=5))
+text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
+ method="both.sides"))
 }
 
 \keyword{Special multivariate plots}
-

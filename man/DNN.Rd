@@ -1,5 +1,6 @@
 \name{DNN}
 \alias{DNN}
+\alias{Dnn}
 
 \title{Distance matrix based kNN classification}
 
@@ -9,14 +10,20 @@
 
 \usage{
 DNN(dst, cl, k, d, details=FALSE)
+Dnn(trn, tst, classes, FUN=function(.x) dist(.x), ...)
 }
 
 \arguments{
   \item{dst}{Distance matrix (object of class 'dist').}
-  \item{cl}{Class labels, should contain NAs to designate testing sub-group.}
+  \item{cl}{Factor of class labels, should contain NAs to designate testing sub-group.}
   \item{k}{How many neighbors to select, odd numbers preferable. If specified, do not use "d".}
   \item{d}{Distance to consider for neighborhood, in fractions of maximal distance. If specified, do not use "k".}
   \item{details}{If TRUE, function will return voting matrix. Default is FALSE.}
+  \item{trn}{Data to train from, classes variable out.}
+  \item{tst}{Data with unknown classes.}
+  \item{classes}{Classes variable for training data.}
+  \item{FUN}{Function to calculate distances, by default, just dist() (i.e., Euclidean distances).}
+  \item{...}{Additional arguments from Dnn() to DNN(), note that either 'k' or 'd' must be specified.}
 }
 
 \details{
@@ -36,6 +43,8 @@ DNN(dst, cl, k, d, details=FALSE)
   (predicted) class labels. If 'cl' has no NAs, DNN() returns it back with warning. It allows for
   combined and stepwise extensions (see examples). If 'details=TRUE', DNN() will return matrix
   where each column represents the table used for voting.
+
+  Dnn() is based on DNN() but has more class::knn()-like interface (see examples).
 }
 
 \value{
@@ -97,6 +106,11 @@ Misclass(iris$Species, cl3)
 iris.pred <- DNN(dst=iris.d, cl=cl1, d=0.14)
 table(iris.pred, useNA="ifany")
 Misclass(iris$Species[is.na(cl1)], iris.pred)
+
+## Dnn() has more class::knn()-like interface
+iris.trn <- iris[sam, ]
+iris.tst <- iris[!sam, ]
+Dnn(iris.trn[, -5], iris.tst[, -5], iris.trn[, 5], k=7)
 }
 
 \keyword{Multivariate}

@@ -1,3 +1,16 @@
+shipunov 1.3:
+ Gradd() bug corrected;
+ VTcoeffs() improved;
+ Numranks() improved;
+ help files improved;
+ new "%-%" a.k.a. "minus names" function;
+ new Dnn() function;
+ new Rpart2newick() function;
+ new Cosine.dist() function;
+ MRH() updated;
+ Recode*() functions improved;
+ Bclust() improved
+
 shipunov 1.2:
  new Fill() function;
  datasets are now integrated;

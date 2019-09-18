@@ -21,19 +21,23 @@ The simple variant ('best=FALSE') assumes that class labels are concerted (same 
 
 Advanced variant ('best=TRUE') can search for the best classification table (with minimal misclassification rate),
 this is especially useful in case of unsupervised classifications which typically return numeric labels. However,
-it internally generates all permutations of factor levels which could be very slow if there are many class labels.
-It might also add empty rows (filled with zeros)  to table in case if numbers of classes are not equal.
+internally it generates all permutations of factor levels, thei could be very slow if there are many class labels.
 
-It is possible to ignore some class labels, this is useful for methods like DBSCAN which outputs the special label for
-outliers.
+Variant with 'best=TRUE' might also add empty rows (filled with zeros) to the table in case if numbers of
+classes are not equal.
 
-Additional arguments could be passed for 'table()', for example, 'useNA="ifany"'. If supplied data contains NAs, there
+Additional arguments could be passed for table(), for example, 'useNA="ifany"'. If supplied data contains NAs, there
 will be also note in the end.
+
+It is possible to ignore some class labels with 'ignore=...', this is useful for methods like DBSCAN
+which output special label for outliers. In that case, note about missing data is also issued.
 
 Alternatives: confusion matrix from 'caret::confusionMatrix()' which is more feature rich but much less flexible.
 
-Please note that partial "Misclassification errors" are reverse sensitivities, and
-"Mean misclassification error" is a reverse accuracy.
+Note that partial "Misclassification errors" are reverse sensitivities, and "Mean misclassification error"
+is a reverse accuracy.
+
+Association plot assocplot() is probably the best to plot misclassification table.
 }
 
 \value{Invisibly returns the table of class comparison}
@@ -54,6 +58,16 @@ set.seed(1)
 iris.k <- kmeans(iris[, -5], centers=3)
 Misclass(iris.k$cluster, iris[, 5])
 Misclass(iris.k$cluster, iris[, 5], best=TRUE)
+
+res <- Misclass(iris.k$cluster, iris[, 5], best=TRUE, quiet=TRUE)
+## statistics implemented in caret::confusionMatrix()
+binom.test(sum(diag(res)), sum(res))$conf.int
+mcnemar.test(res + 1e-9) # to avoid NaN's
+
+library(dbscan)
+iris.db <- dbscan(iris[, -5], eps=0.3)
+Misclass(iris.db$cluster, iris$Species, ignore=0, best=TRUE)
+
 set.seed(NULL)
 }
 

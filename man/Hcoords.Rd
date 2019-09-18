@@ -1,6 +1,6 @@
 \name{Hcoords}
 \alias{Hcoords}
-\title{Plot bootstrap values}
+\title{Plot bootstrap values on 'hclust' plot}
 
 \usage{
   Hcoords(hcl)

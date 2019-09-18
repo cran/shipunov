@@ -223,7 +223,7 @@ Numranks <- function(nums=NULL, ranks=NULL, add=NULL, empty="Species") {
  }
  if(is.null(nums) & !is.null(ranks)) {
   ranks <- gsub("[^a-z]", "", tolower(ranks))
-  ranks <- Recode(ranks, c("family", "order", "kingdom"), c("familia", "ordo", "regnum"))
+  ranks <- Recode(ranks, c("section", "family", "order", "kingdom"), c("sectio", "familia", "ordo", "regnum"))
   ranks[ranks == ""] <- empty
   .cap <- function(.x) { # from help(toupper)
    sapply(strsplit(.x, split=" "), function(.xx)

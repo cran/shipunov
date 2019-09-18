@@ -2,12 +2,12 @@
 \alias{Bclust}
 \title{Bootstrapped hclust}
 
-\description{Bootstraps hierarchical clustering}
+\description{Bootstraps (or jacknife) hierarchical clustering}
 
 \usage{
 Bclust(data, method.d="manhattan", method.c="ward.D",
 FUN=function(.x) hclust(dist(.x, method=method.d), method=method.c),
-iter=1000, mc.cores=1, monitor=TRUE)
+iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 }
 
 \arguments{
@@ -26,6 +26,7 @@ iter=1000, mc.cores=1, monitor=TRUE)
 
   \item{monitor}{If TRUE (default), prints a dot for each replicate}
 
+  \item{bootstrap}{If FALSE (not default), performs jacknife (and makes 'iter=ncol(data)')}
 }
 
 \value{
@@ -36,7 +37,9 @@ iter=1000, mc.cores=1, monitor=TRUE)
 
 \details{
   This function provides bootstrapping for hierarchical
-  clustering (\code{\link{hclust}} objects).
+  clustering (\code{\link{hclust}} objects). Internally, it uses
+  Hcl2mat() which converts 'hclust' objects into binary matrix of cluster
+  memberships.
 
   Bclust() and companion functions were based on functions from the
   'bootstrap' package of Sebastian Gibb.
@@ -54,12 +57,11 @@ iter=1000, mc.cores=1, monitor=TRUE)
 }
 
 \seealso{
-  \code{\link{Jclust}}, \code{link{BootA}}
+  \code{\link{Jclust}}, \code{link{BootA}, \link{Hcl2mat}}
 }
 
 \examples{
-bb <- Bclust(t(atmospheres)) # specify 'mc.cores=4' or similar to speed up the process
-bb
+(bb <- Bclust(t(atmospheres))) # specify 'mc.cores=4' or similar to speed up the process
 
 plot(bb$hclust)
 Bclabels(bb$hclust, bb$values, col="blue", pos=3, offset=0.1)
@@ -83,11 +85,14 @@ Ploth(bb$hclust, horiz=TRUE)
 Bclabels(bb$hclust, bb$values, col="blue", pos=3, offset=0.1, horiz=TRUE)
 par(oldpar)
 
-plot(hclust(dist(bb$consensus)), main="Net consensus tree")
+plot(hclust(dist(bb$consensus)), main="Net consensus tree") # net consensus
+## majority rule is 'consensus >= 0.5', strict is like 'round(consensus) == 1'
 
 bb1 <- Bclust(t(atmospheres), FUN=function(.x) hclust(Gower.dist(.x)), monitor=FALSE)
 plot(bb1$hclust)
 Bclabels(bb1$hclust, bb1$values, col="green", pos=3, offset=0.1)
+
+Bclust(t(atmospheres), bootstrap=FALSE) # jacknife
 }
 
 \keyword{Multivariate}

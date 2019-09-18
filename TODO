@@ -1,31 +1,19 @@
-Life(): decrease borders in image()
+Biokey(): Newick to classif; coarsening of hcl; convert all to "typographic"; convert all to "latex" (relative or not); add checks
 
-Add jacknife option to Bclust()
-
-Biokey(): convert all to "typographic"; convert all to "latex" (relative or not); try rpart-like objects; use shortcuts; add checks; [assign attributes]
-
-Bivariate plots better to use xy.coords()
+Life(): decrease border in image(); try to add interactive filling with locator() like in Miney()
 
 Check how alternatives of shipunov::pairwise.Table2.test() and shipunov::Rro.test() work and change help files accordingly
 
 Dotchart1(): send this as dotchart() correction to R base
 
-Ellipses() and Hulls() better to calculate "coords" first, then plot
+BestOverlap(): think how to make it work with Ellipses() (and return all total overlaps if needed); try parallel::mclapply()
 
-Misstats() to take Misclass() output and print it like Misclass() replacing "0" with "-"; to print also 'binom.test(sum(diag(x)), sum(x))$conf.int' and 'mcnemar.test(x)$p.value',
+In Ellipses() and Hulls(), it is better to calculate "coords" first, then plot
 
-BestMisclass() -- similar but much simpler then BestOverlap(), good for "whibo"
+In bivariate plots, it is better to use xy.coords()
 
-Think how to make BestOverlap() work with Ellipses() and return all total overlaps (and maybe everything at all) if needed
-
-Try parallel::mclapply() for BestOverlap()
-
-Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
-
-Life(): try to add interactive filling with locator() like in Miney()
-
-Misplot() based on Dotchart3() with CIs and double obs/pred labels
-
-Re-structure Boot...() functions to use Class.sample() and Misclass() (their reduced versions are using internally)
+In Boot...() functions, it is probably better to use Class.sample() and Misclass() (their reduced versions are using internally)
 
 Think how extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated
+
+Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps

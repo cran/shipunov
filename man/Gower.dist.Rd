@@ -7,8 +7,8 @@
 
 \arguments{
 \item{data.x}{A matrix or a data frame containing variables that should be used in the computation of the distance.}
-\item{data.y}{A numeric matrix or data frame with the same variables, of the same type, as those in data.x}
-\item{rngs}{A vector with the ranges to scale the variables. Its length must be equal to number of variables in data.x}
+\item{data.y}{A numeric matrix or data frame with the same variables, of the same type, as those in 'data.x'}
+\item{rngs}{A vector with the ranges to scale the variables. Its length must be equal to number of variables in 'data.x'}
 \item{KR.corr}{When TRUE (default) the extension of the Gower's dissimilarity measure proposed by Kaufman and Rousseeuw (1990) is used. Otherwise the original Gower's (1971) formula is considered.}
 }
 
@@ -26,7 +26,9 @@ For 'rngs', in correspondence of non-numeric variables, just put 1 or NA. When r
 the range of a numeric variable is estimated by jointly considering the values for the variable in 'data.x' and those in 'data.y'.
 }
 
-\value{A matrix object with distances among rows of data.x and those of data.y}
+\value{
+A distance object with distances among rows of 'data.x' and those of 'data.y'.
+}
 
 \references{
 Gower J.C. 1971. A general coefficient of similarity and some of its properties. Biometrics, 27, 623--637.

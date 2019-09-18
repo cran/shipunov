@@ -30,3 +30,11 @@ res <- cl
 }
 return(res)
 }
+
+## ===
+
+Dnn <- function(trn, tst, classes, FUN=function(.x) dist(.x), ...) {
+ dst <- FUN(rbind(trn, tst))
+ cl <- factor(c(as.character(classes), rep(NA, nrow(tst))))
+ DNN(dst, cl, ...)
+}

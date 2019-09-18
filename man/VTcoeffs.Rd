@@ -4,10 +4,12 @@
 
 \description{Effect sizes of association between categorical variables}
 
-\usage{VTcoeffs(table)}
+\usage{VTcoeffs(table, correct=FALSE, ...)}
 
 \arguments{
 \item{table}{Contingency table}
+\item{correct}{Perform continuity correction in underlying chi-square test?}
+\item{...}{Additional arguments to underlying chisq.test()}
 }
 
 \details{

@@ -6,13 +6,15 @@
 \usage{Miney(n, ucol="black", gcol="white", bcol="red")}
 
 \arguments{
-\item{n}{indicates the size of the matrix to play, i.e. n=5 results in n x n = 5 x 5 matrix.}
-\item{ucol}{color of unknown cells}
-\item{gcol}{color of good cells}
-\item{bcol}{color of bad cells}
+\item{n}{Indicates the size of the matrix to play, i.e. n=5 results in n x n = 5 x 5 matrix.}
+\item{ucol}{Color of unknown cells}
+\item{gcol}{Color of good cells}
+\item{bcol}{Color of bad cells}
 }
 
-\details{Miney game, modified from 'miney' package of Roland Rau. See also the 'fun' package.}
+\details{
+Miney game, modified from 'miney' package of Roland Rau. See also the 'fun' package.
+}
 
 % \value{}
 

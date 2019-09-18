@@ -1,33 +1,33 @@
-## R functions for multiple recoding
-
-Recode <- function(var, from, to, char=TRUE)
+Recode <- function(var, from, to, char=TRUE, recycle=FALSE)
 {
- if (char)  if(is.factor(to)) to <- as.character(to)
- x.tmp <- x <- as.vector(var)
- for (i in 1:length(from)){x <- replace(x, x.tmp == from[i], to[i])}
- if(is.factor(var)) factor(x) else x
+ if (char && is.factor(to)) to <- as.character(to)
+ if (recycle) to <- rep(to, length(from))
+ y <- x <- as.vector(var)
+ for (i in seq_along(from)) x <- replace(x, y == from[i], to[i])
+ if (is.factor(var)) factor(x) else x
 }
 
 ## ===
 
-Recode4 <- function(var, from, to, missed="")
+Recode4 <- function(var, from, to, missed="", ...)
 {
- ifelse(Recode(var, from, to) == var, missed, Recode(var, from, to))
+ ifelse(var %in% from, Recode(var, from, to, ...), missed)
 }
 
 ## ===
 
-RecodeR <- function(var, from, to, char=TRUE)
+RecodeR <- function(var, from, to, char=TRUE, recycle=FALSE)
 {
- if (char)  if(is.factor(to)) to <- as.character(to)
+ if (char && is.factor(to)) to <- as.character(to)
+ if (recycle) to <- rep(to, length(from))
  x <- as.vector(var)
- for (i in 1:length(from)){x <- replace(x, x == from[i], to[i])}
- if(is.factor(var)) factor(x) else x
+ for (i in seq_along(from)) x <- replace(x, x == from[i], to[i])
+ if (is.factor(var)) factor(x) else x
 }
 
 ## ===
 
-Recode4R <- function(var, from, to, missed="")
+Recode4R <- function(var, from, to, missed="", ...)
 {
- ifelse(RecodeR(var, from, to) == var, missed, RecodeR(var, from, to))
+ ifelse(var %in% from, RecodeR(var, from, to, ...), missed)
 }
