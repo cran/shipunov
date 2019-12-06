@@ -1,3 +1,14 @@
+shipunov 1.4:
+ Fill() improved;
+ new Ditto() function (reverse Fill());
+ Biokey() and Numranks() improved;
+ help files improved;
+ new Rows() function;
+ R() renaned into R.logo();
+ Life() improved;
+ Rpart2newick() and Biokey() now keep node labels;
+ MrBayes() changed after new version of ips package
+
 shipunov 1.3:
  Gradd() bug corrected;
  VTcoeffs() improved;

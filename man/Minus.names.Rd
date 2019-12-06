@@ -11,7 +11,7 @@
 }
 
 \details{
-In fact, 'names(x)' are used instead of 'x'. If 'x' has no names, they will be assigned from values.
+Instead of 'x', the function uses 'names(x)'. If 'x' has no names, they will be assigned from values.
 }
 
 \value{Character vector}
@@ -24,7 +24,8 @@ In fact, 'names(x)' are used instead of 'x'. If 'x' has no names, they will be a
 
 \examples{
 str(iris[, iris \%-\% "Species"])
-c("apples", "bananas") \%-\% c("apples")
+str(iris[, !names(iris) \%in\% "Species"]) # this is how to make it without \%-\%
+c("apples", "bananas") \%-\% c("apples") # simple character string also works
 }
 
 \keyword{System}

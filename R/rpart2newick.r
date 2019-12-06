@@ -27,6 +27,7 @@ tree <- vector("list", 2)
  }
 out
 }
+##
 for (i in 2:nrow(fr)) {
  ind <- .index(as.numeric(rownames(fr)[i]))
  ind <- paste0("[[", paste0(ind, collapse = "]][["), "]]")
@@ -38,5 +39,22 @@ for (i in 2:nrow(fr)) {
  eval(parse(text = paste0("tree", ind, " <- subtree")))
 }
 ## this is "list to Newick", based on how as.character() works with lists
-return(gsub('\"| ', '', gsub('c\\(|list\\(', '(', paste0('(', paste(tree, collapse=','), ');'))))
+nn <- gsub('\"| ', '', gsub('c\\(|list\\(', '(', paste0('(', paste(tree, collapse=','), ');')))
+## add node labels:
+lbls <- labels(rpart.object) # all labels
+lpos <- which(unlist(strsplit(nn, "[(,]")) == "") # because single open parenthesis becomes ""
+lbls <- lbls[lpos] # we need labels only for nodes (open parentheses), not terminals (text, possibly with comma or closing parentheses)
+lbls[lbls == "root"] <- "" # remove root node label
+.PPadd <- function(txt, labels){ # adds labels to closing matches of the each opening parenthesis
+txts <- unlist(strsplit(txt, NULL))
+cpp <- opp <- which(txts == "(")
+txtn <- Recode4(txts, c("(", ")"), c(-1, 1), 0)
+txtl <- length(txtn)
+for (i in seq_along(opp)) {
+ pos <- (opp[i] + which(cumsum(txtn[opp[i]:txtl]) == 0)[1]) - 1 # we need the first match
+ txts[pos] <- paste0(txts[pos], labels[i])
+ }
+paste0(txts, collapse="")
+}
+.PPadd(nn, lbls)
 }

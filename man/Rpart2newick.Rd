@@ -17,7 +17,7 @@ Rpart2newick(rpart.object)
 }
 
 \details{
-Inspired by 'shaunpwilkinson/rpart2dendro.R' gist. Keeps only tip labels.
+Inspired by 'shaunpwilkinson/rpart2dendro.R' gist.
 }
 
 % \references{
@@ -28,10 +28,18 @@ Inspired by 'shaunpwilkinson/rpart2dendro.R' gist. Keeps only tip labels.
 
 \examples{
 library(rpart)
-fit <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis)
-plot(fit); text(fit)
+(fit <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis))
+plot(fit); text(fit, all=TRUE)
 library(ape)
-plot(read.tree(text=Rpart2newick(fit)))
+tree1 <- read.tree(text=Rpart2newick(fit))
+plot(tree1)
+nodelabels(tree1$node.label, frame="none", bg="transparent", adj=-0.1)
+
+(fit2 <- rpart(Species ~ ., data=iris))
+plot(fit2); text(fit2, all=TRUE)
+tree2 <- read.tree(text=Rpart2newick(fit2))
+plot(tree2)
+nodelabels(tree2$node.label, frame="none", bg="transparent", adj=-0.1)
 }
 
 \keyword{Multivariate}

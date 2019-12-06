@@ -112,7 +112,7 @@ for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "v
  TITLE("AP") # affinity propagation
 ##
  ## eps values taken out of scikit and 'dbscan::kNNdistplot() "knee"', 'minPts' default
- EPS <- c(noisy.circles=0.3, noisy.moons=0.3, no.sructure=0.3, blobs=1,
+ EPS <- c(noisy.circles=0.3, noisy.moons=0.3, no.structure=0.3, blobs=1,
   aniso=0.5, varied=1)
  nn <- dbscan::dbscan(get(n)$samples, eps=EPS[n])
  outliers <- nn$cluster == 0

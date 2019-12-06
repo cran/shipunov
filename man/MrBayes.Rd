@@ -53,22 +53,16 @@ x <- ips.cox1[, 100:140]
 \dontrun{
 ## requires MrBayes program installation
 MrBayes(x, file="cox1", ngen=100, run=TRUE)
-}
 
-\dontrun{
-## requires MrBayes program installation
 str(plantago)
 plantago[is.na(plantago)] <- "N"
 row.names(plantago) <- gsub(" ", "_", row.names(plantago))
-
-library9ape)
-
+## requires MrBayes program installation
 tr <- MrBayes(plantago, file="plantago", method="mixed", burnin=5000, run=TRUE) # makes many files
 tr <- tr[[1]]
 tr <- root(tr, outgroup="Plantago_maritima", resolve.root=TRUE)
 tr$node.label <- suppressWarnings(round(as.numeric(tr$node.label)*100)) # warning is OK
 tr$node.label[tr$node.label == "NA"] <- ""
-
 plot(tr)
 nodelabels(tr$node.label, frame="none", bg="transparent", adj=-0.1)
 add.scale.bar()

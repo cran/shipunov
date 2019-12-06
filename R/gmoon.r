@@ -236,25 +236,6 @@ else
  invisible(list(coords=data.frame(x=x.theta, y=y.theta), center=c(x, y), theta=theta))
 }
 
-# ===
-
-R <- function(x, y, col.e="#B8BABF", col.l="#1E63B5", cex=12)
-{
-coeff.x <- abs(diff(par("usr")[1:2])) / 0.864
-coeff.y <- abs(diff(par("usr")[3:4])) / 0.864
-e1.x <- x - (0.05 * cex/12 * coeff.x)
-e1.y <- y + (0.07 * cex/12 * coeff.y)
-e1.w <- cex/30 * coeff.x
-e1.h <- cex/40 * coeff.y
-e2.x <- e1.x + (0.03 * cex/12 * coeff.x)
-e2.y <- e1.y - (0.02 * cex/12 * coeff.y)
-e2.w <- cex/44 * coeff.x
-e2.h <- cex/60 * coeff.y
-Ell(e1.x, e1.y, width=e1.w, height=e1.h, col=col.e, border=NA)
-Ell(e2.x, e2.y, width=e2.w, height=e2.h, col="white", border=NA)
-text(x, y, "R", font=2, cex=cex, col=col.l)
-}
-
 ## ===
 
 Miney <- function(n, ucol="black", gcol="white", bcol="red") { # 'n' indicates the size of the matrix to play, i.e. n=5 results in n x n = 5 x 5 matrix.
@@ -333,65 +314,6 @@ Miney <- function(n, ucol="black", gcol="white", bcol="red") { # 'n' indicates t
    }
   }
  }
-}
-
-## ===
-
-Life <- function(n.rows=100,
-n.cols=100,
-n.cycles=100,
-sleep.time=0.1,
-cols=c("#f0f0f0", "#2f81c1"),
-rnd.threshold=0.3) # rnd_threshold 0 empty board; 1 all squares are filled
-{
-Shift.Matrix <- function(mx, dr, dc) { # shift the matrix by dr (delta r) rows and dc columns by adding e.g. dr rows of zeros and removing dr rows from the other side
-nr <- nrow(mx)
-nc <- ncol(mx)
-## if the matrix is shifted by more than its nrow or ncol, we get a matrix of zeros
-if (abs(dr) >= nr || abs(dc) >= nc) { mx <- matrix(0, nrow = nr, ncol = nc) ; return(mx) }
-## rows:
-if (dr > 0) {
- mx <- rbind(mat.or.vec(dr, nc), mx)
- mx <- mx[1:nr,]
-} else if (dr < 0) {
- mx <- rbind(mx, mat.or.vec(-dr, nc))
- mx <- mx[(1 - dr):(nr - dr),]
-}
-## columns:
-if (dc > 0) {
- mx <- cbind(mat.or.vec(nr, dc), mx)
- mx <- mx[,1:nc]
-} else if (dc < 0) {
- mx <- cbind(mx, mat.or.vec(nr, -dc))
- mx <- mx[,(1 - dc):(nc - dc)]
-}
-return(mx)
-}
-##
-Life.Cycle <- function(mx) { # move the board one generation forward
-mx0 <- matrix(0, nrow = nrow(mx), ncol = ncol(mx))
-## produce 8 "shifted" boards and add them up
-for (n in (-1:1)) {
- for (m in (-1:1)) {
- if (n !=0 || m !=0) mx0 <- mx0 + Shift.Matrix(mx, n, m)
- }}
-## Deaths and births
-mx[mx0 > 3 | mx0 < 2] <- 0
-mx[mx0 == 3] <- 1
-return(mx)
-}
-##
-## Create a board and plot it
-Board <- matrix(0, nrow = n.rows, ncol = n.cols)
-Board[runif(n.rows * n.cols, 0, 1) < rnd.threshold] <- 1
-image(Board, axes=FALSE, col=cols)
-##
-## The main cycle
-for (i in (1:n.cycles)) {
- Sys.sleep(sleep.time)
- Board <- Life.Cycle(Board)
- image(Board, axes=FALSE, col=cols)
-}
 }
 
 ## ===

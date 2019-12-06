@@ -1,10 +1,38 @@
-Biokey <- function(data, from=NULL, to=NULL, recalculate=TRUE, internal=FALSE) {
-available.from <- c("bracket", "branched", "classif", "indented", "newick", "serial")
-available.to <- c("backreferenced", "bracket", "classif","indented", "newick", "serial", "table")
-if (!from %in% available.from | !to %in% available.to) 
- stop(paste("'from' must be exactly one of", available.from, "and 'to' exactly one of", available.to))
+Biokey <- function(data, from="", to="", recalculate=TRUE, internal=FALSE, force=FALSE) {
+ mat <- matrix(c(
+  "bracket",  "backreferenced",
+  "bracket",  "indented",
+  "bracket",  "serial",
+  "bracket",  "newick",
+  ##
+  "branched", "bracket",
+  "branched", "indented",
+  "branched", "serial",
+  "branched", "newick",
+  ##
+  "indented", "bracket",
+  "indented", "serial",
+  "indented", "newick",
+  ##
+  "serial",   "bracket",
+  "serial",   "indented",
+  "serial",   "newick",
+  ##
+  "classif",  "newick",
+  "classif",  "table",
+  ##
+  "newick",   "classif",
+  ##
+  "table",    "classif"
+  ), ncol=2, byrow=TRUE, dimnames=list(NULL, c("from", "to")))
+  available.pairs <- apply(mat, 1, paste, collapse=" => ")
+if (!force & !paste(from, to, sep=" => ") %in% available.pairs) {
+ stop("only these conversions are possible:\n ",
+  paste0(available.pairs, "\n "),
+  "use force=TRUE to overrun")
+}
 ##
-.depth <- function(vec) { # calculate depths
+.depth <- function(vec) { # calculate depths, e.g., indents in indented keys
  depths <- numeric(length(vec))
  for(n in 2:length(depths)) {
   if(vec[n] != vec[n-1]) {
@@ -24,22 +52,33 @@ if (!from %in% available.from | !to %in% available.to)
 data <- as.data.frame(data, stringsAsFactors=FALSE) # in case 'key' is a matrix
 ##
 if (from == "newick") {
- data <- data[1, 1] #  "newick" string is in cell[1, 1]
- tmp1 <- strsplit(data, "")[[1]]
- tmp2 <- tmp1[!tmp1 %in% c(",", ";")]
- maxrank <- max(table(tmp2)) + 1
- tmp6 <- tmp3 <- Recode(tmp2, c("(", ")"), c(-1, 1))
- tmp4 <- suppressWarnings(as.numeric(tmp3))
- tmp4[is.na(tmp4)] <- 0
- tmp5 <- cumsum(tmp4) + maxrank
- tmp6[tmp3 == "-1"] <- tmp5[tmp3 == "-1"]
- tmp6 <- tmp6[tmp3 != "1"]
- tmp8 <- tmp7 <- tmp6
- tmp7[!grepl("[0-9]+", tmp6)] <- 1 # rank of terminals
- tmp7 <- as.numeric(tmp7)
- nonames <- grep("[0-9]+", tmp6)
- tmp8[nonames] <- as.character(as.roman(nonames)) # fake names of intermediate ranks
- key <- cbind(tmp7, NA, tmp8, NA) # (1) ids are _relative_ ranks
+ tmp <- data[1, 1] # "newick" string should be in 'data' first cell
+ tmp <- gsub(":[0-9.]+", "", tmp) # remove branch lengths, if any
+ oprs <- which(unlist(strsplit(tmp, NULL)) == "(") # positions of opening parentheses
+ lbls <- oprs # labels
+ for (i in seq_along(oprs)) {
+  .x <- gsub("\\(([^()]|(?R))*\\)", "", substr(tmp, oprs[i], nchar(tmp)), perl=TRUE) # removes all fully match parentheses with content, leaves labels, commas and "tails"
+  lbls[i] <- gsub("[(,);].*$", "", .x) # removes everything after the supposed label, works because labels separated at least by comma
+ }
+ lbls[lbls == ""] <- "NA" # if there are no node labels, use NA-like _strings_
+ tmp <- gsub("\\)[^(,);]+", "\\)", tmp) # now remove node labels, if any
+ tmp <- gsub("^\\((.*) *,([^(,);]+)\\);", "(\\2,\\1));", tmp) # if the root node name is the last, it goes to the first position
+ tmp <- gsub("[ ;]", "", tmp) # remove spaces because we will use them later, also remove semicolon in the end
+ tmp <- trimws(gsub("([(,)])", " \\1 ", tmp)) # add spaces around symbols to split and remove trailing/leading spaces
+ tmp <- unlist(strsplit(tmp, " ")) # split by spaces and remove list "shell"
+ tmp <- tmp[!tmp %in% c(",", ";")] # remove chunks with commas and semicolons
+ maxrank <- max(table(tmp)) + 2 # biggest possible rank, because first opening bracket introduces two ranks (group and lower)
+ rrs <- Recode(tmp, c("(", ")"), c(-1, 1)) # opening parenthesis lowers rank, closing makes it higher
+ rrs <- suppressWarnings(as.numeric(rrs)) # because all text strings will issue warnings
+ rrs[is.na(rrs)] <- 0 # ... so these past text strings will be zeroes now
+ rrs <- maxrank + cumsum(rrs) # kind of relative ranks with maxrank base (without maxrank base, they might be negative)
+ tmp <- tmp[tmp != ")"] # now remove closing parentheses
+ ids <- ifelse(!(tmp == "("), 1, rrs) # if terminals, rank=1, if higher, rank is relative rank
+ ids <- as.numeric(as.factor(as.numeric(ids))) # yes, funny but allows to recalculate ranks from lowers to highest
+ tmp[tmp == "("] <- lbls # opening parentheses turn into labels
+ tmp <- gsub("_", " ", tmp) # replace Newick's underscores with spaces
+ key <- cbind(ids, NA, tmp, NA)
+ key <- key[key[, 3] != "", ] # remove empty terminals
 }
 if (from == "bracket") {
  key <- cbind(data, suppressWarnings(as.numeric(data[, 3]))) # goto's into 4th column
@@ -60,7 +99,7 @@ if (from == "branched") { # the most simple format, similar to internal 'key'
  key <- cbind(data, NA) # add fake 4th column
 }
 if (from == "indented") { # similar to 'branched' but have idents as first column
- key <- cbind(data[, 2:3], NA) # skip indents (they will be recalculated if needed)
+ key <- cbind(data[, -1], NA) # skip indents (they will be recalculated if needed)
 }
 if (from == "serial") { # similar to branched but ids are two ref colums (id + pair)
  idsf <- paste(data[, 1], data[, 2])
@@ -71,13 +110,17 @@ if (from == "serial") { # similar to branched but ids are two ref colums (id + p
  key <- cbind(newid, data[, 3:4], NA) # discard old ref columns, add fake 4th column
 }
 if (from == "classif") {
+ data <- data[, 1:2] # if there are more columns, ignore them
+ data <- data[!duplicated(data[, 1:2]), ] # remove row duplicates (possible result of line above)
  if (to != "table") { # we need _relative_ ranks and higher groups separate from terminals
  data[, 1] <- as.numeric(as.factor(data[, 1])) # convert absolute numeric ranks to relative
  data[, 3] <- character(nrow(data))
  higher <- data[, 1] > min(data[, 1])
  data[higher, 3] <- data[higher, 2] # keep higher names in 3rd column (temporary)
  data[higher, 2] <- "" # remove names of all higher groups
- for(n in 1:(nrow(data)-1)) { # insert fake rows to propagate all ranks
+ dd <- diff(data[, 1]) # how many rows to add
+ dd <- abs(sum(dd[dd < -1] + 1)) # each minus below -1 is one more row
+ for(n in 1:(dd + nrow(data)-1)) { # insert fake rows to propagate all ranks
   dfs <- data[n, 1] - data[n+1, 1]
   if(dfs > 1) {
    before <- data[1:n, ]
@@ -85,24 +128,42 @@ if (from == "classif") {
    insert <- data[n, ]
    insert[, 1] <- data[n, 1] - 1 # intermediate rank here
    insert[, 2] <- "" # no terminal here
-   insert[, 3] <- as.character(as.roman(n)) # fake higher group description
+   insert[, 3] <- "NA" # fake higher group
    data <- rbind(before, insert, after)
    row.names(data) <- NULL
    }
   }
  key <- cbind(data[, 1], data[, 3], data[, 2], NA) # add fake 4th column
-} else { # for "table" (maybe also fo keys?), we need to keep original ranks and names
+} else { # for "table" (maybe also for keys?), we need to keep original ranks and names
  key <- cbind(data[, 1], NA, data[, 2], NA) # add fake 2nd (classifs do not have descriptions) and 4th columns
 }
 }
-## 'key' is the universal internal type: linear, branched, with four columns: (1) ids, (2) descriptions, (3) terminals (or empty strings), (4) goto's (if any, otherwise NAs)
-## column #4 needed to _output_ bracket (e.g., with recalculated numbers or with backreferences)
-## at this point, all "from" conversions should finish their output and return this 4-column object
+if (from == "table") {
+data <- sapply(data, Ditto)
+data <- data[, rev(colnames(data))]
+ranks <- data
+ranks[] <- ""
+ranks[1, ] <- colnames(ranks)
+ranks <- apply(ranks, 2, Fill)
+ranks.data <- paste(t(ranks), t(data))
+ranks.data <- gsub("[0-9.]+ *$", "", ranks.data)
+ranks.data <- ranks.data[ranks.data != ""]
+ranks.data <- gsub("([0-9.]+) ([^0-9]+)$", "\\1\t\\2", ranks.data)
+ranks.data <- do.call(rbind, strsplit(ranks.data, "\t"))
+key <- data.frame(ranks.data[, 1], NA, ranks.data[, 2], NA, stringsAsFactors=FALSE)
+}
+## at this point, all "from" conversions should finish their output and return internal 'key'
+## 'key' is the universal internal type: linear, branched, with four columns:
+## (1) ids or ranks (numbers),
+## (2) descriptions or higher categories (text),
+## (3) terminals (text),
+## (4) goto's (if any, otherwise NAs) -- needed only to _output_ bracket (e.g., with recalculated numbers or with backreferences)
 colnames(key) <- c("id", "description", "terminal", "goto")
 key[is.na(key[, 3]), 3] <- "" # sometimes, terminals contain NAs instead of empty strings (depends on input format)
 ##
-## recalculation for all key-like inputs:
-if (recalculate & from != "classif" & from != "newick") { # "classif" and "newick" do not need recalculation
+## recalculation:
+if (from == "classif" | from == "newick" | from == "table") recalculate <- FALSE # these types do not need recalculation
+if (recalculate) {
  newids <- as.numeric(factor(key[, 1], levels=unique(key[, 1]))) # recalculate (1) ids in order of appearance
  newgotos <- Recode(key[, 4], key[, 1], newids) # and (2) goto's
  key[, 1] <- newids
@@ -112,12 +173,11 @@ if (recalculate & from != "classif" & from != "newick") { # "classif" and "newic
 ##
 if (to == "classif") {
  res <- key[, c(1, 3)] # classifs should have ranks a.k.a. ids and terminals
+ colnames(res) <- c("RANK", "NAME") # not absolutely necessary but adds understanding
 }
 if (to == "indented") {
  indents <- .depth(key[, 1])
- res <- cbind(indents, key[, 1:3]) # indents as numbers; to make typographic, convert 'indents' to spaces and add "...", like:
- ## for (i in 1:length(key[, 1])) key[i, 1] <- paste(rep("_", key[i, 1]), collapse="")
- ## ifelse(!is.na(key[, 3]), "...", "")
+ res <- cbind(indents, key[, 1:3]) # indents as numbers
 }
 if (to == "serial") {
  refs <- numeric(nrow(key))
@@ -150,38 +210,53 @@ if (to == "newick") {
  indents <- .depth(key[, 1])
  dfs <- indents - c(indents[2:(length(indents))], 0)
  brt <- Recode(sign(dfs), c(-1, 0, 1), c("(", ",", ")"))
- mul <- abs(dfs) + (dfs==0)
+ mul <- abs(dfs) + (dfs == 0)
  for (i in 1:length(brt)) brt[i] <- paste(rep(brt[i], mul[i]), collapse="")
- tmp0 <- cbind(key[, 3], brt)
- tmp1 <- paste(paste0(t(tmp0), colalpse=""), collapse="")
- tmp2 <- gsub(")(", "),(", tmp1, fixed=TRUE)
- tmp3 <- gsub("([A-z0-9])\\(", "\\1,\\(", tmp2) # 'name(' -> 'name,('
- tmp4 <- gsub("\\)([A-z0-9])", "\\),\\1", tmp3) # ')name' -> '),name'
- tmp5 <- gsub("(,", "(", tmp4, fixed=TRUE) # remove empty terminals
- tmp6 <- gsub(",)", ")", tmp5, fixed=TRUE) # remove empty terminals
- tmp7 <- gsub("()", "", tmp6, fixed=TRUE) # some unknown empties, maybe will not appear with propagated ranks
- tmp8 <- gsub(",,+", ",", tmp7) # remove empty terminals
- tmp9 <- gsub(" ", "_", tmp8, fixed=TRUE) # newick dislikes spaces
- res <- paste0("(", tmp9, ");") # make one group and add newick EOL
+ tmp <- cbind(key[, 3], brt)
+ tmp <- paste0(paste0(t(tmp), colalpse=""), collapse="")
+ tmp <- gsub(")(", "),(", tmp, fixed=TRUE)
+ tmp <- gsub("([A-z0-9])\\(", "\\1,\\(", tmp) # 'name(' -> 'name,('
+ tmp <- gsub("\\)([A-z0-9])", "\\),\\1", tmp) # ')name' -> '),name'
+ tmp <- gsub("(,", "(", tmp, fixed=TRUE) # remove left empty terminals
+ tmp <- gsub(",)", ")", tmp, fixed=TRUE) # remove right empty terminals
+ tmp <- gsub(",*\\(\\)", "", tmp) # some unknown empties
+ tmp <- gsub(",,+", ",", tmp) # remove empty terminals, again
+ tmp <- gsub(" ", "_", tmp, fixed=TRUE) # Newick dislikes spaces, at least in terminals
+ nn <- paste0("(", tmp, ");") # add root node and Newick's "end of tree"
+ if (from == "classif") {
+  lbls <- key[grep("\\(", brt), 2] # labels for opening parentheses (including double and more)
+  lbls <- c("", lbls) # add empty root node label
+  lbls[lbls == "NA"] <- "" # make "NA" string labels (fake subgroups) empty
+  .PPadd <- function(txt, labels){ # adds labels to closing matches of the each opening parenthesis
+  txts <- unlist(strsplit(txt, NULL))
+  cpp <- opp <- which(txts == "(")
+  txtn <- Recode4(txts, c("(", ")"), c(-1, 1), 0)
+  txtl <- length(txtn)
+  for (i in seq_along(opp)) {
+   pos <- (opp[i] + which(cumsum(txtn[opp[i]:txtl]) == 0)[1]) - 1 # we need the first match
+   txts[pos] <- paste0(txts[pos], labels[i])
+   }
+  paste0(txts, collapse="")
+  }
+ res <- .PPadd(nn, lbls)
+ } else {
+ res <- nn
+ }
 }
 if (to == "table") {
  allranks <- sort(unique(key[, 1]))
  for (i in 1:length(allranks)) {
   tmp <- key[, 3]
-  tmp[(key[, 1] != allranks[i])] <- ""
-  tmp <- Fill(tmp)
-  assign(allranks[i], tmp)
+  tmp[(as.numeric(key[, 1]) < as.numeric(allranks[i]))] <- "" # empty values of lower ranks
+  tmp <- Fill(tmp) # fill them from values above
+  assign(allranks[i], tmp) # make as many variables as there are ranks
  }
  res <- do.call(cbind, mget(allranks))
- res <- res[key[, 1] == min(as.numeric(allranks)), ]
- have.empty <- apply(res, 2, function(.x) sum(.x == "")) > 0
- res <- res[, !have.empty] # if the rank did not propagated fully, remove column
+ res <- res[as.numeric(key[, 1]) == min(as.numeric(allranks)), ]
 }
 if (internal) res <- key # allows to output internal 4-column object
 res
 }
-
-# ===
 
 Numranks <- function(nums=NULL, ranks=NULL, add=NULL, empty="Species") {
  if(!is.null(nums) & !is.null(ranks)) stop("either 'nums' or 'ranks' (but not both) should be specified")
@@ -223,7 +298,9 @@ Numranks <- function(nums=NULL, ranks=NULL, add=NULL, empty="Species") {
  }
  if(is.null(nums) & !is.null(ranks)) {
   ranks <- gsub("[^a-z]", "", tolower(ranks))
-  ranks <- Recode(ranks, c("section", "family", "order", "kingdom"), c("sectio", "familia", "ordo", "regnum"))
+  ranks <- Recode(ranks,
+   c("tribe", "subtribe",  "section", "subsection", "family",  "subfamily",  "superfamiliy", "order", "suborder", "superorder", "kingdom", "subkingdom"),
+   c("tribus","subtribus", "sectio",  "subsectio",  "familia", "subfamilia", "superfamilia", "ordo",  "subordo",  "superordo",  "regnum",  "subregnum"))
   ranks[ranks == ""] <- empty
   .cap <- function(.x) { # from help(toupper)
    sapply(strsplit(.x, split=" "), function(.xx)

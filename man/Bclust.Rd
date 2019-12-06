@@ -11,6 +11,7 @@ iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 }
 
 \arguments{
+
   \item{data}{Data suitable for the chosen distance method}
 
   \item{method.d}{Method for dist()}
@@ -57,7 +58,8 @@ iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 }
 
 \seealso{
-  \code{\link{Jclust}}, \code{link{BootA}, \link{Hcl2mat}}
+  \code{\link{Jclust}}, \code{\link{BootA}}, \code{\link{Hcl2mat}},
+  \code{\link{Bclabels}}, \code{\link{Hcoords}}
 }
 
 \examples{

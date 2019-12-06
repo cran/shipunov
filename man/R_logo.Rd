@@ -1,9 +1,9 @@
-\name{R}
-\alias{R}
+\name{R.logo}
+\alias{R.logo}
 \title{Imitation (!) of the modern 'R' logo}
 \description{Imitation (!) of the modern 'R' logo}
 
-\usage{R(x, y, col.e="#B8BABF", col.l="#1E63B5", cex=12)}
+\usage{R.logo(x, y, col.e="#B8BABF", col.l="#1E63B5", cex=12)}
 
 \arguments{
 \item{x}{x coordinate of the letter}
@@ -25,10 +25,10 @@
 
 \examples{
 plot(1, type="n", axes=FALSE, xlab="", ylab="")
-R(1.1, 0.9, cex=25)
+R.logo(1.1, 0.9, cex=25)
 ##
 plot(1:20, type="n")
-for (i in 1:20) R(i, i, cex=2)
+for (i in 1:20) R.logo(i, i, cex=2)
 }
 
 \keyword{Graphical fun}

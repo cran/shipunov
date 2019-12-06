@@ -2,9 +2,77 @@ MrBayes <- function(x, file="", nst=6, rates="invgamma", ngammacat=4,
  nruns=2, ngen=1e+06, printfreq=100, samplefreq=10,
  nchains=4, savebrlens="yes", temp=0.2, burnin=10,
  contype="allcompat", run=FALSE,
- simple=TRUE, exec="mb-mpi", method="dna")                            # three new options
-{
- requireNamespace("ips")
+ simple=TRUE, exec="mb-mpi", method="dna") {                           # three new options
+ .write.nex <- function(x, file="", interleave=60, taxblock=FALSE) { # taken from the old ips (v.0.0.7)
+  if (class(x) == "alignment") stop ("Sequence alignment must be of class 'DNAbin'")
+  str2cha <- function(x) unlist(strsplit(x, ""))
+  if (class(x) == "DNAbin") datatype <- "dna"
+  if (class(x) == "dist") datatype <- "distances"
+  if (class(x) == "data.frame") datatype <- "standard"
+  missing <- if("?" %in% x[[1]]) "?" else "N"
+  ntax <-  if (datatype == "distances") attr(x, "Size") else dim(x)[[1]]
+  nchar <- dim(x)[[2]]
+  taxnames <- if (datatype == "distances") labels(x) else rownames(x)
+  header <- c("#NEXUS", paste("\n[created by ips on ", date(), "]\n", sep = ""))
+  # TAXA BLOCK
+  if (taxblock) {
+   tb <- c("begin taxa;", paste("\tdimensions ntax=", ntax,";", sep = ""),
+    "\ttaxlabels",  paste("\t", taxnames, sep = ""), ";\n")
+  }
+  # taxon names of same length
+  len <- nchar(taxnames)
+  mlen <- max(len)
+  len <- mlen - len + 1
+  foo <- function(x){
+   x <- rep(" ", x)
+   paste(x, collapse = "")
+  }
+  ws <- lapply(len, foo)
+  taxnames <- paste(taxnames, ws, sep = "")
+  # indices of partitions
+  int <- if (!is.numeric(interleave)) "" else " interleave"
+  if (!interleave) interleave <- nchar
+   nbpart <- ceiling(nchar/interleave)
+   pt <- matrix(nrow = nbpart, ncol = 2)
+   pt[1, ] <- c(1, interleave)
+   if (nbpart > 1)
+    for (i in 2:(dim(pt)[1])) {
+     pt[i, ] <- c(pt[i - 1, 2] + 1, pt[i - 1, 2] + interleave)
+     pt[nbpart, 2] <- nchar
+     }
+  # assemble matrix
+  m <- "matrix"
+  for (i in seq(along = pt[, 1])) {
+   sm <- as.character(x[, pt[i, 1]:pt[i, 2]])
+   if (is.null(dim(sm))) sm <- as.matrix(sm, ncol = 1)
+   sm <- apply(sm, 1, paste, collapse = "")
+   sm <- paste(taxnames, sm)
+   m <- c(m, sm)
+  }
+  m <- c(m, ";\nend;")
+  # write DATA BLOCK
+  if (datatype == "dna" || datatype == "standard") {
+   if (datatype == "standard" && !identical(x[1, 1],
+   round(x[1, 1])))
+   datatype <- "continuous"
+   if (!datatype == "standard") dt <- datatype
+   else dt <- paste(datatype, " symbols=\"",
+   paste(unique(unlist(x)), collapse = " "), "\"", sep = "")
+   data <- if (taxblock) "characters" else "data"
+   db <- c(paste("begin ", data, ";", sep = ""),
+    paste("\tdimensions ntax=", ntax, " nchar=", nchar, ";", sep = ""),
+    paste("\tformat datatype=", dt, " missing=", missing, " gap=-", int, ";", sep = ""), m)
+  }
+  # assemble NEXUS file:
+  if (taxblock) nex <- c(header, tb, db) else nex <- c(header, db)
+  # write NEXUS file
+  if ( file == "" ) {
+  cat(nex, sep = "\n")
+  invisible(nex)
+  } else {
+  write(nex, file = file)
+  }
+ }
  method <- match.arg(method, choices=c("dna", "mixed"))
  if (method == "dna") {
  if (!inherits(x, "DNAbin"))
@@ -19,12 +87,12 @@ MrBayes <- function(x, file="", nst=6, rates="invgamma", ngammacat=4,
    if(simple) { " conformat=simple;" },                                # 'simple format' allows to import node labels
    sep=""), "end;")
  if (file == "") {
-  nexus <- ips::write.nex(x, interleave=FALSE)
+  nexus <- .write.nex(x, interleave=FALSE)
   nexus <- c(nexus, bayes)
   cat(bayes, sep="\n")
  }
  else {
-  nexus <- ips::write.nex(x, file="", interleave=FALSE)
+  nexus <- .write.nex(x, file="", interleave=FALSE)
   nexus <- c(nexus, bayes)
   write(nexus, file=file)
  }
