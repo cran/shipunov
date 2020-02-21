@@ -31,31 +31,29 @@ iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 }
 
 \value{
-  List with components: 'values' for bootstrapped frequencies of each node,
-  'hcl' for original 'hclust' object,
+  List with the following components: 'values' for bootstrapped
+  frequencies of each node, 'hcl' for original 'hclust' object,
   'consensus' which is a sum of all Hcl2mat() matrices.
 }
 
 \details{
-  This function provides bootstrapping for hierarchical
-  clustering (\code{\link{hclust}} objects). Internally, it uses
-  Hcl2mat() which converts 'hclust' objects into binary matrix of cluster
-  memberships.
+
+  This function provides bootstrapping for hierarchical clustering
+  (\code{\link{hclust}} objects). Internally, it uses Hcl2mat() which
+  converts 'hclust' objects into binary matrix of cluster memberships.
 
   Bclust() and companion functions were based on functions from the
   'bootstrap' package of Sebastian Gibb.
 }
 
 \references{
-  Felsenstein, Joseph. \emph{Confidence limits on
-  phylogenies: an approach using the Bclust.} Evolution
-  (1985): 783-791.
 
-  Efron, Bradley, Elizabeth Halloran, and Susan Holmes.
-  \emph{Bootstrap confidence levels for phylogenetic
-  trees.} Proceedings of the National Academy of Sciences
-  93.23 (1996): 13429-13429.
-}
+  Felsenstein, J. 1985. \emph{Confidence limits on phylogenies: an
+  approach using the bootstrap.} Evolution. 783-791.
+
+  Efron, B., E. Halloran, and S. Holmes. 1996. \emph{Bootstrap confidence
+  levels for phylogenetic trees.} Proceedings of the National Academy of
+  Sciences. 93.23: 13429-13429. }
 
 \seealso{
   \code{\link{Jclust}}, \code{\link{BootA}}, \code{\link{Hcl2mat}},
@@ -97,4 +95,4 @@ Bclabels(bb1$hclust, bb1$values, col="green", pos=3, offset=0.1)
 Bclust(t(atmospheres), bootstrap=FALSE) # jacknife
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

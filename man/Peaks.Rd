@@ -30,4 +30,4 @@ histdata <- hist(apply(scale(iris[, -5]), 1, function(.x) sum(abs(.x))), breaks=
 sum(Peaks(histdata$counts)) # 3 is the first value after 1 and does not change when 8 < breaks < 22
 }
 
-\keyword{System}
+\keyword{manip}

@@ -380,21 +380,6 @@ Phyllotaxis <- function(n, angle=FALSE)
 
 ## ===
 
-Adj.Rand <- function (cl1, cl2) {
-tab <- table(cl1, cl2)
-f2 <- function(n) n * (n - 1) / 2
-sum.f2 <- function(v) sum(f2(v))
-marg.1 <- apply(tab, 1, sum)
-marg.2 <- apply(tab, 2, sum)
-n <- sum(tab)
-prod <- sum.f2(marg.1) * sum.f2(marg.2) / f2(n)
-num <- (sum.f2(as.vector(tab)) - prod)
-den <- 0.5 * (sum.f2(marg.1) + sum.f2(marg.2)) - prod
-num/den
-}
-
-## ===
-
 PlotBest.dist <- function(data, distances=c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"), dim=2, plot=TRUE) {
 if (any(data < 0)) distances <- setdiff(distances, "canberra") # because canberra wants positive values
 if (!any(data == 0)) distances <- setdiff(distances, "binary") # because binary wants zero and non-zero
@@ -451,42 +436,6 @@ invisible(res)
 
 ## ===
 
-BootRF <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE) {
-PRED <- matrix(character(0), nrow=nrow(data), ncol=nboot)
-TBL <- table(classes, classes)
-TBL[TBL > 0] <- 0
-for(b in 1:nboot) {
-cat(".")
-if (length(sub) == 1 && sub == "none") sub <- !logical(nrow(data))
-data.sub <- data[sub, ]
-classes.sub <- classes[sub]
-sel <- ave(1:nrow(data.sub), classes.sub, FUN=function(.x) sample.int(length(.x))) <= nsam
-train <- data.sub[sel, ]
-classes.train <- classes.sub[sel]
-model <- randomForest::randomForest(classes.train ~ ., data=train)
-pred <- predict(model, data)
-if (misclass) TBL <- TBL + table(pred, classes)
-PRED[, b] <- as.character(pred)
-}
-cat("\n")
-if(misclass){
-cat("\n")
-TBLb <- round(TBL/1000)
-sum <- colSums(TBLb)
-dia <- diag(TBLb)
-msc <- (sum - dia)/sum * 100
-m.m <- mean(msc)
-cat("Classification table:", "\n")
-print(TBLb)
-cat("Misclassification errors:", "\n")
-print(round(msc, 1))
-cat("Mean misclassification error: ", round(m.m, 1), "%", "\n", sep="")
-}
-invisible(PRED)
-}
-
-## ===
-
 BootKNN <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE) {
 PRED <- matrix(character(0), nrow=nrow(data), ncol=nboot)
 TBL <- table(results=classes, observed=classes)
@@ -518,21 +467,6 @@ print(round(msc, 1))
 cat("Mean misclassification error: ", round(m.m, 1), "%", "\n", sep="")
 }
 invisible(PRED)
-}
-
-## ===
-
-Dev <- function(pred, useNA="no", adj=FALSE){
-Max <- ncol(pred)
-All.levels <- levels(as.factor(c(pred)))
-Probs <- t(apply(pred, 1, function(.x) (table(factor(.x, levels=All.levels), useNA=useNA))))
-List <- apply(Probs, 1, function(.x) .x[!.x %in% c(0, Max)])
-DEV <- numeric(length(List))
-Length <- sapply(List, length)
-DEV[Length > 0] <- sapply(List[Length > 0], function(.x) min(abs(outer(c(0, Max), .x, "-"))))/Max
-DEV <- DEV * (Length - 1)
-if (adj) DEV <- DEV/length(All.levels)
-DEV
 }
 
 ## ===
@@ -721,117 +655,6 @@ Linechart <- function(vars, groups, xticks=TRUE, xmarks=TRUE, mad=FALSE, pch=19,
 
 ## ===
 
-Dotchart1 <- function (x, labels = NULL, groups = NULL, gdata = NULL, cex = par("cex"),
-    pt.cex = cex, pch = 21, gpch = 21, bg = par("bg"), color = par("fg"),
-    gcolor = par("fg"), lcolor = "gray", xlim = range(x[is.finite(x)]),
-    main = NULL, xlab = NULL, ylab = NULL, ...)
-{
-    opar <- par("mai", "mar", "cex", "yaxs")
-    on.exit(par(opar))
-    par(cex = cex, yaxs = "i")
-    if (!is.numeric(x))
-        stop("object to plot must be a numeric vector or matrix")
-    n <- length(x)
-    if (is.matrix(x)) {
-        if (is.null(labels))
-            labels <- rownames(x)
-        if (is.null(labels))
-            labels <- as.character(1L:nrow(x))
-        labels <- rep_len(labels, n)
-        if (is.null(groups))
-            groups <- col(x, as.factor = TRUE)
-        glabels <- levels(groups)
-    }
-    else {
-        if (is.null(labels))
-            labels <- names(x)
-        glabels <- if (!is.null(groups))
-            levels(groups)
-        if (!is.vector(x)) {
-            cat("convert plotting obj with as.numeric(obj)\n")             # change!
-            x <- as.numeric(x)
-        }
-    }
-    plot.new()
-    linch <- if (!is.null(labels))
-        max(strwidth(labels, "inch"), na.rm = TRUE)
-    else 0
-    if (is.null(glabels)) {
-        ginch <- 0
-        goffset <- 0
-    }
-    else {
-        ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
-        goffset <- 0.4
-    }
-    yinch <- if (!is.null(ylab)) 0.4 else 0                                # change!
-    if (!(is.null(labels) && is.null(glabels))) {
-        nmai <- par("mai")
-        nmai.2.new <- nmai[4L] + max(yinch + linch + goffset, ginch) + 0.1 # change!
-        if (nmai.2.new > nmai[2L]) {                                       # change
-            nmai[2L] <- nmai.2.new                                         # change!
-        }                                                                  # change!
-        par(mai = nmai)
-    }
-    if (is.null(groups)) {
-        o <- 1L:n
-        y <- o
-        ylim <- c(0, n + 1)
-    }
-    else {
-        o <- sort.list(as.numeric(groups), decreasing = TRUE)
-        x <- x[o]
-        groups <- groups[o]
-        color <- rep_len(color, length(groups))[o]
-        lcolor <- rep_len(lcolor, length(groups))[o]
-        offset <- cumsum(c(0, diff(as.numeric(groups)) != 0))
-        y <- 1L:n + 2 * offset
-        ylim <- range(0, y + 2)
-    }
-    plot.window(xlim = xlim, ylim = ylim, log = "")
-    lheight <- par("csi")
-    if (!is.null(labels)) {
-        linch <- max(strwidth(labels, "inch"), na.rm = TRUE)
-        loffset <- (linch + 0.1)/lheight
-        labs <- labels[o]
-        mtext(labs, side = 2, line = loffset, at = y, adj = 0,
-            col = color, las = 2, cex = cex, ...)
-    }
-    abline(h = y, lty = "dotted", col = lcolor)
-    points(x, y, pch = pch, col = color, bg = bg, cex = pt.cex/cex)
-    if (!is.null(groups)) {
-        gpos <- rev(cumsum(rev(tapply(groups, groups, length)) + 2) - 1)
-        ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
-        goffset <- (max(linch + 0.2, ginch, na.rm = TRUE) + 0.1)/lheight
-        mtext(glabels, side = 2, line = goffset, at = gpos, adj = 0,
-            col = gcolor, las = 2, cex = cex, ...)
-        if (!is.null(gdata)) {
-            abline(h = gpos, lty = "dotted")
-            points(gdata, gpos, pch = gpch, col = gcolor, bg = bg,
-                cex = pt.cex/cex, ...)
-        }
-    }
-    axis(1)
-    box()
-    title(main = main, xlab = xlab, ylab = ylab, ...)
-    invisible()
-}
-
-Dotchart <- function(...) {
- Dotchart1(lcolor="black", bg="white", pt.cex=1.2, ...)
-}
-
-Dotchart3 <- function(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2, gridcol="grey", ...) {
- Dotchart1(values, pch="", lcolor=0, xlim=range(c(values, left, right)), ...)
- grid(col=gridcol)
- for (i in 1:length(values)) {
-  lines(x=c(left[i], right[i]), y=c(i, i), lty=lty, lwd=lwd)
-  points(x=values[i], y=i, pch=pch, bg=bg, cex=pt.cex)
- }
-}
-
-## ===
-
 Ploth <- function(hclust, labels=hclust[["labels"]], lab.col=1, col=1, pch.cex=1, pch="", bg=0, col.edges=FALSE, ...)
 {
 plot(dendrapply(as.dendrogram(hclust), function(n)
@@ -977,102 +800,3 @@ Rostova.tbl <- function(X, GROUP, ...)
  r.table <- t(r.table)
  return(r.table)
 }
-
-## ===
-
-Pleiad <- function(tbl,
-abs=FALSE, # if TRUE, uses absolute values istead of real
-corr=FALSE, # if TRUE, uses absolute values istead of real and cuts from 0 to 1 -- good for correlation matrices
-dist=FALSE, # if TRUE, converts distance matrix to the data frame -- good for "dist" objects
-treshold=FALSE, # if this is (saying) =.5, selects for plotting (with lty=1) only those values which are >.5
-circ=list(1,1,1), # line type, width and color for the cirle; if first or third =0, no cicrle
-breaks=5, # how to cut() values, if "cramer", then =c(0,.1,.3,.5,1)
-auto=TRUE, # if FALSE, specify lwd, lty and lcol
-gr=6, # grayscale scheme starts from 6 breaks
-lwd=NULL, # if autolines=FALSE, change to vector concerted with breaks
-lty=NULL, # if autolines=FALSE, change to vector concerted with breaks
-lcol=NULL, # if autolines=FALSE, change to vector concerted with breaks; if length(lcol) == 1, all lines are of particular color
-abbr=-1, # if =-1, no abbreviation; if =0, no labels; other values run abbreviate(..., abbr)
-lbltext="internal", # if this is a vector starting from something else, will replace dimnames
-lblcex=1, # magnification of labels
-off=1.09, # radial offset of labels, be careful!
-hofft=0.07, # duct tape: treshold determining which labels are rigtmost/leftmost, hofft=0 put all labes into this group
-hoff=1.02, # duct tape: horizontal offset for rightmost/leftmost labels; hoff=1 removes offset
-legend=TRUE, # if FALSE, no legend
-legtext=1, # if =1 then "weaker ... stronger"; if =2, shows cutting intervals; if =3, then 1:5; if >3, issues error
-legpos="topright", # this is from legend()
-leghoriz=FALSE, # equal to horiz= from legend()
-show.int=FALSE, # show intervals in (...] form
-dig.lab=1, # dig.lab for cut()
-...) # options to _points_
-{
-if (breaks[1] == "cramer") breaks <- c(0,.1,.3,.5,1)
-lwds <- list(b1=1, b2=c(1,4), b3=c(1,1.2,3), b4=c(1,1,2,4), b5=c(1,1,1,2.5,4))
-ltys <- list(b1=1, b2=c(3,1), b3=c(3,2,1), b4=c(3,2,1,1), b5=c(3,2,1,1,1))
-lcols <- list(b1=1, b2=c(1,1), b3=c(1,1,1), b4=c(grey(.5), 1,1,1), b5=c(grey(c(.6,.5)), 1,1,1))
-##
-if (dist) tbl <- as.matrix(tbl)
-tbl <- data.frame(tbl)
-ddu <- unique(unlist(dimnames(tbl)))
-##
-ddc <- t(combn(ddu, 2))
-ddn <- apply(ddc, 1, function(.x) {.y <- tbl[.x[1],.x[2]]; ifelse(is.null(.y),NA,.y)}) # could be fragile
-ddn[is.na(ddn)] <- 0
-if (corr | abs) ddn <- abs(ddn)
-##
-x <- sin(seq(0, 2*pi, length.out=length(ddu)+1))
-y <- cos(seq(0, 2*pi, length.out=length(ddu)+1))
-##
-fromx <- as.numeric(Recode(ddc[ddn!=0,1], ddu, x))
-fromy <- as.numeric(Recode(ddc[ddn!=0,1], ddu, y))
-tox <- as.numeric(Recode(ddc[ddn!=0,2], ddu, x))
-toy <- as.numeric(Recode(ddc[ddn!=0,2], ddu, y))
-##
-segcut <- cut(ddn[ddn!=0], breaks, dig.lab=dig.lab)
-if ((length(breaks) == 1) & corr) segcut <- cut(ddn[ddn!=0], seq(0, 1, length.out=(breaks+1)))
-br <- nlevels(segcut)
-if (auto)
- {
- if ((br < gr) & (br < 6))
- { lwd <- lwds[[br]]; lty <- ltys[[br]]; if(length(lcol) != 1) lcol <- lcols[[br]] }
- else
- { lwd <- seq(1, 4, length.out=br); lty <- 1; lcol <- grey(seq(1, 0, length.out=(br+1)))[-1] }
- } else {
- if (any(is.null(lwd), is.null(lty), is.null(lcol))) stop("autolines=FALSE therefore lwd, lty and lcol must be all non-null")
- if (!all(br == length(lwd), br == length(lty), br == length(lcol))) stop("Lengths of breaks, lwd, lty and lcol must be the same")
- }
-seglwd <- cbind(1:br, lwd)
-seglty <- cbind(1:br, lty)
-segcol <- cbind(1:br, lcol)
-segp <- as.numeric(segcut)
-segpt <- Recode(segp, seglty[,1], seglty[,2]); segpt[is.na(segpt)] <- 0
-segpw <- Recode(segp, seglwd[,1], seglwd[,2]); segpw[is.na(segpw)] <- 1
-segcl <- Recode(segp, segcol[,1], segcol[,2]); segcl[is.na(segcl)] <- 0
-if (treshold) segcol <- segpw <- segpt <- (ddn > treshold) * 1
-##
-if (abbr > -1) dda <- abbreviate(ddu, abbr) else dda <- ddu
-seglev <- sub(","," - ", levels(segcut), fixed=TRUE)
-if (!show.int) { seglev <- sub("(","", seglev, fixed=TRUE); seglev <- sub("]","", seglev, fixed=TRUE) }
-legtxtable <- cbind(c("weaker", rep("", br-2), "stronger"), seglev, 1:br)
-legtxt <- legtxtable[,legtext]
-if (treshold)
- {
- lcol <- lty <- lwd <- 1
- legtxt <- paste(">",treshold)
- }
-oldpar <- par(mar=c(0,0,0,0))
-plot(x, y, xlim=c(-1,1)*1.15, ylim=c(-1,1)*1.15, axes=FALSE, type="n")
-polygon(sin(seq(0, 2*pi, length.out=100)), cos(seq(0, 2*pi, length.out=100)), lty=circ[[1]], lwd=circ[[2]], border=circ[[3]])
-segments(fromx, fromy, tox, toy, lwd=segpw, lty=segpt, col=segcl)
-points(x, y, ...)
-if (lbltext[1]=="internal") lbltxt <- dda else lbltxt <- lbltext
-posd <- x[-length(x)]
-posx <- posd*off
-ifelse(abs(posx-posd) > hofft, posx <- posx*hoff, posx)
-text(posx, y[-length(y)]*off, labels=lbltxt, cex=lblcex)
-if (legend) legend(legpos, horiz=leghoriz, lty=lty, lwd=lwd, col=lcol, legend=legtxt, bty="n", seg.len=1.2)
-par(oldpar)
-invisible(data.frame(x=x[-length(x)], y=y[-length(y)]))
-} # retunts data frame with position of points, helps in subsequent plot enhancing
-
-## ===

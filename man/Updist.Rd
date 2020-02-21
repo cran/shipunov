@@ -66,4 +66,4 @@ aadu <- Updist(aad, unlink=list(c("Earth", "Mercury")))
 plot(hclust(aadu))
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

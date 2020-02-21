@@ -56,4 +56,4 @@ dx <- Gower.dist(xx)
 plot(hclust(dx))
 }
 
-\keyword{Statistics}
+\keyword{multivariate}

@@ -1,10 +1,24 @@
+shipunov 1.5:
+ Class.sample() now handles proportion and has uniform sampling option;
+ Rows() renamed into Pull();
+ Adj.Rand() can now use NAs;
+ help files improved;
+ plot.nnet() removed as it is now available as NeuralNetTools::plotnet();
+ Dev() removed as it is simple without function (see ?BootKNN and ?BootRF);
+ BootRF() improved;
+ help keywords updated;
+ Life() has now interactive mode;
+ Dotchart1() updated with new version from base R;
+ Miney() code completely re-worked;
+ DNN() can now use self-training.
+
 shipunov 1.4:
  Fill() improved;
  new Ditto() function (reverse Fill());
  Biokey() and Numranks() improved;
  help files improved;
  new Rows() function;
- R() renaned into R.logo();
+ R() renamed into R.logo();
  Life() improved;
  Rpart2newick() and Biokey() now keep node labels;
  MrBayes() changed after new version of ips package
@@ -56,4 +70,5 @@ shipunov 1.1:
  Draw.arrow() removed;
  Histp() removed()
 
-shipunov 1.0: first release
+shipunov 1.0:
+ first release

@@ -36,4 +36,4 @@ pairwise.Eff(hwc$WEIGHT, hwc$COLOR, eff="cohen.d")
 pairwise.Eff(hwc$WEIGHT, hwc$COLOR, eff="cliff.delta")
 }
 
-\keyword{Statistics}
+\keyword{htest}

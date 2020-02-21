@@ -9,7 +9,7 @@
 }
 
 \usage{
-DNN(dst, cl, k, d, details=FALSE)
+DNN(dst, cl, k, d, details=FALSE, self=FALSE)
 Dnn(trn, tst, classes, FUN=function(.x) dist(.x), ...)
 }
 
@@ -19,6 +19,7 @@ Dnn(trn, tst, classes, FUN=function(.x) dist(.x), ...)
   \item{k}{How many neighbors to select, odd numbers preferable. If specified, do not use "d".}
   \item{d}{Distance to consider for neighborhood, in fractions of maximal distance. If specified, do not use "k".}
   \item{details}{If TRUE, function will return voting matrix. Default is FALSE.}
+  \item{self}{Allow self-training? Default is FALSE.}
   \item{trn}{Data to train from, classes variable out.}
   \item{tst}{Data with unknown classes.}
   \item{classes}{Classes variable for training data.}
@@ -27,22 +28,29 @@ Dnn(trn, tst, classes, FUN=function(.x) dist(.x), ...)
 }
 
 \details{
-  If classic kNN is a lazy classifier, DNN is super-lazy because it does not even
-  calculate the distance matrix itself. Instead, you supply it with distance matrix
-  (object of class 'dist') pre-computed with _any_ possible tool. This lifts
-  many restrictions. For example, arbitrary distance could be used (like Gower distance
-  which allows any type of variable). This is also much faster than typical kNN.
 
-  In addition to neighbor-based kNN classification, DNN implements _neighborhood_ classification
-  when all neighbors within selected distance used for voting.
+  If classic kNN is a lazy classifier, DNN is super-lazy because it does
+  not even calculate the distance matrix itself. Instead, you supply it
+  with distance matrix (object of class 'dist') pre-computed with _any_
+  possible tool. This lifts many restrictions. For example, arbitrary
+  distance could be used (like Gower distance which allows any type of
+  variable). This is also much faster than typical kNN.
 
-  As usual in kNN, ties are broken at random. DNN also controls situations when no neighbors
-  are within the given distance (and returns NA), and also when all neighbors are relevant (also returns NA).
+  In addition to neighbor-based kNN classification, DNN implements
+  _neighborhood_ classification when all neighbors within selected
+  distance used for voting.
 
-  By default, DNN() returns missing part of class labels, completely or partially filled with new
-  (predicted) class labels. If 'cl' has no NAs, DNN() returns it back with warning. It allows for
-  combined and stepwise extensions (see examples). If 'details=TRUE', DNN() will return matrix
-  where each column represents the table used for voting.
+  As usual in kNN, ties are broken at random. DNN also controls
+  situations when no neighbors are within the given distance (and returns
+  NA), and also when all neighbors are relevant (also returns NA).
+
+  By default, DNN() returns missing part of class labels, completely or
+  partially filled with new (predicted) class labels. If 'cl' has no NAs
+  and self=FALSE (default), DNN() returns it back with warning. It allows
+  for combined and stepwise extensions (see examples). If 'details=TRUE',
+  DNN() will return matrix where each column represents the table used
+  for voting. If self=TRUE, DNN() could be used to calculate the class
+  proximity surrogate.
 
   Dnn() is based on DNN() but has more class::knn()-like interface (see examples).
 }
@@ -94,23 +102,27 @@ cl2[is.na(cl2)] <- iris.pred2
 table(cl2, useNA="ifany")
 Misclass(iris$Species, cl2)
 
-## stepwise, note the warning when no NAs left
-cl3 <- cl1
+## self-training and class proximity surrogate
+cl3 <- iris$Species
+t(DNN(dst=iris.d, cl=cl3, k=5, details=TRUE, self=TRUE))/5
+
+## Dnn() with more class::knn()-like interface
+iris.trn <- iris[sam, ]
+iris.tst <- iris[!sam, ]
+Dnn(iris.trn[, -5], iris.tst[, -5], iris.trn[, 5], k=7)
+
+## stepwise DNN, note the warning when no NAs left
+cl4 <- cl1
 for (d in (5:14)/100) {
-iris.pred <- DNN(dst=iris.d, cl=cl3, d=d)
-cl3[is.na(cl3)] <- iris.pred
+iris.pred <- DNN(dst=iris.d, cl=cl4, d=d)
+cl4[is.na(cl4)] <- iris.pred
 }
-table(cl3, useNA="ifany")
-Misclass(iris$Species, cl3)
+table(cl4, useNA="ifany")
+Misclass(iris$Species, cl4)
 ## rushing to d=14\% gives much worse results
 iris.pred <- DNN(dst=iris.d, cl=cl1, d=0.14)
 table(iris.pred, useNA="ifany")
 Misclass(iris$Species[is.na(cl1)], iris.pred)
-
-## Dnn() has more class::knn()-like interface
-iris.trn <- iris[sam, ]
-iris.tst <- iris[!sam, ]
-Dnn(iris.trn[, -5], iris.tst[, -5], iris.trn[, 5], k=7)
 }
 
-\keyword{Multivariate}
+\keyword{multivariate}

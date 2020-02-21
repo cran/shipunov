@@ -8,7 +8,7 @@
 \arguments{
 \item{df}{Data frame to aggregate}
 \item{by}{Atomic object to use for aggregating}
-\item{...}{Arguments for 'aggregate()'}
+\item{...}{Further arguments for 'aggregate()'}
 }
 
 \details{
@@ -28,4 +28,4 @@ trees3 <- sample(letters[1:3], nrow(trees), replace=TRUE)
 Aggregate1(trees, trees3, median, na.rm=TRUE)
 }
 
-\keyword{System}
+\keyword{manip}

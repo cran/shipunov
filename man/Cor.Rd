@@ -37,4 +37,4 @@ Cor(longley, dec=2)
 Cor2(longley, dec=2)
 }
 
-\keyword{Correlation}
+\keyword{correlation}

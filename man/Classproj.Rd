@@ -14,12 +14,18 @@ Classproj(data, classes, method="DMS")
 }
 
 \details{
-'Classproj' is the semi-supervised (leveraged or educated) manifold learning (dimension reduction). See examples for the variety of its uses.
 
-It uses classes to determine centers and then tries to preserve distances between centers; two methods are possible:
-"DMS" which is slightly faster, and "QJ" which frequently finds a better projection.
+'Classproj' is the supervised or semi-supervised (leveraged or educated)
+manifold learning (dimension reduction). See examples for the variety of
+its uses.
 
-The code is based on the functions from 'clusterGeneration' package from Weiliang Qiu.
+It uses classes to determine centers and then tries to preserve distances
+between centers; two methods are possible: "DMS" which is slightly
+faster, and "QJ" which frequently finds a better projection.
+
+The code is based on the functions from 'clusterGeneration' package from
+Weiliang Qiu.
+
 }
 
 \value{
@@ -27,9 +33,14 @@ Returns list with 'proj' coordinates of projected data points and 'centers' coor
 }
 
 \references{
-Dhillon I.S., Modha D.S., Spangler W.S., 2002. Class visualization of high-dimensional data with applications. Computational Statistics and Data Analysis. 41: 59--90.
 
-Qiu W.-L., Joe H. 2006. Separation Index and Partial Membership for Clustering. Computational Statistics and Data Analysis. 50: 585--603.
+Dhillon I.S., Modha D.S., Spangler W.S., 2002. Class visualization of
+high-dimensional data with applications. Computational Statistics and
+Data Analysis. 41: 59--90.
+
+Qiu W.-L., Joe H. 2006. Separation Index and Partial Membership for
+Clustering. Computational Statistics and Data Analysis. 50: 585--603.
+
 }
 
 \author{Alexey Shipunov}
@@ -73,4 +84,4 @@ plot(iris.qj$proj, col=iris.km$cluster)
 text(iris.qj$centers, labels=1:3, col=1:3, cex=2)
 }
 
-\keyword{Multivariate}
+\keyword{multivariate}

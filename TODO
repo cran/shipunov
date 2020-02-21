@@ -6,17 +6,13 @@ Make Normalize.ranks(classif) to (1) fit ranks into given list and (2) propagate
 
 Make milti-key as function which questions table of binary variables and taxon rows with a string like "1010M1UB" (with missing, unknown and both)
 
-Make tool to make dichotomous key from binary table, use rpart:: as helper
+Make tool to make dichotomous key from binary table, use rpart:: as helper; look on DichotomousKey Github package
 
 Check how alternatives of shipunov::pairwise.Table2.test() and shipunov::Rro.test() work and change help files accordingly
-
-Dotchart1(): send this as dotchart() correction to R base
 
 MrBayes(): think how to standardize writing Nexus, now there are two ways, "old ips" and "direct"
 
 BestOverlap(): think how to make it work with Ellipses() (and return all total overlaps if needed); try parallel::mclapply()
-
-Life(): think how to add interactive filling with locator() and also separate startup from running
 
 In Ellipses() and Hulls(), it is better to calculate "coords" first, then plot
 

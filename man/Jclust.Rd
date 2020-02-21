@@ -29,19 +29,20 @@ Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=
 }
 
 \details{
-Simple bootstrap and jackknife clustering, requires the desired number of clusters.
 
-Alternative: 'pvc::pvc()'.
+Simple method to bootstrap and jackknife cluster memberships, and plot
+consensus membership tree. Requires the desired number of clusters.
+
 }
 
-% \value{}
+\value{Returns 'Jclust' object.}
 
 % \references{}
 
 \author{Alexey Shipunov}
 
 \seealso{
-  \code{\link{Bclust}}, \code{link{BootA}}
+  \code{\link{Bclust}}, \code{\link{BootA}}
 }
 
 \examples{
@@ -54,4 +55,4 @@ for (i in 2:(nrow(t(moldino)) - 1)) print(Jclust(t(moldino), i, iter=1000, boot=
 }
 }
 
-\keyword{Statistics}
+\keyword{cluster}

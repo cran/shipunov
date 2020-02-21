@@ -33,4 +33,4 @@ Files("~", hidden=TRUE) # explore home directory with hidden files (Linux, macOS
 }
 }
 
-\keyword{System}
+\keyword{utilities}

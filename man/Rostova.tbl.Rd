@@ -35,4 +35,4 @@ Trees[, 4] <- sample(letters[1:3], nrow(Trees), replace=TRUE)
 Rostova.tbl(Trees, 4)
 }
 
-\keyword{Correlation}
+\keyword{correlation}

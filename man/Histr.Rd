@@ -34,4 +34,4 @@ Histr(x, overlay="density")
 Histr(x^2, overlay="density", rug=TRUE, breaks=50, col="lightblue2")
 }
 
-\keyword{Plots}
+\keyword{hplot}

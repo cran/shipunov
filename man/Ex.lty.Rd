@@ -28,5 +28,5 @@ Ex.lines(custom="431313")
 Ex.lines(custom="F8")
 }
 
-\keyword{Graphical examples}
+\keyword{hplot}
 

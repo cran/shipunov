@@ -27,4 +27,4 @@ aa[upper.tri(aa, diag=TRUE)] <- "-"
 noquote(aa)
 }
 
-\keyword{Statistics}
+\keyword{univar}

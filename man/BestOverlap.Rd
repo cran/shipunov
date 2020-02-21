@@ -93,4 +93,4 @@ BestOverlap(xylabels)
 }
 }
 
-\keyword{Multivariate}
+\keyword{multivariate}

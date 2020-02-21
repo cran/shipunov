@@ -48,5 +48,4 @@ Gridmoon(Nightsky=FALSE, Moon=FALSE, Stars=FALSE, Hillcol="forestgreen",
  Text="Use R!", Textcol="yellow", Textpos=c(.25, .85), Textsize=96)
 }
 
-\keyword{Graphical fun}
-
+\keyword{hplot}

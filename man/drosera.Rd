@@ -36,4 +36,4 @@ This data frame contains the following columns:
 % ...
 % }
 
-\keyword{Datasets}
+\keyword{datasets}

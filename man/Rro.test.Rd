@@ -34,4 +34,4 @@ y <- c(1.15, 0.88, 0.90, 0.74, 1.21)
 Rro.test(x, y)
 }
 
-\keyword{Statistics}
+\keyword{htest}

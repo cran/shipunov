@@ -47,4 +47,4 @@ tmp$sequence <- apply(cbind(seqs, gc), 1, paste, collapse="")
 identical(tmp, expected) # TRUE, isn't it?
 }
 
-\keyword{Strictly biological}
+\keyword{manip}

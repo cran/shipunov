@@ -52,4 +52,4 @@ file.show(file=file.path(tempdir(), "tmp.nts"))
 Read.tri.nts(file=file.path(tempdir(), "tmp.nts"), skip=2)
 }
 
-\keyword{System}
+\keyword{manip}

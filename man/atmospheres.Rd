@@ -26,4 +26,4 @@ Data from the NASA Web site, once was available as 'planetatmoscomp.pdf' documen
 % ...
 % }
 
-\keyword{Datasets}
+\keyword{datasets}

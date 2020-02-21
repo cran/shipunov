@@ -37,5 +37,4 @@ Ex.points(extras=c("*", ".", "+", "a"), cex=2, col="black", bg="gray",
 Ex.points()
 }
 
-\keyword{Graphical examples}
-
+\keyword{hplot}

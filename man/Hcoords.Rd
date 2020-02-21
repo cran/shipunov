@@ -25,4 +25,4 @@ head(Hcoords(hclust(dist(iris[, -5]))))
 
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

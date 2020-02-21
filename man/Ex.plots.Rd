@@ -24,4 +24,4 @@ Ex.types()}
 Ex.types()
 }
 
-\keyword{Graphical examples}
+\keyword{hplot}

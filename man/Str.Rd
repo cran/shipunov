@@ -49,4 +49,4 @@ Str(trees.crazy) # does not work with these crazy objects
 }
 }
 
-\keyword{System}
+\keyword{environment}

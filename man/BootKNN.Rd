@@ -15,8 +15,6 @@
 }
 
 \details{
-This is an example of how to bootstrap with 'class::knn1()'.
-
 Samples equal numbers ('nsam') of training items from \emph{each level} of grouping factor.
 
 Allows to use \emph{sub}set of data which will be used for sub-sampling of training data.
@@ -28,11 +26,14 @@ Allows to use \emph{sub}set of data which will be used for sub-sampling of train
 
 \author{Alexey Shipunov}
 
-\seealso{\code{class::\link[class]{knn1}}, \code{\link{Dev}}}
+\seealso{\code{class::\link[class]{knn1}}}
 
 \examples{
 iris.sub <- 1:nrow(iris) \%in\% seq(1, nrow(iris), 5)
 iris.bootknn <- BootKNN(iris[, -5], iris[, 5], sub=iris.sub)
+## calculate and plot stability
+st <- apply(iris.bootknn, 1, function(.x) var(as.numeric(as.factor(.x))))
+plot(prcomp(iris[, -5])$x, col=iris$Species, pch=ifelse(st == 0, 19, 1))
 }
 
-\keyword{Statistics}
+\keyword{multivariate}

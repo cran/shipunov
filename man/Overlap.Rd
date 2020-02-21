@@ -13,7 +13,7 @@ Overlap(ppts, Hulls=TRUE)
 
 \arguments{
 \item{ppts}{List with hulls information (e.g., output from Hulls())}
-\item{Hulls}{Did the information came from Hulls()?}
+\item{Hulls}{Did the information come from Hulls()?}
 \item{object}{Object of the class 'Overlap'}
 \item{...}{Additional arguments}
 }
@@ -22,7 +22,9 @@ Overlap(ppts, Hulls=TRUE)
 'Overlap()' calculates polygons (hulls) overlap (it requires 'PBSmapping' package).
 
 If 'Hulls=FALSE', then list components with names 'centers' and 'outliers'
-will not be attempted to delete from 'ppts' list.
+will not be attempted to remove from 'ppts' list.
+
+Note that summary.Overlap() calculates the arithmetic, not geometric, mean.
 }
 
 \value{
@@ -43,4 +45,4 @@ iris.o <- Overlap(iris.h)
 summary(iris.o)
 }
 
-\keyword{Multivariate}
+\keyword{multivariate}

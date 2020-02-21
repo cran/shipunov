@@ -25,5 +25,5 @@ See, for example, thorough analysis at "http://emdbolker.wikidot.com/blog\%3Adyn
 Saynodynamite()
 }
 
-\keyword{Graphical fun}
+\keyword{hplot}
 

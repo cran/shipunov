@@ -25,4 +25,4 @@ Ditto(c("a", "a", "", "b", NA, "b"))
 Ditto(c("a", "a", "", "b", NA, "b"), ditto=NA)
 }
 
-\keyword{System}
+\keyword{manip}

@@ -85,4 +85,4 @@ Shipunov A. 1998. Plantains (genera Plantago L. and Psyllium Mill., Plantaginace
 plot(hclust(dist(plantago, method="binary")))
 }
 
-\keyword{Datasets}
+\keyword{datasets}

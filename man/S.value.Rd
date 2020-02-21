@@ -59,4 +59,4 @@ S.value(t.test(extra ~ group, data = sleep))
 S.value(list(pvalues=c(0.01, 0.002)))
 }
 
-\keyword{Statistics}
+\keyword{htest}

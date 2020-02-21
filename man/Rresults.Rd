@@ -35,5 +35,4 @@ file.show("hello_rresults.txt")
 }
 }
 
-\keyword{Utilities}
-
+\keyword{utilities}

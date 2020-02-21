@@ -42,4 +42,4 @@ plot(tree2)
 nodelabels(tree2$node.label, frame="none", bg="transparent", adj=-0.1)
 }
 
-\keyword{Multivariate}
+\keyword{multivariate}

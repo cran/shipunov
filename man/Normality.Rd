@@ -26,5 +26,5 @@ Normality(rnorm(100))
 sapply(trees, Normality)
 }
 
-\keyword{Statistics}
+\keyword{htest}
 

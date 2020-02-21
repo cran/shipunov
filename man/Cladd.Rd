@@ -33,4 +33,4 @@ plot(Height ~ Girth, data=trees)
 Cladd(hg.lm, data=trees, ab.lty=1)
 }
 
-\keyword{Plots}
+\keyword{aplot}

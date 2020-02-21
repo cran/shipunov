@@ -3,7 +3,7 @@
 \title{Finds all duplicates}
 \description{Finds duplicates from both ends, optionally returns indexes of duplicate groups}
 
-\usage{Alldups(v, groups = FALSE)}
+\usage{Alldups(v, groups=FALSE)}
 
 \arguments{
 \item{v}{vector}
@@ -26,4 +26,4 @@ Alldups(aa)
 data.frame(v=aa, dups=Alldups(aa), groups=Alldups(aa, groups=TRUE))
 }
 
-\keyword{System}
+\keyword{manip}

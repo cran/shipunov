@@ -1,4 +1,4 @@
-\name{Dotchart}
+\name{Dotcharts}
 \alias{Dotchart}
 \alias{Dotchart1}
 \alias{Dotchart3}
@@ -7,14 +7,17 @@
 \description{Dotcharts, improved and extended}
 
 \usage{
-Dotchart1(x, labels=NULL, groups=NULL, gdata=NULL, cex=par("cex"), pt.cex=cex,
- pch=21, gpch=21, bg=par("bg"), color=par("fg"), gcolor=par("fg"), lcolor="gray",
- xlim=range(x[is.finite(x)]), main=NULL, xlab=NULL, ylab=NULL, ...)
+Dotchart1(x, labels = NULL, groups = NULL, gdata=NULL,
+ ann=par("ann"), xaxt=par("xaxt"), frame.plot=TRUE, log="",
+ cex=par("cex"), pt.cex=cex, pch=21, gpch=21, bg=par("bg"),
+ color=par("fg"), gcolor=par("fg"), lcolor= "gray",
+ xlim=range(x[is.finite(x)]), main= NULL, xlab=NULL,
+ ylab=NULL, ...)
 
 Dotchart(...)
 
-Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2,
- gridcol="grey", ...)
+Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1,
+ lwd=2, gridcol="grey", ...)
 }
 
 \arguments{
@@ -22,6 +25,10 @@ Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2,
 \item{labels}{A vector of labels for each point.}
 \item{groups}{An optional factor indicating how the elements of 'x' are grouped.}
 \item{gdata}{Data values for the groups. This is typically a summary such as the median or mean of each group.}
+\item{ann}{Logical value indicating whether title and x and y axis labels should appear on the plot.}
+\item{xaxt}{String indicating the x-axis style; use 'n' to suppress and see also par("xaxt").}
+\item{frame.plot}{Logical indicating whether a box should be drawn around the plot.}
+\item{log}{Character string indicating if one or the other axis should be logarithmic, see ?plot.default.}
 \item{cex}{The character size to be used.}
 \item{pt.cex}{The 'cex' to be applied to plotting symbols.}
 \item{pch}{The plotting character or symbol to be used.}
@@ -78,4 +85,4 @@ Dotchart3(structure(1:3, names=LETTERS[1:3]), 0:2, 2:4)
 Dotchart3(structure(0:2, names=LETTERS[1:3]), 0:2, 2:4, pch="") # ranges only
 }
 
-\keyword{Plots}
+\keyword{hplot}

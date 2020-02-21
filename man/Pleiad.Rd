@@ -64,4 +64,4 @@ dr.c <- cor(drosera[, -1], method="spearman", use="pairwise")
 Pleiad(dr.c, corr=TRUE, legtext=2, pch=19, cex=1.2)
 }
 
-\keyword{Correlation}
+\keyword{hplot}

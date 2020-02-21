@@ -27,4 +27,4 @@ Part 1. Natural populations of Leucanthemum vulgare (Asteraceae). Botanicheskij 
 Cor.vec(trees, method="spearman")
 }
 
-\keyword{Correlation}
+\keyword{correlation}

@@ -33,4 +33,4 @@ Ls()
 }
 
 
-\keyword{base}
+\keyword{environment}

@@ -60,4 +60,4 @@ clade=c("Earth group", "Earth group", "Earth group", "Earth group", "Close giant
 Plot.phylocl(tree, cl, longer="5\%")
 }
 
-\keyword{Strictly biological}
+\keyword{hplot}

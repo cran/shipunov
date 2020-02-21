@@ -31,5 +31,5 @@ Is.tax.inform.char(c("A", "T", "T", "T", "T", "T", NA, NA))
 Is.tax.inform.char(c(1, 0, 1, 1, 0, 0, 0, 0))
 }
 
-\keyword{Strictly biological}
+\keyword{utilities}
 

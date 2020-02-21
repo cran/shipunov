@@ -259,7 +259,7 @@ res
 }
 
 Numranks <- function(nums=NULL, ranks=NULL, add=NULL, empty="Species") {
- if(!is.null(nums) & !is.null(ranks)) stop("either 'nums' or 'ranks' (but not both) should be specified")
+ if(!is.null(nums) & !is.null(ranks)) stop("either 'nums' or 'ranks' (but not both) must be specified")
  mat <- matrix(c(
   0.5, "Varietes",
   0.8, "Subspecies",

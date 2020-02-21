@@ -85,4 +85,4 @@ tree <- read.tree(text="((A:1,B:1):2,(C:3,D:4):2):3;")
 (tree.mrh3 <- MRH(as.hclust(compute.brlen(tree)), method="branches"))
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

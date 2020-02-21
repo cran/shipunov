@@ -70,4 +70,4 @@ PPoints(iris[, 5], iris[, 1], iris[, 2], scale=0.7, centers=TRUE)
 data(iris) ## to restore default embedded object
 }
 
-\keyword{Plots}
+\keyword{aplot}

@@ -65,4 +65,4 @@ cat("\n")
 Ellipses(haltica[, c("x17", "x5")], haltica$Species, level=.62)
 }
 
-\keyword{Plots}
+\keyword{aplot}

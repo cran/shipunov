@@ -24,4 +24,4 @@
 Missing.map(salix_leaves)
 }
 
-\keyword{Statistics}
+\keyword{aplot}

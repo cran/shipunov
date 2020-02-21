@@ -70,7 +70,7 @@ par(oldpar)
 \donttest{
 ## comparison of clustering techniques example
 ## old.X11.options <- X11.options(width=10, height=6)  # to make square cells
-oldpar <- par(mfrow=c(6, 10), mar=c(0, 0, 0, 0))
+oldpar <- par(mfrow=c(6, 10), mar=rep(0, 4), xaxt="n", yaxt="n")
 COUNT <- 1
 for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "varied")) {
  K <- 3
@@ -78,37 +78,36 @@ for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "v
  TITLE <- function(x) if (COUNT==1) { legend("topleft", legend=x, cex=1.25, bty="n") }
 ##
  newlabels <- cutree(hclust(dist(get(n)$samples), method="ward.D2"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("Ward")
 ##
  newlabels <- cutree(hclust(dist(get(n)$samples), method="average"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("UPGMA")
 ##
- newlabels <- kmeans(get(n)$samples, centers=K)$cluster
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ newlabels <- kmeans(round(get(n)$samples, 5), centers=K)$cluster
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("K-means")
 ##
  newlabels <- cutree(as.hclust(cluster::diana(dist(get(n)$samples))), k=K) # slow
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("DIANA")
 ##
  nn <- cluster::fanny(get(n)$samples, k=K) # a bit slow
  dunn <- apply(nn$membership, 1, function(.x) (sum(.x^2) - 1/K) / (1 - 1/K))
  fuzzy <- dunn < 0.05
- plot(get(n)$samples[!fuzzy, ], col=nn$clustering[!fuzzy], pch=19, main="", xlab="",
-  ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples[!fuzzy, ], col=nn$clustering[!fuzzy], pch=19)
  points(get(n)$samples[fuzzy, ], col="black", pch=1)
  TITLE("FANNY")
 ##
  newlabels <- kernlab::specc(get(n)$samples, centers=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("spectral")
 ##
  nn <- apcluster::apclusterK(apcluster::negDistMat(), get(n)$samples, K=K) # very slow
  newlabes <- apply(sapply(nn@clusters,
   function(.y) 1:nrow(get(n)$samples) \%in\% .y), 1, which)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("AP") # affinity propagation
 ##
  ## eps values taken out of scikit and 'dbscan::kNNdistplot() "knee"', 'minPts' default
@@ -116,18 +115,17 @@ for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "v
   aniso=0.5, varied=1)
  nn <- dbscan::dbscan(get(n)$samples, eps=EPS[n])
  outliers <- nn$cluster == 0
- plot(get(n)$samples[!outliers, ], col=nn$cluster[!outliers], pch=19, main="", xlab="",
-  ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples[!outliers, ], col=nn$cluster[!outliers], pch=19)
  points(get(n)$samples[outliers, ], col="black", pch=1)
  TITLE("DBSCAN")
 ##
  newlabels <- meanShiftR::meanShift(get(n)$samples, nNeighbors=10)$assignment
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("mean-shift")
 ##
  library(mclust)
  newlabels <- Mclust(get(n)$samples)$classification
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("Gaussian")
  COUNT <- COUNT + 1
 }
@@ -138,34 +136,34 @@ par(oldpar)
 \donttest{
 ## comparison of linkages example
 ## old.X11.options <- X11.options(width=8, height=6) # to make square cells
-oldpar <- par(mfrow=c(6, 8), mar=c(0, 0, 0, 0))
+oldpar <- par(mfrow=c(6, 8), mar=rep(0, 4), xaxt="n", yaxt="n")
 COUNT <- 1
 for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "varied")) {
  K <- 3 ; if (n \%in\% c("noisy.circles", "noisy.moons")) K <- 2
  TITLE <- function(x) if (COUNT==1) { legend("topleft", legend=x, cex=1.25, bty="n") }
  newlabels <- cutree(hclust(dist(get(n)$samples), method="ward.D2"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("Ward orig")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="ward.D"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("Ward")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="average"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("UPGMA")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="single"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("single")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="complete"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("complete")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="mcquitty"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("WPGMA")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="median"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("WPGMC")
  newlabels <- cutree(hclust(dist(get(n)$samples), method="centroid"), k=K)
- plot(get(n)$samples, col=newlabels, pch=19, main="", xlab="", ylab="", xaxt="n", yaxt="n")
+ plot(get(n)$samples, col=newlabels, pch=19)
  TITLE("UPGMC")
  COUNT <- COUNT + 1
 }
@@ -174,4 +172,4 @@ par(oldpar)
 }
 }
 
-\keyword{Data}
+\keyword{datagen}

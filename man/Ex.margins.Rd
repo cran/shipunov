@@ -22,5 +22,5 @@
 Ex.margins()
 }
 
-\keyword{Graphical examples}
+\keyword{hplot}
 

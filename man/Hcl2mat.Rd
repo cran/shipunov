@@ -30,4 +30,4 @@ head(Hcl2mat(hclust(dist(iris[, -5]))))
 
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

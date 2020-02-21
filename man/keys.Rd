@@ -168,4 +168,4 @@ plot(read.tree(text=Biokey(serial, from="serial", to="newick")))
 detach(keys)
 }
 
-\keyword{Datasets}
+\keyword{datasets}

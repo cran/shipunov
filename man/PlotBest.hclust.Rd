@@ -31,4 +31,4 @@ involved)}
 PlotBest.hclust(dist(iris[, -5], method="manhattan"))
 }
 
-\keyword{Statistics}
+\keyword{hplot}

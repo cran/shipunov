@@ -37,5 +37,4 @@ y.Coml <- Coml(dolbli[1:45], dolbli[46:79])
 summary(y.Coml, n=5)
 }
 
-\keyword{Strictly biological}
-
+\keyword{manip}

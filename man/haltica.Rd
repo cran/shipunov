@@ -55,4 +55,4 @@ plot(haltica.qj$proj, col=haltica$Species)
 text(haltica.qj$centers, levels(haltica$Species), col=1:2)
 }
 
-\keyword{Datasets}
+\keyword{datasets}

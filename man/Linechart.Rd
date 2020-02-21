@@ -39,5 +39,4 @@ Trees[, 4] <- sample(letters[1:3], nrow(Trees), replace=TRUE)
 Linechart(Trees[, 1:3], factor(Trees[, 4]))
 }
 
-\keyword{Plots}
-
+\keyword{hplot}

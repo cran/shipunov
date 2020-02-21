@@ -26,7 +26,9 @@ This is how to bootstrap clustering with 'ape::boot.phylo()'.
 
 \author{Alexey Shipunov}
 
-\seealso{ape::\code{\link[ape]{boot.phylo}}}
+\seealso{
+ \code{\link{Bclust}}, \code{\link{BootA}}, ape::\code{\link[ape]{boot.phylo}}
+}
 
 \examples{
 dat <- iris[, -5]
@@ -42,4 +44,4 @@ iris.BA3 <- BootA(dat, FUN=function(.x) phangorn::NJ(dist(.x)), iter=100,
 }
 }
 
-\keyword{Statistics}
+\keyword{cluster}

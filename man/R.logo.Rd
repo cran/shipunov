@@ -31,4 +31,4 @@ plot(1:20, type="n")
 for (i in 1:20) R.logo(i, i, cex=2)
 }
 
-\keyword{Graphical fun}
+\keyword{aplot}

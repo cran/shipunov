@@ -31,5 +31,5 @@ plot(1:8, type="n")
 Ell(4, 5, 6)
 }
 
-\keyword{Graphical fun}
+\keyword{aplot}
 

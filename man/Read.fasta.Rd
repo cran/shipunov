@@ -24,5 +24,5 @@ write(file=file.path(tempdir(), "tmp.fasta"), ">some_id\nATGC")
 Read.fasta(file=file.path(tempdir(), "tmp.fasta"))
 }
 
-\keyword{Strictly biological}
+\keyword{manip}
 

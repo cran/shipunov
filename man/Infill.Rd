@@ -49,5 +49,4 @@ summary(data.I)
 plot(data.I)
 }
 
-\keyword{Strictly biological}
-
+\keyword{multivariate}

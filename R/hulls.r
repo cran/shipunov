@@ -9,7 +9,7 @@ for (is in inds) {
  if (!is.null(usecolors)) m.col <- usecolors[match(is, inds)]
  gr <- out[groups == is]
  if (length(gr) > 1) {
- X <- pts[gr, ]
+ X <- pts[gr, 1:2]
  hpts <- chull(X)
  ppts[[is]] <- X[hpts, ]
  hpts.l <- c(hpts, hpts[1])
@@ -42,7 +42,7 @@ if(!outliers) {
   if (!is.null(usecolors)) m.col <- usecolors[match(is, inds)]
   gr <- out[groups == is]
   if (length(gr) > 1) {
-  X <- pts[gr, ]
+  X <- pts[gr, 1:2]
   C <- centers[match(is, inds), ]
   D <- apply(X, 1, function(.x) sqrt(sum((.x - C)^2)))
   outliers <- D %in% boxplot.stats(D, coef=coef)$out

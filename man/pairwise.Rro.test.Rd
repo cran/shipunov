@@ -26,4 +26,4 @@
 pairwise.Rro.test(airquality$Ozone, airquality$Month)
 }
 
-\keyword{Statistics}
+\keyword{htest}

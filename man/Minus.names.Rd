@@ -28,4 +28,4 @@ str(iris[, !names(iris) \%in\% "Species"]) # this is how to make it without \%-\
 c("apples", "bananas") \%-\% c("apples") # simple character string also works
 }
 
-\keyword{System}
+\keyword{manip}

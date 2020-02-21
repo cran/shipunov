@@ -30,4 +30,4 @@ Good for the analysis of correlation matrices.
 Topm(cor(trees), corr=TRUE)
 }
 
-\keyword{Correlation}
+\keyword{correlation}

@@ -26,4 +26,4 @@ Coefficients of variation: different variants of the standardized range
 sapply(trees, CVs)
 }
 
-\keyword{Statistics}
+\keyword{univar}

@@ -29,5 +29,5 @@ cor(iris[, 1:4], iris.m$points) # MDS loadings surrogate
 MDSv(iris.m$points) # MDS explained variance surrogate
 }
 
-\keyword{Statistics}
+\keyword{multivariate}
 

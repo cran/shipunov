@@ -10,7 +10,7 @@
 \item{pred}{Predicted class labels}
 \item{obs}{Observed class labels}
 \item{best}{Perform a search for the classification table with minimal misclassification rate?}
-\item{ignore}{Vector of class labels to ignore}
+\item{ignore}{Vector of class labels to ignore (convert into NAs)}
 \item{quiet}{Output summary?}
 \item{...}{Arguments to 'table'}
 }
@@ -29,7 +29,7 @@ classes are not equal.
 Additional arguments could be passed for table(), for example, 'useNA="ifany"'. If supplied data contains NAs, there
 will be also note in the end.
 
-It is possible to ignore some class labels with 'ignore=...', this is useful for methods like DBSCAN
+It is possible to ignore (convert into NAs) some class labels with 'ignore=...', this is useful for methods like DBSCAN
 which output special label for outliers. In that case, note about missing data is also issued.
 
 Alternatives: confusion matrix from 'caret::confusionMatrix()' which is more feature rich but much less flexible.
@@ -71,4 +71,4 @@ Misclass(iris.db$cluster, iris$Species, ignore=0, best=TRUE)
 set.seed(NULL)
 }
 
-\keyword{Statistics}
+\keyword{multivariate}

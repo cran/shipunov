@@ -45,4 +45,4 @@ sapply(eq[, -1], function(.x) K(.x ~ eq[, 1]))
 summary(K(x17 ~ Species, data=haltica), num=5)
 }
 
-\keyword{Statistics}
+\keyword{univar}

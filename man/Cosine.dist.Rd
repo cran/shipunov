@@ -27,4 +27,4 @@ Cosine.dist() does not work with data frames, convert them with e.g., as.matrix(
 plot(hclust(Cosine.dist(as.matrix(iris[!c(rep(1, 9), 0), -5]))))
 }
 
-\keyword{Statistics}
+\keyword{multivariate}

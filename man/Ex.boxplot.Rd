@@ -23,5 +23,5 @@
 Ex.boxplot()
 }
 
-\keyword{Graphical examples}
+\keyword{hplot}
 

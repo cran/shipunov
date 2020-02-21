@@ -188,4 +188,4 @@ Biokey(newick1, from="newick", to="classif")
 
 }
 
-\keyword{Strictly biological}
+\keyword{classif}

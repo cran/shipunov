@@ -1,19 +1,21 @@
 \name{Miney}
 \alias{Miney}
 \title{Miney game}
-\description{Miney minesweeper game}
+\description{Minesweeper game}
 
-\usage{Miney(n, ucol="black", gcol="white", bcol="red")}
+\usage{Miney(n, ucol="#b8ff73", gcol="#f0f0f0", bcol="red", space=0.05, pbombs=0.15)}
 
 \arguments{
-\item{n}{Indicates the size of the matrix to play, i.e. n=5 results in n x n = 5 x 5 matrix.}
-\item{ucol}{Color of unknown cells}
-\item{gcol}{Color of good cells}
+\item{n}{Size of the field to play, i.e. n=9 (default) is 9 x 9 field.}
+\item{ucol}{Color of unknown cells, default is "law green"}
+\item{gcol}{Color of good cells, default is gray}
 \item{bcol}{Color of bad cells}
+\item{space}{Space between cells}
+\item{pbombs}{Proportion of cells with bombs}
 }
 
 \details{
-Miney game, modified from 'miney' package of Roland Rau. See also the 'fun' package.
+Heavily modified from 'Miney::miney()' of Roland Rau. See also the fun::mine_sweeper() function.
 }
 
 % \value{}
@@ -31,5 +33,4 @@ Miney(3)
 }
 }
 
-\keyword{Graphical fun}
-
+\keyword{misc}

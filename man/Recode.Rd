@@ -94,4 +94,4 @@ Recode(1:3, 1:3, 4, recycle=TRUE)
 
 }
 
-\keyword{Multiple recode}
+\keyword{manip}

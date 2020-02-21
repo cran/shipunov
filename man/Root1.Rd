@@ -44,4 +44,4 @@ Root1(bird.orders, 1:3) # only outputs error _message_
 Root1(bird.orders, 1, resolve.root=TRUE)
 }
 
-\keyword{Strictly biological}
+\keyword{manip}

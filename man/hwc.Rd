@@ -51,4 +51,4 @@ data.frame(COLOR=rep(c("black", "blond", "brown"), each=30),
  WEIGHT=c(VES.BR, VES.BL, VES.SH), HEIGHT=c(ROST.BR, ROST.BL, ROST.SH))
 }
 
-\keyword{Datasets}
+\keyword{datasets}

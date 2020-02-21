@@ -154,4 +154,4 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
 }
 
-\keyword{Special multivariate plots}
+\keyword{aplot}

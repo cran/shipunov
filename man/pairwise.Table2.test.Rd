@@ -34,4 +34,4 @@ chisq.test(titanic)
 pairwise.Table2.test(titanic)
 }
 
-\keyword{Statistics}
+\keyword{htest}

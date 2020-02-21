@@ -35,5 +35,4 @@ Ex.cols()
 Ex.cols(all=TRUE)
 }
 
-\keyword{Graphical examples}
-
+\keyword{hplot}

@@ -44,4 +44,4 @@ plot(bb$hclust)
 Bclabels(bb$hclust, bb$values, col="red", pos=3, offset=0.1, threshold=0.5)
 }
 
-\keyword{Multivariate}
+\keyword{cluster}

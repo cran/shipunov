@@ -34,5 +34,4 @@ Tobin(ee, conv=FALSE)
 Tobin(ee, conv=TRUE)
 }
 
-\keyword{System}
-
+\keyword{manip}

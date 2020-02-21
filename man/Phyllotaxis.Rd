@@ -36,4 +36,4 @@ sapply(1:10, Phyllotaxis)
 sapply(1:10, Phyllotaxis, angle=TRUE)
 }
 
-\keyword{Strictly biological}
+\keyword{math}

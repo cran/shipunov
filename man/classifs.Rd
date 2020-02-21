@@ -112,4 +112,4 @@ stt[, 1] <- Fill(stt[, 1], "P.")
 (res <- apply(stt, 1, paste, collapse=" "))
 }
 
-\keyword{Datasets}
+\keyword{datasets}

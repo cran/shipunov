@@ -26,4 +26,4 @@ Convert contingency table into data frame and keep structure.
 Table2df(table(iris[, 5]))
 }
 
-\keyword{System}
+\keyword{manip}

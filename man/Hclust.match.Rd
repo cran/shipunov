@@ -32,4 +32,4 @@ aa12.match <- Hclust.match(aa.d1, aa.d2)
 heatmap(aa12.match, scale="none")
 }
 
-\keyword{Statistics}
+\keyword{cluster}

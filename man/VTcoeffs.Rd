@@ -36,4 +36,4 @@ VTcoeffs(x)
 VTcoeffs(x)[2, ] # most practical
 }
 
-\keyword{Statistics}
+\keyword{univar}

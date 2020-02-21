@@ -23,5 +23,5 @@
 Ex.fonts()
 }
 
-\keyword{Graphical examples}
+\keyword{hplot}
 

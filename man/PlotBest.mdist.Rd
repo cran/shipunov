@@ -41,4 +41,4 @@ m1 <- t((moldino > 0) * 1)
 PlotBest.mdist(m1, binary.only=TRUE)
 }
 
-\keyword{Statistics}
+\keyword{hplot}

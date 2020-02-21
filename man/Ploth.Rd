@@ -40,4 +40,4 @@ Ploth(iris.hclust, col=as.numeric(iris[, 5]), pch=16, col.edges=TRUE, horiz=TRUE
 legend("topleft", fill=1:nlevels(iris[, 5]), legend=levels(iris[, 5]))
 }
 
-\keyword{Plots}
+\keyword{hplot}

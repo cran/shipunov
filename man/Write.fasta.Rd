@@ -27,5 +27,4 @@ Write.fasta(ff, file=file.path(tempdir(), "tmp.fasta")) # warning will be produc
 file.show(file=file.path(tempdir(), "tmp.fasta")) # interactive
 }
 
-\keyword{Strictly biological}
-
+\keyword{manip}

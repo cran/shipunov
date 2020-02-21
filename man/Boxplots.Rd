@@ -43,5 +43,4 @@ eq3 <- eq[eq$sp \%in\% levels(eq$sp)[1:3], ]
 Boxplots(eq3[, 2:9], eq3[, 1], boxcols=grey(1:3/3), slty=0) # no border lines
 }
 
-\keyword{Plots}
-
+\keyword{hplot}

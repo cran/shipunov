@@ -32,4 +32,4 @@ involved)}
 PlotBest.dist(iris[, -5])
 }
 
-\keyword{Statistics}
+\keyword{hplot}

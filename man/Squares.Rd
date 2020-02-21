@@ -27,4 +27,4 @@ iris.h <- Hulls(iris.p[, 1:2], as.numeric(iris[, 5]), plot=FALSE)
 iris.o <- Squares(iris.h, relative=TRUE)
 }
 
-\keyword{Plots}
+\keyword{multivariate}

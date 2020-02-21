@@ -32,4 +32,4 @@ iris.h <- hclust(iris.d)
 Co.test(iris.h, iris.d, method="kendall")
 }
 
-\keyword{Statistics}
+\keyword{cluster}
