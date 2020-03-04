@@ -8,7 +8,7 @@ importFrom("graphics", "abline", "arrows", "axis", "barplot", "box",
            "boxplot", "dotchart", "grid", "hist", "image", "legend",
            "lines", "locator", "matlines", "mtext", "par", "plot",
            "plot.new", "plot.window", "points", "polygon", "rect",
-           "segments", "strwidth", "text", "title")
+           "segments", "strwidth", "text", "title", "contour")
 importFrom("stats", "IQR", "aggregate", "as.dendrogram", "as.dist",
            "ave", "chisq.test", "cmdscale", "cophenetic", "cor",
            "cor.test", "cov", "cutree", "dendrapply", "density",

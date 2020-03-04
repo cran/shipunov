@@ -37,8 +37,8 @@ Trees <- trees
 Trees[, 4] <- sample(letters[1:3], nrow(Trees), replace=TRUE)
 Boxplots(Trees[, 1:3], factor(Trees[, 4]), srt=0, adj=c(.5, 1)) # horizontal labels
 
-sp <- Recode(eq_s$N.POP, eq_l$N.POP, as.character(eq_l$SPECIES))
-eq <- cbind(sp, eq_s[-1])
+sp <- Recode(eq_s$N.POP, eq_l$N.POP, eq_l$SPECIES)
+eq <- cbind(sp=as.factor(sp), eq_s[, -1])
 eq3 <- eq[eq$sp \%in\% levels(eq$sp)[1:3], ]
 Boxplots(eq3[, 2:9], eq3[, 1], boxcols=grey(1:3/3), slty=0) # no border lines
 }

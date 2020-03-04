@@ -1,6 +1,7 @@
-BootRF <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE, ...) {
+BootKNN <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE, method="knn", ...) {
+ method <- match.arg(method, choices=c("knn", "dnn"))
  PRED <- matrix(character(0), nrow=nrow(data), ncol=nboot)
- TBL <- table(classes, classes)
+ TBL <- table(results=classes, observed=classes)
  TBL[TBL > 0] <- 0
  for(b in 1:nboot) {
   cat(".")
@@ -10,13 +11,13 @@ BootRF <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE,
   sel <- ave(1:nrow(data.sub), classes.sub, FUN=function(.x) sample.int(length(.x))) <= nsam
   train <- data.sub[sel, ]
   classes.train <- classes.sub[sel]
-  model <- randomForest::randomForest(classes.train ~ ., data=train, ...)
-  pred <- predict(model, data)
-  if (misclass) TBL <- TBL + table(pred, classes)
-  PRED[, b] <- as.character(pred)
+  if (method == "knn") res <- class::knn(train, data, classes.train, ...)
+  if (method == "dnn") res <- Dnn(trn=train, tst=data, classes=classes.train, ...)
+  if (misclass) TBL <- TBL + table(res, classes)
+  PRED[, b] <- as.character(res)
  }
  cat("\n")
- if(misclass){
+ if (misclass){
   cat("\n")
   TBLb <- round(TBL/nboot)
   sum <- colSums(TBLb)
@@ -29,5 +30,5 @@ BootRF <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE,
   print(round(msc, 1))
   cat("Mean misclassification error: ", round(m.m, 1), "%", "\n", sep="")
  }
-invisible(PRED)
+ invisible(PRED)
 }

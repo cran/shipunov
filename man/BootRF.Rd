@@ -16,7 +16,6 @@
 }
 
 \details{
-
 Note that as randomForest::randomForest() is based on sampling, BootRF()
 is the kind of second-level bootstrap.
 

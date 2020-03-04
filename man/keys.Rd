@@ -130,8 +130,8 @@ Shipunov A. 2019. Plantago. In: Freeman, C. and Rabeler R. (eds.) Flora
 of North America. 2019. 17: 280--293. Oxford University Press, New York
 and Oxford.
 
-Shipunov A. biokey -- Flexible identification key tables in LaTeX.
-Version 3.1.\cr URL: "https://ctan.org/pkg/biokey'
+Shipunov A. 2019. biokey -- Flexible identification key tables in LaTeX.
+Version 3.1. See "https://ctan.org/pkg/biokey".
 
 Sviridov A.V. 1994. Types of the biodiagnostic keys and their uses.
 Moscow. [In Russian]

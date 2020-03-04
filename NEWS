@@ -1,3 +1,14 @@
+shipunov 1.6:
+ help files improved;
+ small bug in BootRF() and BootKNN() corrected;
+ BookKNN() now also handles Dnn();
+ Gradd(..., what="lines") now also plots decision boundaries;
+ help(Gradd) simplified and two packages removed from "Suggested";
+ functions Co.test() and Is.tax.inform.char() removed as very simple and rarely used;
+ compatibility established with new R 'stringsAsFactors=TRUE';
+ new function Biarrows() to make biplot from any dimension reduction;
+ Plot.phylocl() can now keep monotypic clades.
+
 shipunov 1.5:
  Class.sample() now handles proportion and has uniform sampling option;
  Rows() renamed into Pull();

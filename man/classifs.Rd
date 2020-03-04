@@ -60,15 +60,15 @@ Linnaeus C. 1753. Species Plantarum. Holmieae.
 Barneoud F.M. 1845. Monographie generale de la familie des
 Plantaginaceae. Paris.
 
-Shipunov A. classif2 -- Biological classification tables. Version 2.2.\cr
-URL: "https://ctan.org/pkg/classif2'
+Shipunov A. 2019. classif2 -- Biological classification tables. Version
+2.2. See "https://ctan.org/pkg/classif2".
 
 Shipunov A. 2000. The genera Plantago L. and Psyllium Mill.
 (Plantaginaceae Juss.) in the flora of East Europe. T. Novosti
 Systematiki Vysshikh Rastenij. 32: 139--152. [In Russian]
 
 Shipunov A. 2017. "Numerical ranks" to improve biological nomenclature of
-higher groups. 2017. URL: 'https://arxiv.org/abs/1708.07260'
+higher groups. 2017. See "https://arxiv.org/abs/1708.07260".
 
 }
 
@@ -85,10 +85,6 @@ plevru[, 1] <- Numranks(ranks=plevru[, 1], add=c(Series=1.1))
 plevru.n <- Biokey(plevru, from="classif", to="newick")
 library(ape) # to plot, load the 'ape' package
 plot(read.tree(text=plevru.n))
-
-## Barneoud classif
-brn.n <- Biokey(classifs$plbarn, from="classif", to="newick")
-plot((read.tree(text=brn.n)), no.margin=TRUE)
 
 ## convert classif to taxonomic table
 plevru.t <- Biokey(plevru, from="classif", to="table")

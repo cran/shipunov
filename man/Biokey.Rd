@@ -82,7 +82,7 @@ outputs a standardized 4-column data frame in a form of branched key
 
 \references{
 Shipunov A. 2017. "Numerical ranks" to improve biological nomenclature of
-higher groups. 2017. URL: 'https://arxiv.org/abs/1708.07260'
+higher groups. See "https://arxiv.org/abs/1708.07260".
 }
 
 \author{Alexey Shipunov}

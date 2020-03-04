@@ -3,15 +3,16 @@
 \title{Plot phylogenetic tree with clades collapsed}
 \description{Plot phylogenetic tree with clades collapsed into triangles or rectangles}
 
-\usage{Plot.phylocl(tree, cl, strict=TRUE, what="triangles", col.ed="black",
- col.td="black", col.etr="transparent", col.ttr="transparent", col.pfl="lightgrey",
- col.pbr="black", lty.p=1, lwd.p=1, col.ct="black", ct.off=0, ct.fnt=1,
- longer="0\%", ...)}
+\usage{Plot.phylocl(tree, cl, strict=TRUE, keep.mono=FALSE, what="triangles",
+ col.ed="black", col.td="black", col.etr="transparent", col.ttr="transparent",
+ col.pfl="lightgrey", col.pbr="black", lty.p=1, lwd.p=1, col.ct="black",
+ ct.off=0, ct.fnt=1, longer="0\%", ...)}
 
 \arguments{
 \item{tree}{phylo object}
 \item{cl}{two columns classification table}
 \item{strict}{default TRUE: do not join all descendants}
+\item{keep.mono}{default FALSE: do not keep monotypic clades}
 \item{what}{default "triangles", also possible to use "rectangles"}
 \item{col.ed}{default "black", default edge color}
 \item{col.td}{default black", default tips color}
@@ -29,17 +30,27 @@
 }
 
 \details{
-Plot.phylocl() plots phylogenetic tree with clades collapsed into triangles or rectangles.
 
-Alternative is phytools::plot.backbonePhylo() which however requires more manual work.
+Plot.phylocl() plots phylogenetic tree with clades collapsed into
+triangles or rectangles.
 
-Some tricks used (null plotting and transparent elements), the last one is actually useful in other ways.
+Alternative is phytools::plot.backbonePhylo() which however requires more
+manual work.
 
-Intersections and other deviated cases not controlled. However, they are really easy to spot.
+Some tricks used (null plotting and transparent elements), the last one
+is actually useful in other ways.
 
-All parameters of polygons should be either "scalars" or vectors of the same length
-as clade list (minus monotypic clades), clades are in alphabetical order. To help,
-list of clade names is invisibly returned in the end.
+Intersections and other deviated cases not controlled. However, they are
+really easy to spot.
+
+All parameters of polygons should be either "scalars" or vectors of the
+same length as clade list (minus monotypic clades), clades are in
+alphabetical order. To help, list of clade names is invisibly returned in
+the end.
+
+If keep.mono=TRUE, then monotypic clades must have names in the clade
+list, otherwise this option is useless.
+
 }
 
 \value{Returns list of clade names.}
@@ -53,10 +64,28 @@ list of clade names is invisibly returned in the end.
 \examples{
 aa.d <- hclust(dist(t(atmospheres)))
 tree <- ape::unroot(ape::as.phylo(aa.d))
-cl <- data.frame(planet=c("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn",
- "Uranus", "Neptune"),
-clade=c("Earth group", "Earth group", "Earth group", "Earth group", "Close giants",
- "Close giants", "Distant giants", "Distant giants"), stringsAsFactors=FALSE)
+
+cl <- data.frame(
+planet=c(
+ "Mercury",
+ "Venus",
+ "Earth",
+ "Mars",
+ "Jupiter",
+ "Saturn",
+ "Uranus",
+ "Neptune"),
+clade=c(
+ "Mercury",
+ "Mars group",
+ "Earth",
+ "Mars group",
+ "Close giants",
+ "Close giants",
+ "Distant giants",
+ "Distant giants"),
+stringsAsFactors=FALSE)
+
 Plot.phylocl(tree, cl, longer="5\%")
 }
 

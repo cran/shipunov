@@ -20,8 +20,8 @@ Likely too straightforward, and only weakly optimized (really slow).
 \value{Outputs character matrix where each column is a gapcoded position.}
 
 \references{
-Borchsenius F. 2009. FastGap 1.2. Department of Biosciences, Aarhus University, Denmark.
-Published online at "http://www.aubot.dk/FastGap_home.htm".
+Borchsenius F. 2009. FastGap 1.2. Department of Biosciences, Aarhus
+University, Denmark. See "http://www.aubot.dk/FastGap_home.htm".
 }
 
 \author{Alexey Shipunov}
