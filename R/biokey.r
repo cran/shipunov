@@ -87,7 +87,7 @@ if (from == "bracket") {
   jump <- key[n-1, 4] # 4th column must contain goto's
   if(!is.na(jump)) {
    first <- key[1:(n-1), ]
-   move2 <- (1:nrow(key))[key[, 1] == jump]
+   move2 <- (seq_len(nrow(key)))[key[, 1] == jump]
    second <- key[move2, ]
    third <- key[-c(1:(n-1), move2), ]
    key <- rbind(first, second, third)
@@ -105,7 +105,7 @@ if (from == "serial") { # similar to branched but ids are two ref colums (id + p
  idsf <- paste(data[, 1], data[, 2])
  idsr <- paste(data[, 2], data[, 1])
  newid <- idsf
- for (n in 1:length(idsf)) newid[n] <- newid[which(idsr %in% idsf[n])]
+ for (n in seq_along(idsf)) newid[n] <- newid[which(idsr %in% idsf[n])]
  newid <- as.numeric(factor(newid, levels=unique(newid)))
  key <- cbind(newid, data[, 3:4], NA) # discard old ref columns, add fake 4th column
 }
@@ -181,22 +181,22 @@ if (to == "indented") {
 }
 if (to == "serial") {
  refs <- numeric(nrow(key))
- for(n in 1:length(refs)) {
+ for(n in seq_along(refs)) {
   w <-  which(key[, 1] %in% key[n, 1])
   refs[n] <- w[w != n]
  }
- refs <- cbind(1:length(refs), refs) # refs as two columns (id and pair); to make typographic, add parentheses around 'refs'
+ refs <- cbind(seq_along(refs), refs) # refs as two columns (id and pair); to make typographic, add parentheses around 'refs'
  res <- cbind(refs, key[, 2:3]) # add two new id columns and skip 1st column with old ids
 }
 if (to == "bracket") {
- for (n in 1:nrow(key)) {
+ for (n in seq_len(nrow(key))) {
  if(key[n, 3] == "") key[n, 3] <- key[n+1, 1] # goto's taken from next step and placed into 3rd column
  }
  res <- key[order(key[, 1]), 1:3] # now theses and anti-theses are together
 }
 if (to == "backreferenced") {
  back <- numeric(nrow(key))
- for (n in 1:nrow(key)) {
+ for (n in seq_len(nrow(key))) {
   if(key[n, 3] == "") {
    key[n, 3] <- key[n+1, 1] # goto taken from next step id and placed into 4th column
    back[n+1] <- key[n, 1] # backreference for next step taken from previous step id
@@ -211,7 +211,7 @@ if (to == "newick") {
  dfs <- indents - c(indents[2:(length(indents))], 0)
  brt <- Recode(sign(dfs), c(-1, 0, 1), c("(", ",", ")"))
  mul <- abs(dfs) + (dfs == 0)
- for (i in 1:length(brt)) brt[i] <- paste(rep(brt[i], mul[i]), collapse="")
+ for (i in seq_along(brt)) brt[i] <- paste(rep(brt[i], mul[i]), collapse="")
  tmp <- cbind(key[, 3], brt)
  tmp <- paste0(paste0(t(tmp), colalpse=""), collapse="")
  tmp <- gsub(")(", "),(", tmp, fixed=TRUE)
@@ -245,7 +245,7 @@ if (to == "newick") {
 }
 if (to == "table") {
  allranks <- sort(unique(key[, 1]))
- for (i in 1:length(allranks)) {
+ for (i in seq_along(allranks)) {
   tmp <- key[, 3]
   tmp[(as.numeric(key[, 1]) < as.numeric(allranks[i]))] <- "" # empty values of lower ranks
   tmp <- Fill(tmp) # fill them from values above

@@ -6,7 +6,7 @@
 \usage{Plot.phylocl(tree, cl, strict=TRUE, keep.mono=FALSE, what="triangles",
  col.ed="black", col.td="black", col.etr="transparent", col.ttr="transparent",
  col.pfl="lightgrey", col.pbr="black", lty.p=1, lwd.p=1, col.ct="black",
- ct.off=0, ct.fnt=1, longer="0\%", ...)}
+ ct.off=0, ct.fnt=1, cex=par("cex"), longer="0\%", ...)}
 
 \arguments{
 \item{tree}{phylo object}
@@ -25,6 +25,7 @@
 \item{col.ct}{default "black", color of clade labels}
 \item{ct.off}{default 0, text offset of clade labels}
 \item{ct.fnt}{default 1, text font of clade labels}
+\item{cex}{default par("cex"), text font size of all labels}
 \item{longer}{default "0\%", percent to increase xlim to fit longer clade labels}
 \item{...}{options to ape::plot.phylo()}
 }
@@ -86,7 +87,7 @@ clade=c(
  "Distant giants"),
 stringsAsFactors=FALSE)
 
-Plot.phylocl(tree, cl, longer="5\%")
+Plot.phylocl(tree, cl, longer="5\%", ct.off=0.1)
 }
 
 \keyword{hplot}

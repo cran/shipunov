@@ -6,11 +6,24 @@
 \usage{Alldups(v, groups=FALSE)}
 
 \arguments{
-\item{v}{vector}
-\item{groups}{If TRUE, uses as.numeric(as.character(v)) twice to index duplicated groups with natural numbers (and non-duplicated with 0)}
+\item{v}{Vector, matrix or data frame}
+\item{groups}{If TRUE, returns group indexes (non-duplicated are 0)}
 }
 
-\details{In short, this is extension of unique() which skips the first duplicate in each group. 'NA' count as duplicate but do not count as duplicate group.}
+\details{
+
+This is extension of duplicated() which _does not_ skip the first
+duplicate in each group. 'NA' consider for duplicates but do not count as
+duplicate group.
+
+If the first argument is a matrix or data frame, Aldups() makes an
+attempt to convert them into character vector by paste0(...,
+collapse="").
+
+If 'groups=TRUE', Alldups() uses as.numeric(as.character(v)) twice to
+index duplicated groups with natural numbers (and non-duplicated with 0).
+
+}
 
 \value{Logical vector of length equal to 'v', or numerical vector if 'groups=TRUE'}
 
@@ -18,12 +31,16 @@
 
 \author{Alexey Shipunov}
 
-\seealso{\code{\link{unique}}}
+\seealso{\code{\link{duplicated}}}
 
 \examples{
 aa <- c("one", "two", "", NA, "two", "three", "three", "three", NA, "", "four")
 Alldups(aa)
 data.frame(v=aa, dups=Alldups(aa), groups=Alldups(aa, groups=TRUE))
+
+## clustering based on duplicates from rounding
+(iris.dgr <- Alldups(round(iris[, 1:4]/10), groups=TRUE))
+Misclass(iris$Species, iris.dgr, best=TRUE)
 }
 
 \keyword{manip}

@@ -106,7 +106,7 @@ Dotchart <- function(...) {
 Dotchart3 <- function(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2, gridcol="grey", ...) {
  Dotchart1(values, pch="", lcolor=0, xlim=range(c(values, left, right)), ...)
  grid(col=gridcol)
- for (i in 1:length(values)) {
+ for (i in seq_along(values)) {
   lines(x=c(left[i], right[i]), y=c(i, i), lty=lty, lwd=lwd)
   points(x=values[i], y=i, pch=pch, bg=bg, cex=pt.cex)
  }

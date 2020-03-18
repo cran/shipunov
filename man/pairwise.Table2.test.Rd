@@ -15,9 +15,12 @@
 }
 
 \details{
+
 Pairwise Chi-squared or Fisher test for 2-dimensional tables.
 
-Possible alternatives: NCStats::chisqPostHoc(); fifer::chisq.post.hoc().
+Alternatives: NCStats::chisqPostHoc() and fifer::chisq.post.hoc(). Both
+of them are not CRAN packages.
+
 }
 
 \value{List with test outputs.}

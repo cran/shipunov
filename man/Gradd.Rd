@@ -27,15 +27,30 @@ Gradd(model2var, data2var, spacing=75, what="points",
 }
 
 \details{
-Gradd() takes model and its 2D data, makes new data with the same range but made of dense equidistantly spaced (grid-like) points, then predicts class labels from this new data, probably also calculates decision boundaries, and finally plots either points colored by predition, or lines along boundaries.
 
-Before you run Gradd(), make the model. This model should have 'predict' method, and use ids (to make colors) and exactly 2 variables with names same as 'data2var' column names, e.g:
+Gradd() takes model and its 2D data, makes new data with the same range
+but made of dense equidistantly spaced (grid-like) points, then predicts
+class labels from this new data, probably also calculates decision
+boundaries, and finally plots either points colored by predition, or
+lines along boundaries.
+
+Before you run Gradd(), make the model. This model should have 'predict'
+method, and use ids (to make colors) and exactly 2 variables with names
+same as 'data2var' column names, e.g:
 
 model2var <- somemodel(ids ~ ., data=cbind(ids, data2var))
 
-If the model type is "user", the Gradd() uses predefined 'User.Predict(model2var, X)' function which must return factor ids from testing X data (see examples).
+If the model type is "user", the Gradd() uses predefined
+'User.Predict(model2var, X)' function which must return factor ids from
+testing X data (see examples).
 
 To plot both lines and grid, use Gradd() twice.
+
+Gradd() is useful if the goal is to illustrate the general properties of
+the supervised method and/or underlying data. It uses the entire 2D
+dataset to learn new data but learning from training subset is also
+possible, see the Naive Bayes example below.
+
 }
 
 % \value{}
@@ -83,14 +98,13 @@ Gradd(iris.rf.pca, iris.p) # type="ids" (default)
 text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
  method="both.sides"))
 
-## naiveBayes:
+## naiveBayes (note how to use training subsample):
 library(e1071)
 iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
-iris.nb.pca <- naiveBayes(Species ~ ., data=cbind(iris[5], iris.p))
-plot(iris.p, type="n", main="naiveBayes")
-Gradd(iris.nb.pca, iris.p) # type="ids" (default)
-text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
- method="both.sides"))
+sel <- 1:nrow(iris) %in% seq(1, nrow(iris), 5)
+plot(iris.p, col=iris$Species, pch=ifelse(sel, 19, 1), main="naiveBayes")
+iris.nb2 <- naiveBayes(Species ~ ., data=cbind(iris[5], iris.p)[sel, ])
+Gradd(iris.nb2, iris.p[sel, ], what="lines")
 
 ## rpart (note how to use MDS for the base plot):
 iris.dist <- dist(iris[, -5], method="manhattan")

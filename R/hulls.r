@@ -23,7 +23,7 @@ if(centers)
  len <- length(ppol)
  for (i in 1:len)
  {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
+ ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=seq_len(nrow(ppol[[i]])))
  names(ppol[[i]])[1:2] <- c("X", "Y")
  }
  centers <- matrix(ncol=2, nrow=len)
@@ -52,7 +52,7 @@ if(!outliers) {
   hpts.l <- c(hpts, hpts[1])
   if (plot) lines(X[hpts.l, ], col=m.col, ...)
   }
-  lout <- c(lout, (1:nrow(pts))[gr][outliers])
+  lout <- c(lout, (seq_len(nrow(pts)))[gr][outliers])
  }
  ppts$outliers <- lout
 }

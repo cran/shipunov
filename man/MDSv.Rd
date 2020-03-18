@@ -1,6 +1,6 @@
 \name{MDSv}
 \alias{MDSv}
-\title{MDS: explained variance (surrogate)}
+\title{MDS: dimension importance ("explained variance" surrogate)}
 
 \description{
 Calculates R-squared coefficients of the linear relationships between
@@ -18,7 +18,7 @@ each of derived variables and original data
 MDSv() converts each of the derived variables and original data into
 distance matrices, and then uses lm() to calculate adjusted R-squared
 coefficients. These coefficients may be used to understand the
-"importance" of each derived variable. They work for any dimension
+"importance" of each new dimension. They work for any dimension
 reduction techique including multidimensional scaling.
 
 }
@@ -47,7 +47,7 @@ MDSv(iris.cmd)
 
 iris.p <- prcomp(iris[, -5], scale=TRUE)
 MDSv(iris.p$x)
-100*summary(iris.p)$importance[2, ] # to compare with MDSv() results
+100*summary(iris.p)$importance[2, ] # compare with MDSv() results
 
 }
 

@@ -6,7 +6,7 @@ if (bootstrap)
 {
 for (i in 1:iter)
  {
- j.sample <- sample(1:ncol(data), replace=TRUE)
+ j.sample <- sample(seq_len(ncol(data)), replace=TRUE)
  j.data <- data[, j.sample]
  j.dist <- dist(j.data, method=method.d)
  j.clust <- cutree(hclust(j.dist, method=method.c), k=n.cl)
@@ -15,7 +15,7 @@ for (i in 1:iter)
  }
 } else {
 iter <- ncol(data)
-for (i in 1:ncol(data))
+for (i in seq_len(ncol(data)))
  {
  j.data <- data[, -i]
  j.dist <- dist(j.data, method=method.c)

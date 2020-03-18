@@ -170,6 +170,7 @@ for (n in c("noisy.circles", "noisy.moons", "no.structure", "blobs", "aniso", "v
 par(oldpar)
 ## X11.options <- old.X11.options
 }
+palette("default")
 }
 
 \keyword{datagen}

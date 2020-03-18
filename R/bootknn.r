@@ -8,7 +8,7 @@ BootKNN <- function(data, classes, sub="none", nsam=4, nboot=1000, misclass=TRUE
   if (length(sub) == 1 && sub == "none") sub <- !logical(nrow(data))
   data.sub <- data[sub, ]
   classes.sub <- classes[sub]
-  sel <- ave(1:nrow(data.sub), classes.sub, FUN=function(.x) sample.int(length(.x))) <= nsam
+  sel <- ave(seq_len(nrow(data.sub)), classes.sub, FUN=function(.x) sample.int(length(.x))) <= nsam
   train <- data.sub[sel, ]
   classes.train <- classes.sub[sel]
   if (method == "knn") res <- class::knn(train, data, classes.train, ...)

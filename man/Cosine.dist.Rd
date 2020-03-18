@@ -6,12 +6,14 @@
 \usage{Cosine.dist(data.x, data.y=data.x)}
 
 \arguments{
-\item{data.x}{A matrix containing variables that should be used in the computation of the distance.}
-\item{data.y}{A matrix compatible with 'data.x' (optional).}
+\item{data.x}{Matrix with variables that should be used in the computation of the distance.}
+\item{data.y}{Matrix compatible with 'data.x' (optional).}
 }
 
 \details{
-Cosine.dist() does not work with data frames, convert them with e.g., as.matrix().
+If arguments are data frames, Cosine.dist() internally converts them into matrices.
+
+On normalized data, cosine distance is essentially the same as Euclidean.
 }
 
 \value{Distance object with distances among rows of 'data.x' and optionally those of 'data.y'}
@@ -24,7 +26,7 @@ Cosine.dist() does not work with data frames, convert them with e.g., as.matrix(
 \seealso{\code{\link{dist}}}
 
 \examples{
-plot(hclust(Cosine.dist(as.matrix(iris[!c(rep(1, 9), 0), -5]))))
+plot(hclust(Cosine.dist(iris[!c(rep(1, 9), 0), -5])))
 }
 
 \keyword{multivariate}

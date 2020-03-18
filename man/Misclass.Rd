@@ -4,7 +4,7 @@
 
 \description{Misclassification (confusion) table}
 
-\usage{Misclass(pred, obs, best=FALSE, ignore=NULL, quiet=FALSE, ...)}
+\usage{Misclass(pred, obs, best=FALSE, ignore=NULL, quiet=FALSE, force=FALSE, ...)}
 
 \arguments{
 \item{pred}{Predicted class labels}
@@ -12,32 +12,47 @@
 \item{best}{Perform a search for the classification table with minimal misclassification rate?}
 \item{ignore}{Vector of class labels to ignore (convert into NAs)}
 \item{quiet}{Output summary?}
+\item{force}{Override restriction of 7 classes in 'best=TRUE'?}
 \item{...}{Arguments to 'table'}
 }
 
-\details{'Misclass()' produces misclassification (confusion) 2D table based on two classifications.
+\details{
 
-The simple variant ('best=FALSE') assumes that class labels are concerted (same number of corresponding classes).
+'Misclass()' produces misclassification (confusion) 2D table based on two
+classifications.
 
-Advanced variant ('best=TRUE') can search for the best classification table (with minimal misclassification rate),
-this is especially useful in case of unsupervised classifications which typically return numeric labels. However,
-internally it generates all permutations of factor levels, thei could be very slow if there are many class labels.
+The simple variant ('best=FALSE') assumes that class labels are concerted
+(same number of corresponding classes).
 
-Variant with 'best=TRUE' might also add empty rows (filled with zeros) to the table in case if numbers of
-classes are not equal.
+Advanced variant ('best=TRUE') can search for the best classification
+table (with minimal misclassification rate), this is especially useful in
+case of unsupervised classifications which typically return numeric
+labels. However, internally it generates all permutations of factor
+levels and could be very slow if there are 8 and more class labels.
+Therefore, more than 7 classes is not allowed (but it is possible to
+override this restriction with 'force=TRUE'.)
 
-Additional arguments could be passed for table(), for example, 'useNA="ifany"'. If supplied data contains NAs, there
-will be also note in the end.
+Variant with 'best=TRUE' might also add empty rows (filled with zeros) to
+the table in case if numbers of classes are not equal.
 
-It is possible to ignore (convert into NAs) some class labels with 'ignore=...', this is useful for methods like DBSCAN
-which output special label for outliers. In that case, note about missing data is also issued.
+Additional arguments could be passed for table(), for example,
+'useNA="ifany"'. If supplied data contains NAs, there will be also note
+in the end.
 
-Alternatives: confusion matrix from 'caret::confusionMatrix()' which is more feature rich but much less flexible.
+It is possible to ignore (convert into NAs) some class labels with
+'ignore=...', this is useful for methods like DBSCAN which output special
+label for outliers. In that case, note about missing data is also issued.
 
-Note that partial "Misclassification errors" are reverse sensitivities, and "Mean misclassification error"
-is a reverse accuracy.
+Alternatives: confusion matrix from 'caret::confusionMatrix()' which is
+more feature rich but much less flexible. See in examples how to
+implement some statistics used there.
 
-Association plot assocplot() is probably the best to plot misclassification table.
+Note that partial "Misclassification errors" are reverse sensitivities,
+and "Mean misclassification error" is a reverse accuracy.
+
+If you want to plot misclassification table, association plot assocplot()
+is probably the best.
+
 }
 
 \value{Invisibly returns the table of class comparison}
@@ -46,7 +61,7 @@ Association plot assocplot() is probably the best to plot misclassification tabl
 
 \author{Alexey Shipunov}
 
-% \seealso{}
+\seealso{\code{\link{Adj.Rand}}, \code{link{assocplot}}}
 
 \examples{
 iris.dist <- dist(iris[, -5], method="manhattan")
@@ -60,7 +75,7 @@ Misclass(iris.k$cluster, iris[, 5])
 Misclass(iris.k$cluster, iris[, 5], best=TRUE)
 
 res <- Misclass(iris.k$cluster, iris[, 5], best=TRUE, quiet=TRUE)
-## statistics implemented in caret::confusionMatrix()
+## how to calculate statistics from caret::confusionMatrix()
 binom.test(sum(diag(res)), sum(res))$conf.int
 mcnemar.test(res + 1e-9) # to avoid NaN's
 

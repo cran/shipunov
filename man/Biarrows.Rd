@@ -3,23 +3,30 @@
 \title{Adds correlation arrows to the scatterplot}
 \description{Calculates correlations between original and derived variables and plots corresponding arrows}
 
-\usage{Biarrows(deriv, orig, coeffs=NULL, shrink=0.45, closer=0.8,
- tx=NULL, tx.col=2, tx.cex=1, tx.font=1, xpd=TRUE,
- ar.col=2, ar.len=0.1, ...)}
+\usage{Biarrows(deriv, orig, coeffs=NULL, shrink=0.45, closer=0.9,
+ pt.col="forestgreen", pt.cex=1, pt.pch=NA, tx=colnames(orig),
+ tx.col="forestgreen", tx.cex=0.8, tx.font=1, tx.pos=NULL, tx.off=0.5, xpd=TRUE,
+ ar.col="forestgreen", ar.len=0.05, shift=c(0, 0), ...)}
 
 \arguments{
 \item{deriv}{Data derived from, e.g., dimension reducion of 'orig'}
 \item{orig}{Original data}
 \item{coeffs}{(Optional) two-column matrix with proposed coordinates of arrow tips, row names must represent 'orig' variables}
 \item{shrink}{How to shrink arrows in relation to 'deriv' ranges, default is 45\% (0.45)}
-\item{closer}{How closer to the center (in relation to the text label) is the arrow tip, default is 0.8}
-\item{tx}{(Optional) text labels, default are column names of 'orig'}
-\item{tx.col}{Color of text labels, default is 2}
-\item{tx.cex}{Size of text, default is 1}
-\item{tx.font}{Font of text, default is 1}
+\item{closer}{How closer to the center (in relation to the text label) is the arrow tip, default is 0.9}
+\item{pt.col}{Color of points, default is "forestgreen"}
+\item{pt.cex}{Size of points, default is 1}
+\item{pt.pch}{Type of points, default is NA (no points)}
+\item{tx}{Text labels, default are 'colnames(orig)'}
+\item{tx.col}{Color of text labels, default is "forestgreen"}
+\item{tx.cex}{Size of text, default is 0.8}
+\item{tx.font}{Font of text, default is 1 (plain)}
+\item{tx.pos}{Position of text, default is NULL (in the center)}
+\item{tx.off}{Offest for text labels, default 0.5 (works only if 'tx.pos' is not NULL)}
 \item{xpd}{Allow text to go outside of plotting region?}
-\item{ar.col}{Color of arrows, default is 2}
+\item{ar.col}{Color of arrows, default is "forestgreen"}
 \item{ar.len}{Length of the edges of the arrow head (in inches)}
+\item{shift}{Shift from the default center which is c(0, 0)}
 \item{...}{Further arguments to arrows()}
 }
 
@@ -27,23 +34,33 @@
 
 Biarrows() calculates correlations between two sets of variables which
 generally belong to the same data: more then one 'orig' variables and
-exactly two 'deriv' variables. Then is scales correlations to the 'deriv'
-ranges and adds text labels and arrows to the scatterplot of derived
-variables. These arrows represent the original variables in relation with
-derived variables. Resulted plot may be seen as a biplot which
-simultaneously shows two sets of variables.
+exactly two 'deriv' variables. These correlations might be understood as
+importances of the 'orig' variables. Then Biarrows() scales correlations
+to the 'deriv' ranges and adds text labels and arrows (possibly also
+points) to the scatterplot of derived variables. These arrows represent
+the original variables in relation with derived variables. Resulted plot
+may be seen as a biplot which simultaneously shows two sets of variables.
+In fact, it is possible to show three and more sets of variables (see
+examples).
 
 This approach might work for data derived from (almost) any kind of
-dimensional reduction.
+dimensional reduction. Biarrows() is also much more flexible than
+standard biplot(). Please note, however, that Biarrows() is only
+visualization, and numerical conclustions might not be justified.
 
-If 'deriv' data contains more then 2 variables, they will be discarded.
-It is supposed that 'deriv' data is centered around 0. If not, use
-scale() to center it (see examples). Both 'deriv' and 'orig' should be
-either data frames or matrices with compatible dimensions.
+If 'deriv' data contains more then 2 variables, the rest will be
+discarded. It is supposed that 'deriv' data is centered around 0. If not,
+scale() usually helps to center it (see examples), 'shift' is also
+useful. Both 'deriv' and 'orig' should be either data frames or matrices
+with column names and compatible dimensions, possibly with NAs.
 
 Biarrows(dr, coeffs=...) allows to use pre-calculated coefficients. In
-this case, 'data' is ignored, and 'coeffs' will be scaled. See examples
-to understand better how it works.
+that case, 'data' is ignored (except for column names, but they might be
+supplied separately as 'tx' value), and 'coeffs' will be scaled. See
+examples to understand better how it works.
+
+To suppress arrows or text, use zero color. Points are suppressed by
+default.
 
 }
 
@@ -60,6 +77,7 @@ to understand better how it works.
 iris.cmd <- cmdscale(dist(iris[, -5]))
 plot(iris.cmd, xlab="Dim 1", ylab="Dim 2")
 Biarrows(iris.cmd, iris[, -5])
+title(main="MDS biplot with Biarrows()")
 
 # ===
 
@@ -67,6 +85,15 @@ library(MASS)
 iris.mds <- isoMDS(dist(iris[, -5]) + 1e-9)
 plot(iris.mds$points, xlab="Dim 1", ylab="Dim 2")
 Biarrows(iris.mds$points, iris[, -5])
+title(main="Non-metric MDS biplot with Biarrows()")
+
+# ===
+
+library(MASS)
+iris.smm <- sammon(dist(iris[, -5]) + 1e-9)
+plot(iris.smm$points, xlab="Dim 1", ylab="Dim 2")
+Biarrows(iris.smm$points, iris[, -5])
+title(main="Sammon mapping biplot with Biarrows()")
 
 # ===
 
@@ -78,10 +105,11 @@ title(main="PCA biplot with Biarrows()")
 
 # ===
 
-# how to use 'coeffs'
 plot(iris.p$x, xlab="PCA1", ylab="PCA2")
-coeffs <- cor(iris[, -5], iris.p$x, method="spearman")
-Biarrows(iris.p$x, coeffs=coeffs)
+## how to use 'coeffs'
+## they also useful as surrogates of variable importances
+(coeffs <- cor(iris[, -5], iris.p$x, method="spearman"))
+Biarrows(iris.p$x, tx=rownames(coeffs), coeffs=coeffs)
 
 # ===
 
@@ -94,6 +122,29 @@ title(main="\"Reversed biplot\"")
 plot(scale(iris[, c(1, 3)]))
 Biarrows(scale(iris[, c(1, 3)]), iris[, c(2, 4)])
 title(main="Iris flowers: lengths vs. widths")
+
+# ===
+
+plot(iris.p$x)
+Biarrows(iris.p$x[, 1:2], iris.p$x[, 1:2])
+title(main="\"Self-biplot\" on PCA")
+
+# ===
+
+plot(iris.mds$points, xlab="Dim 1", ylab="Dim 2")
+Biarrows(iris.mds$points, iris[, -5], ar.col=0, pt.pch=4, tx.pos=3)
+Biarrows(iris.mds$points, iris.p$x[, 1:2], ar.col="#962333", tx.col="#962333")
+title(main="Triplot: MDS, PCA and original variables")
+
+# ===
+
+library(MASS)
+iris.ldap <- predict(lda(Species ~ ., data=iris), iris[, -5])
+plot(iris.ldap$x)
+Biarrows(iris.ldap$x, iris[, -5])
+Biarrows(iris.ldap$x, iris.p$x[, 1:2], shift=c(9, 2.5),
+ shrink=0.95, lty=2, ar.col="darkgrey", tx.col="darkgrey")
+title(main="Triplot: LDA, original variables and PCA axes")
 
 }
 

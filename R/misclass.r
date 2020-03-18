@@ -1,4 +1,4 @@
-Misclass <- function (pred, obs, best=FALSE, ignore=NULL, quiet=FALSE, ...)
+Misclass <- function (pred, obs, best=FALSE, ignore=NULL, quiet=FALSE, force=FALSE, ...)
 {
 if (!is.null(ignore)) {
  pred[as.character(pred) %in% as.character(ignore)] <- NA
@@ -10,12 +10,13 @@ predn <- length(predl)
 obsn <- length(obsl)
 if (predn < 2 || obsn < 2) stop("Both 'pred' and 'obs' must have > 2 classes")
 if (best) {
+ if (!force & (predn > 7 || obsn > 7)) stop("Too many classes (> 7) for 'best=TRUE'; override with 'force=TRUE'")
  if (obsn >= predn) {
   ## scales badly!
   all <- expand.grid(rep(list(obsl), obsn))
   alln <- t(all[apply(all, 1, anyDuplicated) == 0, ])
   alll <- vector("list", length=ncol(alln))
-  for (x in 1:ncol(alln)) {
+  for (x in seq_len(ncol(alln))) {
    obs <- factor(obs, levels=as.character(alln[, x]))
    tbl <- table(pred, obs, ...)
    dif <- nrow(tbl) - ncol(tbl)
@@ -31,7 +32,7 @@ if (best) {
   all <- expand.grid(rep(list(predl), predn))
   alln <- t(all[apply(all, 1, anyDuplicated) == 0, ])
   alll <- vector("list", length=ncol(alln))
-  for (x in 1:ncol(alln)) {
+  for (x in seq_len(ncol(alln))) {
    pred <- factor(pred, levels=as.character(alln[, x]))
    tbl <- table(pred, obs, ...)
    dif <- nrow(tbl) - ncol(tbl)

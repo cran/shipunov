@@ -11,12 +11,16 @@
 \item{y1}{Second numerical variable}
 }
 
-\details{Robust rank order test (modification of Wilcoxon test for samples with contrasting variation)
+\details{
 
-It is a variant of Fligner-Policello test.
+Robust rank order test (modification of Wilcoxon test for samples with
+contrasting variation), a variant of Fligner-Policello test.
 
-Possible alternatives: 'robustrank::mod.wmw.test()'; 'npsm::fp.test()';
-'NSM3::pFligPoli()'; 'RVAideMemoire::fp.test()'.
+Alternatives: robustrank::mod.wmw.test() (probably more sophisticated);
+npsm::fp.test(); NSM3::pFligPoli() (very advanced, with possibilities of
+exact and Monte Carlo testing); RVAideMemoire::fp.test() (developed in
+the way similar to most base R tests, probably the best alternative).
+
 }
 
 \value{Returns z statistic and p-value.}

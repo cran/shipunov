@@ -42,50 +42,6 @@ if (pager == "mate") { options(pager=function(file, header, title, delete.file) 
 
 ## ===
 
-Files <- function(root=getwd(), # root directory to explore (default is current working directory)
-multiple=FALSE, # allows multiple files to be selected
-hidden=FALSE) # converts into listfiles(all.files=TRUE)
-{
- x <- c(dirname(normalizePath(root)), list.files(root, full.names=TRUE, all.files=hidden))
- isdir <- file.info(x)$isdir
- obj <- sort(isdir, index.return=TRUE, decreasing=TRUE)
- isdir <- obj$x
- x <- x[obj$ix]
- lbls <- sprintf('%s%s', basename(x), ifelse(isdir,'/',''))
- lbls[1] <- sprintf('../ (%s)', basename(x[1]))
- lbls <- append(lbls, 'Enter new name...')
- files <- c()
- sel <- -1
- while (TRUE)
- {
- sel <- menu(lbls, title=sprintf('Select file(s) (0 to quit with dirname)\nCurrent folder: %s', root))
- if (sel == 0)
- {
- files <- root
- break
- }
- if (sel == length(lbls))
- {
- files <- paste0(root, "/", readline('File name: '))
- break
- }
- if (isdir[sel]) # directory, browse further
- {
- files <- c(files, Files(x[sel], multiple))
- break
- } else {
- files <- c(files, x[sel]) # file, add to list
- if (!multiple) break
- lbls <- lbls[-sel] # remove selected file from choices
- x <- x[-sel]
- isdir <- isdir[-sel]
- }
- }
- return(files)
-}
-
-## ===
-
 Ls <- function(pos=1, pattern, mode="any", type="any", exclude="function", sort="name")
 {
 Name <- ls(pos=pos, envir=as.environment(pos), pattern=pattern)
@@ -95,7 +51,7 @@ Vars <- rep("-", length(Name))
 Obs <- rep("-", length(Name))
 Size <- rep("-", length(Name))
 OSize <- rep(0, length(Name))
-for (i in 1:length(Name))
+for (i in seq_along(Name))
  {
  Mode[[i]] <- mode(get(Name[[i]]))
  Size[[i]] <- capture.output(print(object.size(get(Name[[i]])), units="auto"))
@@ -156,7 +112,7 @@ Str <- function(df)
  nas <- c(0, sapply(df, function(.x) sum(is.na(.x))))
  str.tmp <- ifelse(nas > 0, sub(": ", "* ", str.tmp), str.tmp)
  cat(paste(nums, str.tmp, "\n", sep=" "))
- if (!identical(as.character(1:nrow(df)), row.names(df))) {
+ if (!identical(as.character(seq_len(nrow(df))), row.names(df))) {
   rown.tmp <- capture.output(str(row.names(df), vec.len=5))
   rown.tmp <- sub("chr", "row.names", rown.tmp)
   cat(rown.tmp, "\n")
@@ -167,21 +123,6 @@ Str <- function(df)
 }
 
 # ===
-
-Alldups <- function(v, groups=FALSE)
-{
- alld <- duplicated(v) | duplicated(v, fromLast=TRUE)
- if (groups) {
- v[!alld] <- NA
- anaf <- as.numeric(as.factor(v))
- anaf[!alld] <- 0
- anaf
- } else {
- alld
- }
-}
-
-## ===
 
 Table2df <- function(table)
 {
@@ -213,20 +154,6 @@ Tobin <- function(var, convert.names=TRUE)
  mat.var <- sapply(levels(factor(var)), function(.x) {d <- rep(0, length(var)); d[var==.x] <- 1; d})
  }
  return(mat.var)
-}
-
-## ===
-
-Peaks <- function(series, span=3, do.pad=TRUE) {
- if((span <- as.integer(span)) %% 2 != 1) stop("'span' must be odd")
- s1 <- 1:1 + (s <- span %/% 2)
- if(span == 1) return(rep.int(TRUE, length(series)))
- z <- embed(series, span)
- v <- apply(z[,s1] > z[, -s1, drop=FALSE], 1, all)
- if(do.pad) {
-  pad <- rep.int(FALSE, s)
-  c(pad, v, pad)
- } else v
 }
 
 ## ===
@@ -291,57 +218,6 @@ rr <- paste(round(ee, dec), " (", mm, ")", sep="")
 attributes(rr) <- attributes(mm)
 rr[upper.tri(rr, diag=TRUE)] <- ""
 noquote(rr)
-}
-
-## ===
-
-Rro.test <- function(x1, y1)
-{
-x1 <- x1[!is.na(x1)]
-y1 <- y1[!is.na(y1)]
-nx <- length(x1)
-ny <- length(y1)
-ux1 <- numeric(nx)
-uy1 <- numeric(ny)
-for (i1 in 1:nx)
- {
- for (i2 in 1:ny)
- {
- ux1[i1] <- ux1[i1] + 0.5 * sign(x1[i1] - y1[i2]) + 0.5
- uy1[i2] <- uy1[i2] + 0.5 * sign(y1[i2] - x1[i1]) + 0.5
- }
- }
-mux1 <- mean(ux1)
-muy1 <- mean(uy1)
-sux1 <- sum(ux1)
-suy1 <- sum(uy1)
-dux1 <- ux1 - mux1
-duy1 <- uy1 - muy1
-Vux1 <- sum(dux1^2)
-Vuy1 <- sum(duy1^2)
-ufp <- (sux1 - suy1)/2/sqrt(Vux1 + Vuy1 + mux1 * muy1)
-p <- (1-pnorm(abs(ufp))) * 2
-return(c("z"=ufp, "p.value"=p))
-}
-
-## ===
-
-pairwise.Rro.test <- function(x, g, p.adjust.method="BH")
-{
-p.adjust.method <- match.arg(p.adjust.method)
-DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
-g <- factor(g)
-METHOD <- "Robust rank order test"
-compare.levels <- function(i, j)
- {
- xi <- x[as.integer(g) == i]
- xj <- x[as.integer(g) == j]
- Rro.test(xi, xj)["p.value"]
- }
-PVAL <- pairwise.table(compare.levels, levels(g), p.adjust.method)
-ans <- list(method=METHOD, data.name=DNAME, p.value=PVAL, p.adjust.method=p.adjust.method)
-class(ans) <- "pairwise.htest"
-ans
 }
 
 ## ===
@@ -413,7 +289,7 @@ PlotBest.dist <- function(data, distances=c("euclidean", "maximum", "manhattan",
 if (any(data < 0)) distances <- setdiff(distances, "canberra") # because canberra wants positive values
 if (!any(data == 0)) distances <- setdiff(distances, "binary") # because binary wants zero and non-zero
 res <-  structure(numeric(length(distances)), names=distances)
-for (i in 1:length(distances)) {
+for (i in seq_along(distances)) {
 ddc <- cor(cmdscale(dist(data, method=distances[i]), k=dim), prcomp(data)$x[, 1:dim])
 res[i] <- mean(apply(abs(ddc), 2, max)) # chooses the best correlation because axes are frequently swapped
 }
@@ -431,7 +307,7 @@ if (any(!is.integer(data), na.rm=TRUE)) distances <- setdiff(distances, c("cao",
 if (any(!data %in% c(0, 1))) distances <- setdiff(distances, c("smirnov")) # wants 0/1 occurrence only
 if (ncol(data) > nrow(data)) distances <- setdiff(distances, c("mahalanobis")) # mahalanobis transformation fails if there are too many cols
 res <-  structure(numeric(length(distances)), names=distances)
-for (i in 1:length(distances)) {
+for (i in seq_along(distances)) {
 mdist <- distances[i]
 cat(mdist, "\n")
 if (!binary.only && !mdist %in% notveg) ddist <- vegan::vegdist(data, method=mdist, ...)
@@ -453,7 +329,7 @@ invisible(res)
 PlotBest.hclust <- function(dist, clust=c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid"), plot=TRUE){
 res <-  structure(numeric(length(clust)), names=clust)
 .co.test <- function(hclust, dist, method="spearman") cor.test(cophenetic(hclust), dist, method=method)
-for(i in 1:length(clust)) res[i] <- suppressWarnings(.co.test(hclust(dist, method=clust[i]), dist)$estimate)
+for(i in seq_along(clust)) res[i] <- suppressWarnings(.co.test(hclust(dist, method=clust[i]), dist)$estimate)
 if (plot) Dotchart(sort(res))
 invisible(res)
 }
@@ -465,8 +341,8 @@ Missing.map <- function(df)
 nas <- as.data.frame(lapply(df, function(.x) as.numeric(is.na(.x))))
 total <- colSums(nas)
 percent <- round(100*total/nrow(nas), 1)
-## alternative: findInterval(1:nrow(df), pretty(1:nrow(df), 50))
-groups <- rep(1:50, each=ceiling(nrow(df)/50))[1:nrow(df)]
+## alternative: findInterval(seq_len(nrow(df)), pretty(seq_len(nrow(df)), 50))
+groups <- rep(1:50, each=ceiling(nrow(df)/50))[seq_len(nrow(df))]
 nas.agg <- t(round(aggregate(nas, list(groups), mean),1)[,-1])
 nas.agg <- ifelse(nas.agg == 1, "!", nas.agg)
 nas.agg <- ifelse(nas.agg == "0", "_", nas.agg)
@@ -862,138 +738,12 @@ else
 
 ## ===
 
-Topm <- function(X,
-level=0.45, # treshold
-values=0, # if > 0, ignores "level" and outputs until reaches number, if "all", outputs all values
-corr=TRUE, # if FALSE, does not show magnitude
-square=TRUE) # if FALSE, does not use lower triangle, some rows could be redundant
-{
-X.nam <- dimnames(X)[[1]]
-X.col <- dimnames(X)[[2]]
-X.rep.g <- rep(X.nam, length(X.col))
-X.rep.e <- rep(X.col, each=length(X.nam))
-X.vec <- as.vector(X)
-X.df <- data.frame(Var1=X.rep.g, Var2=X.rep.e, Value=X.vec)
-##
-if(square) X.df <- X.df[as.vector(lower.tri(X)),]
-if(values == "all") values <- nrow(X.df)
-{if (!values)
- {X.df <- X.df[abs(X.df$Value) >= level, ]
- X.df <- X.df[order(-abs(X.df$Value)), ]}
-else
- {X.df <- X.df[order(-abs(X.df$Value)), ]
- X.df <- X.df[1:min(values, nrow(X.df)), ]}}
-X.df <- na.omit(X.df)
-if (nrow(X.df) > 0) row.names(X.df) <- 1:nrow(X.df)
-##
-magnitudev <- c(0.1, 0.3, 0.5, 0.7)
-magnitudes <- c("negligible", "low", "medium", "high", "very high")
-if(corr) X.df$Magnitude <- magnitudes[findInterval(abs(X.df$Value), magnitudev) + 1]
-##
-return(X.df)
-}
-
-## ===
-
-Cor <- function(X, # matrix or data frame with values
-stars=TRUE, # replaces p-values with stars if it not greater than "p.level"
-dec=4, # round to 4
-p.level=0.05, ...)
-{
- nc <- ncol(X)
- cor.mat <- matrix(0, nc, nc)
- p.mat <- matrix(0, nc, nc)
- low.mat <- lower.tri(p.mat)
- for (i in 1:nc)
- {
- for (j in 1:nc)
- {
- if(low.mat[i,j])
- {
- cor.res <- cor.test(X[,i], X[,j], ...)
- cor.mat[j,i] <- cor.mat[i,j] <- cor.res$estimate
- p.mat[j,i] <- p.mat[i,j] <- cor.res$p.value
- }
- }
- }
- cor.mat <- round(cor.mat, dec)
- p.mat <- round(p.mat, dec)
- if (stars)
- {
- p <- ifelse(p.mat <= p.level, "*", " ")
- sep <- ""
- } else {
- p <- p.mat
- sep <- "/"
- }
- result <- matrix(paste(cor.mat, p, sep=sep), ncol=nc)
- result <- gsub("NANA", "NA", result)
- dimnames(result) <- list(colnames(X), colnames(X))
- diag(result) <- "- "
- return(data.frame(result))
-}
-##
-Cor2 <- function(X, dec=4, p.level=0.05)
-{
- R <- cor(X)
- above <- row(R) < col(R)
- R[!above] <- round(R[!above], dec)
- r2 <- R[above]^2
- dfr <- nrow(X)-2
- Fstat <- r2 * dfr / (1 - r2)
- R[above] <- ifelse(1 - pf(Fstat, 1, dfr) > p.level, " ", "*")
- diag(R) <- "- "
- noquote(R)
-}
-
-# ===
-
-Coeff.det <- function(X, ...)
-{
-X.cor <- cor(X, ...) # X is matrix or data frame with values
-X.det <- NULL
-X.dim <- dimnames(X.cor)[[2]]
-for (i in 1:length(X.dim)) X.det <- c(X.det, mean(X.cor[,i]^2))
-names(X.det) <- X.dim
-return(X.det)
-}
-
-## ===
-
-Cor.vec <- function(X, ...)
-{
-X.cor <- cor(X, ...)
-X.nam <- row.names(X.cor)
-X.tri <- as.vector(lower.tri(X.cor))
-X.rep.g <- rep(X.nam, length(X.nam))
-X.rep.e <- rep(X.nam, each=length(X.nam))
-X.pas <- paste(X.rep.g, X.rep.e, sep=" & ")
-X.vec <- as.vector(X.cor)[X.tri]
-names(X.vec) <- X.pas[X.tri]
-return(X.vec)
-}
-
-## ===
-
-Rostova.tbl <- function(X, GROUP, ...)
-{
- r.table <- NULL
- r.names <- unique(X[[GROUP]])
- for (i in r.names) r.table <- cbind(r.table, Cor.vec(subset(X, X[[GROUP]]==i)[,-GROUP], ...))
- dimnames(r.table)[[2]] <- r.names
- r.table[is.na(r.table)] <- 0
- r.table <- t(r.table)
- return(r.table)
-}
-
-## ===
-
 Read.fasta <- function(file) {
  fasta <- readLines(file)
  ind <- grep(">", fasta)
  s <- data.frame(ind=ind, from=ind+1, to=c((ind-1)[-1], length(fasta)))
  seqs <- rep(NA, length(ind))
- for(i in 1:length(ind))
+ for(i in seq_along(ind))
  {
  seqs[i] <- paste(fasta[s$from[i]:s$to[i]], collapse="")
  }
@@ -1046,8 +796,8 @@ x <- x[, colSums(x)!= 0]
 mat <- numeric(0)
 for (j in 1:n) {
  ini <- rep(0, nrow(x))
- sam <- sample(1:nrow(x), nrow(x))
- dat <- cbind(1:nrow(x), x[sam, ])
+ sam <- sample(seq_len(nrow(x)), nrow(x))
+ dat <- cbind(seq_len(nrow(x)), x[sam, ])
  for (i in 2:ncol(dat)){
  nums <- dat[dat[, i] > 0, 1]
  ini[nums[1]] <- ini[nums[1]] + 1}

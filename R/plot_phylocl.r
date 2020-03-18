@@ -15,6 +15,7 @@ lwd.p=1, ## line width of polygon borders
 col.ct="black", ## color of clade labels
 ct.off=0, ## text offset of clade labels
 ct.fnt=1, ## text font of clade labels
+cex=par("cex"), # text size for all labels
 longer="0%", ## percent to increase xlim to fit longer clade labels
 ... ## options to _plot.phylo()_
 ) {
@@ -52,7 +53,7 @@ longer="0%", ## percent to increase xlim to fit longer clade labels
  if (length(lwd.p) == 1) lwd.p <- rep(lwd.p, length(cladelist))
  ##
  ## MAIN CYCLE
- for (n in 1:length(cladelist)) {
+ for (n in seq_along(cladelist)) {
  ##
  clade <- cladelist[[n]]
  tipsn <- match(clade, tree$tip.label)
@@ -74,14 +75,14 @@ longer="0%", ## percent to increase xlim to fit longer clade labels
  if(what == "rectangles") polygon(c(x0, x0, xx, xx), c(y1, y2, y2, y1), col=col.pfl, border=col.pbr, lty=lty.p, lwd=lwd.p)
  if(what == "triangles") polygon(c(x0, xx, xx), c(y0, y1, y2), col=col.pfl, border=col.pbr, lty=lty.p, lwd=lwd.p)
  ## add clade text labels
- text(xx, y3, names(cladelist)[n], pos=4, font=ct.fnt[n], offset=ct.off[n], col=col.ct[n])
+ text(xx, y3, names(cladelist)[n], pos=4, font=ct.fnt[n], offset=ct.off[n], col=col.ct[n], cex=cex)
  ## make transparent part
  if (length(clade) > 1) colo[ape::which.edge(tree, clade)] <- col.etr
  tcolo[tree$tip.label %in% clade] <- col.ttr
  }
  ## plot partially transparent tree
  oldpar <- par(new=TRUE)
-  ape::plot.phylo(tree, edge.color=colo, tip.color=tcolo, x.lim=newx, ...)
+  ape::plot.phylo(tree, edge.color=colo, tip.color=tcolo, x.lim=newx, cex=cex, ...)
  par(oldpar)
 invisible(names(cladelist))
 }

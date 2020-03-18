@@ -35,7 +35,7 @@ Data collected in 2013.
 \source{
 Abramova L., Volkova P., Eliseeva E., Troshina A., Shipunov A.
 2005--inward. The checklist of flora from environs of village Polukarpovo
-(Tver region). See
+(Tver region). See\cr
 "http://ashipunov.info/shipunov/moldino/nauka/molflora.pdf".
 
 Shipunov A., Abramova L. 2014. Islands in lakes and the sea: how do they

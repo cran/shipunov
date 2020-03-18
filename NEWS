@@ -1,3 +1,13 @@
+shipunov 1.7:
+ Plot.phylocl() now allows 'cex' for all labels;
+ function Peaks() removed as it was not really useful;
+ Biarrows() improved;
+ seq_len() or seq_along() used instead of '1:...';
+ Files() corrected;
+ Cosine.dist() and Misclass() improved;
+ Alldups() extended to work with matrices and data frames;
+ help files improved
+
 shipunov 1.6:
  help files improved;
  small bug in BootRF() and BootKNN() corrected;

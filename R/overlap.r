@@ -7,7 +7,7 @@ if("outliers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "outliers")]
 ppol <- ppts
 len <- length(ppol)
 for (i in 1:len) {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
+ ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=seq_len(nrow(ppol[[i]])))
  names(ppol[[i]])[1:2] <- c("X","Y")
  }
 over.m <- matrix(ncol=len, nrow=len)
@@ -50,7 +50,7 @@ BestOverlap <- function(xylabels, ci="95%", round=4)
 {
 LVL <- levels(factor(xylabels[[1]][, "labels"]))
 RES <- vector("list", length=length(xylabels))
-for (i in 1:length(xylabels)) {
+for (i in seq_along(xylabels)) {
  if (!identical(levels(factor(xylabels[[i]][, "labels"])), LVL)) next
  tmp <- Hulls(pts=xylabels[[i]][, c("x", "y")], groups=xylabels[[i]][, "labels"],
   plot=FALSE)
@@ -87,7 +87,7 @@ len <- length(ppol)
 sq <- numeric(len)
 for (i in 1:len)
  {
- ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=1:nrow(ppol[[i]]))
+ ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=seq_len(nrow(ppol[[i]])))
  names(ppol[[i]])[1:2] <- c("X", "Y")
  sq[i] <- PBSmapping::calcArea(ppol[[i]])$area
  }
