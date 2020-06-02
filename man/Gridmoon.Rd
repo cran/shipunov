@@ -42,7 +42,8 @@ The gradient-fill background (dark at the top to lighter at the bottom) is achie
 % \seealso{}
 
 \examples{
-## Examples best viewed with 2:1 aspect ratio
+## Examples best viewed with 2:1 aspect ratio, use something like
+## dev.new(width=10, height=5)
 Gridmoon(Skyres=75)
 Gridmoon(Nightsky=FALSE, Moon=FALSE, Stars=FALSE, Hillcol="forestgreen",
  Text="Use R!", Textcol="yellow", Textpos=c(.25, .85), Textsize=96)

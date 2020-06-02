@@ -1,11 +1,11 @@
-Hulls <- function(pts, groups, match.color=TRUE, usecolors=NULL, plot=TRUE,
+Hulls <- function(pts, groups, match.colors=TRUE, usecolors=NULL, plot=TRUE,
  centers=FALSE, c.pch=0, c.cex=3, outliers=TRUE, coef=1.5, ...)
 {
 ppts <- list()
 out <- seq(along=groups)
 inds <- names(table(groups))
 for (is in inds) {
- if (match.color) {m.col <- match(is, inds)} else {m.col <- "black"}
+ if (match.colors) {m.col <- match(is, inds)} else {m.col <- "black"}
  if (!is.null(usecolors)) m.col <- usecolors[match(is, inds)]
  gr <- out[groups == is]
  if (length(gr) > 1) {
@@ -28,7 +28,7 @@ if(centers)
  }
  centers <- matrix(ncol=2, nrow=len)
  for (i in 1:len) centers[i,] <- unlist(PBSmapping::calcCentroid(ppol[[i]])[c("X", "Y")])
- if (match.color) {m.col <- 1:len} else {m.col <- "black"}
+ if (match.colors) {m.col <- 1:len} else {m.col <- "black"}
  if (!is.null(usecolors)) m.col <- usecolors
  if (plot & outliers) points(centers, pch=c.pch, cex=c.cex, col=m.col)
  row.names(centers) <- names(ppol)
@@ -38,7 +38,7 @@ if(!outliers) {
  if (plot) points(centers, pch=c.pch, cex=c.cex, col=m.col)
  lout <- numeric(0)
  for (is in inds) {
-  if (match.color) {m.col <- match(is, inds)} else {m.col <- "black"}
+  if (match.colors) {m.col <- match(is, inds)} else {m.col <- "black"}
   if (!is.null(usecolors)) m.col <- usecolors[match(is, inds)]
   gr <- out[groups == is]
   if (length(gr) > 1) {

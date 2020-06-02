@@ -478,28 +478,6 @@ Linechart <- function(vars, groups, xticks=TRUE, xmarks=TRUE, mad=FALSE, pch=19,
 
 ## ===
 
-Ploth <- function(hclust, labels=hclust[["labels"]], lab.col=1, col=1, pch.cex=1, pch="", bg=0, col.edges=FALSE, ...)
-{
-plot(dendrapply(as.dendrogram(hclust), function(n)
- {
- if(is.leaf(n))
- {
- at <- attributes(n)
- if (length(lab.col) > 1) lab.col <- lab.col[n]
- if (length(col) > 1) col <- col[n]
- if (length(pch.cex) > 1) pch.cex <- pch.cex[n]
- if (length(pch) > 1) pch <- pch[n]
- if (length(bg) > 1) bg <- bg[n]
- attr(n, "nodePar") <- c(at$nodePar, list(lab.col=lab.col, col=col, pch=pch, bg=bg, cex=pch.cex))
- attr(n, "label") <- labels[n]
- if (col.edges) attr(n, "edgePar") <- list(col=col)
- }
- n
- }), ...)
-}
-
-## ===
-
 Ex.lty <- Ex.lines <- function(custom="431313")
 {
 oldpar <- par(mar=c(0,0,0,0))
@@ -648,14 +626,14 @@ legend("bottomright", pch="*", legend="adjusted")
 
 Saynodynamite <- function()
 {
-s.means <- with(datasets::sleep, tapply(extra, group, mean, na.rm=T))
-s.sds <- with(datasets::sleep, tapply(extra, group, sd, na.rm=T))
+s.means <- with(datasets::sleep, tapply(extra, group, mean, na.rm=TRUE))
+s.sds <- with(datasets::sleep, tapply(extra, group, sd, na.rm=TRUE))
 s.sds.adj <- 1.96*s.sds/(sqrt(table(datasets::sleep$group)))
 barx <- barplot(s.means, ylim=c(0, max(s.means)+max(s.sds.adj)), col=grey(.9))
 arrows(barx, s.means+s.sds.adj, barx, s.means, angle=90, code=1, length=.1)
-lines(c(0.2,2.4), c(3.4,0.05), lwd=12, col=2, lend="square")
-lines(c(0.2,2.4), c(0.05,3.4), lwd=12, col=2, lend="square")
-text(1.3, 3.4, "Say \"no\" to dynamite plots!", col=2, cex=2, font=2)
+lines(c(0.2,2.4), c(3.4,0.05), lwd=12, col="red", lend="square")
+lines(c(0.2,2.4), c(0.05,3.4), lwd=12, col="red", lend="square")
+text(1.3, 3.4, "Say \"no\" to dynamite plots!", col="red", cex=2, font=2)
 }
 
 ## ===
@@ -776,9 +754,9 @@ for (pos in 1:(nn-2))
  for (gap in (nn-pos-1):1)
  {
  r1 <- paste("^", "[N_-]", "{", pos, "}", "-", "{", gap, "}", "[N_-]", sep="")
- a1 <- ifelse(grepl(r1, bb, perl=T), "-", "C")
+ a1 <- ifelse(grepl(r1, bb, perl=TRUE), "-", "C")
  r2 <- paste("^", "[N_-]", "{", pos-1, "}", "_", "-", "{", gap, "}", "_", sep="")
- a2 <- ifelse(grepl(r2, bb, perl=T), "A", "?")
+ a2 <- ifelse(grepl(r2, bb, perl=TRUE), "A", "?")
  a1[a2 == "A"] <- "A"
  if (grepl("A", paste(a1, collapse=""))) gc <- cbind(gc, a1, deparse.level=0)
  }

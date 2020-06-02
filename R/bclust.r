@@ -35,15 +35,15 @@ Hcl2mat <- function(hcl) {
  for (i in seq_len(nr)) {
   left <- hcl$merge[i, 1L]
   if (left < 0L) {
-  m[i, -left] <- 1L # negative values correspond to observations
+  m[i, -left] <- 1L # negative values are observations
   } else {
-  m[i, ] <- m[left, ] # positive values correspond to childcluster
+  m[i, ] <- m[left, ] # positive values are child clusters
   }
  right <- hcl$merge[i, 2L]
  if (right < 0L) {
-  m[i, -right] <- 1L # negative values correspond to observations
+  m[i, -right] <- 1L
   } else {
-  m[i, ] <- m[i,] | m[right, ] # positive values correspond to childcluster
+  m[i, ] <- m[i,] | m[right, ]
   }
  }
 return(m)
@@ -60,19 +60,37 @@ Hcoords <- function(hcl) {
  for (i in seq_len(nr)) {
   left <- hcl$merge[i, 1L]
   if (left < 0L) {
-   tmp[1L] <- o[-left] # negative values correspond to observations
+   tmp[1L] <- o[-left] # negative values are observations
   } else {
-  tmp[1L] <- p[left, 1L] # positive values correspond to childcluster
+  tmp[1L] <- p[left, 1L] # positive values are child clusters
  }
  right <- hcl$merge[i, 2L]
  if (right < 0L) {
-  tmp[2L] <- o[-right] # negative values correspond to observations
+  tmp[2L] <- o[-right]
   } else {
-  tmp[2L] <- p[right, 1L] # positive values correspond to childcluster
+  tmp[2L] <- p[right, 1L]
   }
  p[i, 1L] <- mean(tmp)
  }
  return(p)
+}
+
+## ===
+
+Tcoords <- function(hcl, hang=0.1, add=0, horiz=FALSE) {
+ yh <- numeric(length(hcl$labels))
+ for(i in seq_len(nrow(hcl$merge))){
+  sngls <- hcl$merge[i, ] < 0 # negative values are observations
+  yi <- -hcl$merge[i, sngls]
+  yh[yi] <- hcl$height[i]
+ }
+ x <- seq_along(hcl$labels)
+ if (hang >= 0) {
+  y <- yh[hcl$order] - (diff(range(hcl$height)) * (hang + add))
+  } else {
+  y <- 0 - (diff(range(hcl$height)) * add)
+  }
+ if(!horiz) cbind(x, y) else cbind(x=y, y=x)
 }
 
 ## ===

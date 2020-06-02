@@ -33,10 +33,10 @@ reduction techique including multidimensional scaling.
 
 \examples{
 
-iris.dist <- dist(iris[, -5], method="manhattan")
+iris.dist <- dist(unique(iris[, -5]), method="manhattan")
 
 library(MASS)
-iris.m <- isoMDS(iris.dist + 1e-9) # isoMDS() does not like zero distances
+iris.m <- isoMDS(iris.dist)
 (vv <- MDSv(iris.m$points)) # MDS explained variance surrogate
 xlab <- paste0("Dim 1 (", round(vv[1], 2), "\%)")
 ylab <- paste0("Dim 2 (", round(vv[2], 2), "\%)")

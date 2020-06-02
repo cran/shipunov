@@ -82,17 +82,17 @@ title(main="MDS biplot with Biarrows()")
 # ===
 
 library(MASS)
-iris.mds <- isoMDS(dist(iris[, -5]) + 1e-9)
+iris.mds <- isoMDS(dist(unique(iris[, -5])))
 plot(iris.mds$points, xlab="Dim 1", ylab="Dim 2")
-Biarrows(iris.mds$points, iris[, -5])
+Biarrows(iris.mds$points, unique(iris[, -5]))
 title(main="Non-metric MDS biplot with Biarrows()")
 
 # ===
 
 library(MASS)
-iris.smm <- sammon(dist(iris[, -5]) + 1e-9)
+iris.smm <- sammon(dist(unique(iris[, -5])))
 plot(iris.smm$points, xlab="Dim 1", ylab="Dim 2")
-Biarrows(iris.smm$points, iris[, -5])
+Biarrows(iris.smm$points, unique(iris[, -5]))
 title(main="Sammon mapping biplot with Biarrows()")
 
 # ===
@@ -128,13 +128,6 @@ title(main="Iris flowers: lengths vs. widths")
 plot(iris.p$x)
 Biarrows(iris.p$x[, 1:2], iris.p$x[, 1:2])
 title(main="\"Self-biplot\" on PCA")
-
-# ===
-
-plot(iris.mds$points, xlab="Dim 1", ylab="Dim 2")
-Biarrows(iris.mds$points, iris[, -5], ar.col=0, pt.pch=4, tx.pos=3)
-Biarrows(iris.mds$points, iris.p$x[, 1:2], ar.col="#962333", tx.col="#962333")
-title(main="Triplot: MDS, PCA and original variables")
 
 # ===
 

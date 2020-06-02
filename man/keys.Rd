@@ -11,7 +11,7 @@ keys
 
 The list which contains four data frames representing three different
 flavors of biological diagnostic keys: two simple bracket keys, one
-branched (indented without indent) and one serial key. Last two keys are
+branched (indented variant) and one serial key. Last two keys are
 real-world keys, first to determine Plantago (ribworts, plantains) from
 European Russia (Shipunov, 2000), second -- from North America (Shipunov,
 2019).
@@ -39,7 +39,8 @@ I. Branched keys, where alternatives are separated.
 
 You compare your sample with the first description. Then, if the sample
 agrees with first description, you go to second description (these keys
-are usually fully dichotomous). If not, you find the alternative
+are usually fully dichotomous), then to the third, until you reach the
+temninal (name of the organism). If not, you find the alternative
 description of the _same level_ (same depth). The main difficulty here is
 how to find it.
 
@@ -69,7 +70,7 @@ Semenow-Tjan-Shanskij published his serial key:
 Serial keys are similar to all branched keys but numbering style is
 different. All steps are numbered sequentially but each has a
 back-reference to the alternative so user is not required to find the
-description of the same depth, they already found. Serial keys are
+description of the same depth, they are already here. Serial keys are
 strictly dichotomous. They are probably the most space-saving keys, and
 still in use, especially in entomology.
 
@@ -85,8 +86,9 @@ Lamarck likely used them the first time:
 
 You compare your sample with first description, and if it agrees, go to
 where 'goto' reference says. If not, go to second (alternative)
-description, and then again use its 'goto'. Sometimes, bracket keys have
-more than one alternative (e.g., not fully dichotomous).
+description, and then again use its 'goto'. On the last steps, 'goto' is
+just the terminal, the name you want. Sometimes, bracket keys have more
+than one alternative (e.g., not fully dichotomous).
 
 Bracket keys pose another difficulty: it is not easy to go back (up) if
 you by mistake went into the wrong direction. Williamson (1922) proposed
@@ -104,8 +106,11 @@ biology, and most international as well.
 
 Here bracket, branched and serial keys are standardized as rectangular
 tables (data frames). Each feature (id, backreference, description,
-terminal, 'goto') is just one column. Order of columns is important,
-column name is not. Please see examples to understand better.
+terminal, 'goto') is just one column. In bracket keys, terminal and
+'goto' are combined. For example, if you need a bracket key without
+backreferences, use three columns: id, description and terminal+'goto'.
+Order of columns is important, column name is not. Please see examples to
+understand better.
 
 Note that while this format is human-readable, it is not typographic. To
 make keys more typographic, user might want to convert them into LaTeX
@@ -166,6 +171,18 @@ plot(read.tree(text=Biokey(branched, from="branched", to="newick")))
 plot(read.tree(text=Biokey(serial, from="serial", to="newick")))
 
 detach(keys)
+
+## to make a new bracket key (without backreferences)
+## supply three columns: id, description and 'goto'+terminal
+bracket3 <- read.table(as.is=TRUE, text="
+1 Small Ant
+1 Big 2
+2 Blue Sky
+2 Green Grass
+")
+bracket3
+Biokey(bracket3, from="bracket", to="newick")
+cophenetic(ape::read.tree(text=Biokey(bracket3, from="bracket", to="newick")))
 }
 
 \keyword{datasets}

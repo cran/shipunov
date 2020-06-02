@@ -3,7 +3,7 @@
 
 \title{Correlation circles (correlation pleiads)}
 
-\description{Correlation circles (correlation pleiads)}
+\description{Plot correlation circles (correlation pleiads, correlograms)}
 
 \usage{Pleiad(tbl, abs=FALSE, corr=FALSE, dist=FALSE, treshold=FALSE,
  circ=list(1, 1, 1), breaks=5, auto=TRUE, gr=6, lwd=NULL, lty=NULL, lcol=NULL,
@@ -20,9 +20,9 @@
 \item{breaks}{How to cut() values, if "cramer", then =c(0, .1, .3, .5, 1)}
 \item{auto}{If FALSE, specify 'lwd', 'lty' and 'lcol'}
 \item{gr}{Grayscale scheme starts from 6 breaks}
-\item{lwd}{If autolines=FALSE, change to vector concerted with breaks}
-\item{lty}{If autolines=FALSE, change to vector concerted with breaks}
-\item{lcol}{If autolines=FALSE, change to vector concerted with breaks; if length(lcol) == 1, all lines are of particular color}
+\item{lwd}{If auto=FALSE, specify here the vector concerted with breaks}
+\item{lty}{If auto=FALSE, specify here the vector concerted with breaks}
+\item{lcol}{If auto=FALSE, specify here the vector concerted with breaks; if length(lcol) == 1, all lines are of particular color}
 \item{abbr}{If =-1, no abbreviation; if =0, no labels; other values run abbreviate(..., abbr)}
 \item{lbltext}{If this is a vector starting from something else, will replace dimnames}
 \item{lblcex}{Magnification of labels}
@@ -31,19 +31,30 @@
 \item{hoff}{Horizontal offset for rightmost/leftmost labels; 'hoff=1' removes offset}
 \item{legend}{If FALSE, no legend}
 \item{legtext}{If =1 then "weaker ... stronger"; if =2, shows cutting intervals; if =3, then 1:5; if >3, issues error}
-\item{legpos}{This is from 'legend()'}
-\item{leghoriz}{Equal to 'horiz=' from 'legend()'}
+\item{legpos}{Position of the legend, see help(legend)}
+\item{leghoriz}{Make the legend horizontal?}
 \item{show.int}{Show intervals in (...] form}
-\item{dig.lab}{dig.lab for 'cut()'}
-\item{...}{Arguments to 'points()'}
+\item{dig.lab}{dig.lab for cut()}
+\item{...}{Arguments to points()}
 }
 
 \details{
-Correlation circles (correlation pleiads).
+
+Correlation circles (correlation pleiads, correlograms).
+
 Based on the works of Petr Terentjev's (Saint Petersburg) school.
-Alternatives: those graph plotting packages which are able to plot "correlogram".
-It is probably a good idea to order data entries with hierarchical clustering results to optimize resulted graph.
-The plot has no margins so consider second 'legend()' to add any text to the plot (see examples).
+
+Alternatives: those graph plotting packages which are able to plot
+"correlogram".
+
+It is probably a good idea to order data entries with hierarchical
+clustering results to optimize resulted graph.
+
+The plot has no margins so consider second 'legend()' to add any text to
+the plot (see examples).
+
+Note that 'lty', 'lwd' and 'lcol' are not recycling.
+
 }
 
 \value{Data frame with position of points, helps in subsequent plot enhancing}
@@ -58,10 +69,16 @@ The plot has no margins so consider second 'legend()' to add any text to the plo
 l.c <- cor(datasets::longley, method="spearman", use="pairwise")
 Pleiad(l.c, corr=TRUE, legtext=2, pch=21, cex=2, bg="white",
  breaks=3, gr=3, hoff=1, show.int=TRUE)
-legend("topleft", legend="Title", text.font=2, bty="n")
+legend("topleft", legend="Macroeconomic correlations", text.font=2, bty="n")
 
 dr.c <- cor(drosera[, -1], method="spearman", use="pairwise")
-Pleiad(dr.c, corr=TRUE, legtext=2, pch=19, cex=1.2)
+# simple example with most defaults
+Pleiad(dr.c, corr=TRUE)
+# complex example with user-specified colors etc.
+Pleiad(dr.c, corr=TRUE, legtext=2, pch=19, cex=1.2, hoff=1.06,
+ auto=FALSE, lwd=c(1, 1, 1, 2.5, 4), lty=rep(1, 5),
+ lcol=colorRampPalette(c("grey", "#D8284F"))(5),
+ circ=c(2, 1, 1))
 }
 
 \keyword{hplot}

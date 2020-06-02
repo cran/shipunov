@@ -7,9 +7,9 @@ circ=list(1,1,1), # line type, width and color for the cirle; if first or third 
 breaks=5, # how to cut() values, if "cramer", then =c(0,.1,.3,.5,1)
 auto=TRUE, # if FALSE, specify lwd, lty and lcol
 gr=6, # grayscale scheme starts from 6 breaks
-lwd=NULL, # if autolines=FALSE, change to vector concerted with breaks
-lty=NULL, # if autolines=FALSE, change to vector concerted with breaks
-lcol=NULL, # if autolines=FALSE, change to vector concerted with breaks; if length(lcol) == 1, all lines are of particular color
+lwd=NULL, # if auto=FALSE, change it to vector concerted with breaks
+lty=NULL, # if auto=FALSE, change it to vector concerted with breaks
+lcol=NULL, # if auto=FALSE, change it to vector concerted with breaks; if length(lcol) == 1, all lines are of particular color
 abbr=-1, # if =-1, no abbreviation; if =0, no labels; other values run abbreviate(..., abbr)
 lbltext="internal", # if this is a vector starting from something else, will replace dimnames
 lblcex=1, # magnification of labels
@@ -56,7 +56,7 @@ if (auto)
  else
  { lwd <- seq(1, 4, length.out=br); lty <- 1; lcol <- grey(seq(1, 0, length.out=(br+1)))[-1] }
  } else {
- if (any(is.null(lwd), is.null(lty), is.null(lcol))) stop("autolines=FALSE therefore lwd, lty and lcol must be all non-null")
+ if (any(is.null(lwd), is.null(lty), is.null(lcol))) stop("auto=FALSE therefore lwd, lty and lcol must be all non-null")
  if (!all(br == length(lwd), br == length(lty), br == length(lcol))) stop("Lengths of breaks, lwd, lty and lcol must be the same")
  }
 seglwd <- cbind(1:br, lwd)

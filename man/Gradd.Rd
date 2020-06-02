@@ -46,10 +46,11 @@ testing X data (see examples).
 
 To plot both lines and grid, use Gradd() twice.
 
-Gradd() is useful if the goal is to illustrate the general properties of
-the supervised method and/or underlying data. It uses the entire 2D
-dataset to learn new data but learning from training subset is also
-possible, see the Naive Bayes example below.
+Gradd() is mainly a teching demo. It is useful if the goal is to
+illustrate the general properties of the supervised method and/or
+underlying data. It uses the entire 2D dataset to learn new data but
+learning from training subset is also possible, see the Naive Bayes
+example below.
 
 }
 

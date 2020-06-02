@@ -11,6 +11,13 @@
 \item{ditto}{String to replace with, typically empty string "" (default)}
 }
 
+\details{
+
+If the first argument is not a character vector, Ditto() converts it to
+the character.
+
+}
+
 \value{Vector with replaced values}
 
 % \references{}
@@ -23,6 +30,7 @@
 Ditto(c("a", "a", "", "b", "b"))
 Ditto(c("a", "a", "", "b", NA, "b"))
 Ditto(c("a", "a", "", "b", NA, "b"), ditto=NA)
+Ditto(c("a", "a", "", "b", NA, "b"), ditto="--")
 }
 
 \keyword{manip}

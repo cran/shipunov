@@ -27,7 +27,7 @@ BTW, for some reason, 'editor()' does not work this way.
 % \seealso{}
 
 \examples{
-\donttest{
+\dontrun{
 ## Linux- (and X11-) specific
 Xpager()
 ?help

@@ -1,10 +1,16 @@
-Biokey(): test more, fill gaps in conversion pairs, add object type checks
+With R-4, make Dotchart1() just a dotchart() wrapper which converts non-numeric objects first (and signals it), think how to keep the reverse compatibility
+
+With R-4, make Ex.cols() use new palettes and allow it to change palettes
+
+With R-4, make Str(..., as.factor=TRUE) use df <- data.frame(as.list(df), stringsAsFactors=TRUE) and also invisibly output new df
+
+Probably, add Hansen & Rahn (1969) matrix (from colby.edu plant_id.c) to data
+
+Biokey(): test more, fill gaps in conversion pairs, keep node labels (descriptions, taxon names) everywhere, add object type checks, modularize, [make as separate package]
 
 Make Coarse(phylo) on the base of ape::di2multi() which allows for given number of hierarchies (maybe, by iteration), collapsing and keeping nodes using e.g., bootstrap support
 
 Make Normalize.ranks(classif) to (1) fit ranks into given list and (2) propagate main (whole numbers) ranks (based on code from Biokey())
-
-Develop milti-key starting as function which questions table of binary variables and taxon rows with a string like "1010M1UB" (with missing, unknown and both)
 
 Make tool to make dichotomous key from binary table, use rpart:: as helper; look on DichotomousKey Github package
 
@@ -16,6 +22,15 @@ In Ellipses() and Hulls(), it is better to calculate "coords" first, then plot
 
 In bivariate plots, it is better to use xy.coords()
 
+Think how to optimize Misclass(..., best=TRUE) more, especially in the cycle part (permutation part probably optimized to the extreme)
+
 Think how extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated
 
 Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
+
+While Fligner-Policello tests are numerous in R packages, pairwise variant seemengly absents so it is better to keep Rro.test() and pairwise.Rro.test()
+
+There is a package MRH for Multi-Resolution Estimation of the Hazard Rate, and MRH::MRH() so probably rename shipunov::MRH()
+
+Using Hcoords() and Tcoords, it is in principle possible to plot 'hclust' object horizontally, without conversion into dendrogram, like series of segments
+

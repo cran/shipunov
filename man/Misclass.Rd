@@ -12,7 +12,7 @@
 \item{best}{Perform a search for the classification table with minimal misclassification rate?}
 \item{ignore}{Vector of class labels to ignore (convert into NAs)}
 \item{quiet}{Output summary?}
-\item{force}{Override restriction of 7 classes in 'best=TRUE'?}
+\item{force}{Override the restriction of class number in 'best=TRUE'?}
 \item{...}{Arguments to 'table'}
 }
 
@@ -27,10 +27,11 @@ The simple variant ('best=FALSE') assumes that class labels are concerted
 Advanced variant ('best=TRUE') can search for the best classification
 table (with minimal misclassification rate), this is especially useful in
 case of unsupervised classifications which typically return numeric
-labels. However, internally it generates all permutations of factor
-levels and could be very slow if there are 8 and more class labels.
-Therefore, more than 7 classes is not allowed (but it is possible to
-override this restriction with 'force=TRUE'.)
+labels. It therefore assumes that the table is a result of some
+non-random process. However, internally it generates all permutations of
+factor levels and could be very slow if there are 8 and more class
+labels. Therefore, more than 8 classes are not allowed (but it is
+possible to override this restriction with 'force=TRUE'.)
 
 Variant with 'best=TRUE' might also add empty rows (filled with zeros) to
 the table in case if numbers of classes are not equal.
@@ -43,15 +44,18 @@ It is possible to ignore (convert into NAs) some class labels with
 'ignore=...', this is useful for methods like DBSCAN which output special
 label for outliers. In that case, note about missing data is also issued.
 
-Alternatives: confusion matrix from 'caret::confusionMatrix()' which is
+Alternatives: confusion matrix from caret::confusionMatrix() which is
 more feature rich but much less flexible. See in examples how to
 implement some statistics used there.
 
 Note that partial "Misclassification errors" are reverse sensitivities,
 and "Mean misclassification error" is a reverse accuracy.
 
-If you want to plot misclassification table, association plot assocplot()
-is probably the best.
+If you want to plot misclassification table, Cohen-Friendly association
+plot, assocplot() is probably the best. On this plot, note rectangles
+which are big, tall and black (check help(assocplot) to know more).
+Diagonal which is black and other cells red indicate low
+misclassification rates.
 
 }
 
@@ -77,7 +81,9 @@ Misclass(iris.k$cluster, iris[, 5], best=TRUE)
 res <- Misclass(iris.k$cluster, iris[, 5], best=TRUE, quiet=TRUE)
 ## how to calculate statistics from caret::confusionMatrix()
 binom.test(sum(diag(res)), sum(res))$conf.int
-mcnemar.test(res + 1e-9) # to avoid NaN's
+mcnemar.test(res) # to avoid NA's, add small number to 'res'
+## how to plot misclassification table
+assocplot(res)
 
 library(dbscan)
 iris.db <- dbscan(iris[, -5], eps=0.3)

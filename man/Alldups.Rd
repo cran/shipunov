@@ -16,9 +16,9 @@ This is extension of duplicated() which _does not_ skip the first
 duplicate in each group. 'NA' consider for duplicates but do not count as
 duplicate group.
 
-If the first argument is a matrix or data frame, Aldups() makes an
-attempt to convert them into character vector by paste0(...,
-collapse="").
+If the first argument is a matrix or data frame and 'groups=TRUE',
+Aldups() starts from converting them into character vector with
+paste0(..., collapse="").
 
 If 'groups=TRUE', Alldups() uses as.numeric(as.character(v)) twice to
 index duplicated groups with natural numbers (and non-duplicated with 0).
@@ -40,7 +40,7 @@ data.frame(v=aa, dups=Alldups(aa), groups=Alldups(aa, groups=TRUE))
 
 ## clustering based on duplicates from rounding
 (iris.dgr <- Alldups(round(iris[, 1:4]/10), groups=TRUE))
-Misclass(iris$Species, iris.dgr, best=TRUE)
+Misclass(iris.dgr, iris$Species, best=TRUE)
 }
 
 \keyword{manip}

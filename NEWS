@@ -1,3 +1,17 @@
+shipunov 1.8:
+ DESCRIPTION corrected;
+ Alldups() improved;
+ in Hulls() 'match.color' changed to 'match.colors' (hopefully, will not affect anything);
+ new function Tcoords() to calculate coordinates of tips in 'hclust' and Ploth() plots;
+ Pleiad() and its documentation slightly corrected;
+ in Saynodynamite(), color is now simply "red";
+ help files improved;
+ Ditto() improved;
+ some corrections for R-4;
+ Ploth() improved to change, e.g., label font;
+ Misclass() corrected in case if there are more predicted than observed classes;
+ Misclass(..., best=TRUE) now uses recursive .permutations() modified from gtools package, it allowed to increase the maximal number of classes from 7 to 8 ;)
+
 shipunov 1.7:
  Plot.phylocl() now allows 'cex' for all labels;
  function Peaks() removed as it was not really useful;

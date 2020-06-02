@@ -29,14 +29,14 @@ Inspired by 'shaunpwilkinson/rpart2dendro.R' gist.
 \examples{
 library(rpart)
 (fit <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis))
-plot(fit); text(fit, all=TRUE)
+plot(fit); text(fit, all=TRUE, xpd=TRUE)
 library(ape)
 tree1 <- read.tree(text=Rpart2newick(fit))
 plot(tree1)
 nodelabels(tree1$node.label, frame="none", bg="transparent", adj=-0.1)
 
 (fit2 <- rpart(Species ~ ., data=iris))
-plot(fit2); text(fit2, all=TRUE)
+plot(fit2); text(fit2, all=TRUE, xpd=TRUE)
 tree2 <- read.tree(text=Rpart2newick(fit2))
 plot(tree2)
 nodelabels(tree2$node.label, frame="none", bg="transparent", adj=-0.1)

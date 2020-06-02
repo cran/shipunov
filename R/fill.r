@@ -17,6 +17,7 @@ res
 
 Ditto <- function(x, ditto="")
 {
+ if (!is.character(x)) x <- as.character(x)
  x[duplicated(x, incomparables=ditto)] <- ditto
 x
 }
