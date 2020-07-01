@@ -32,14 +32,21 @@ attributed to Vadim Vinichenko.
 
 % \value{}
 
-% \references{}
+\references{
+
+Gardner M. 1970. The fantastic combinations of John Conway's new
+solitaire game "life". Scientific American. 223: 120--123.
+
+}
 
 \author{Alexey Shipunov}
 
 % \seealso{}
 
 \examples{
+
 Life(n.cols=10, n.rows=10, n.cycles=10, sleep.time=0.3)
+
 }
 
 \keyword{misc}

@@ -98,14 +98,13 @@ Tcoords <- function(hcl, hang=0.1, add=0, horiz=FALSE) {
 Bclabels <- function(hcl, values, coords=NULL, horiz=FALSE, method="text", threshold=NULL, ...) {
  if (is.null(coords)) coords <- Hcoords(hcl)
  if (horiz) coords[, c(2, 1)] <- coords
- labels <- sprintf("%.2f", values)
   if (method == "text") {
-  if (!is.null(threshold)) labels[values < threshold] <- NA
-  text(coords, labels=labels, ...)
+  if (!is.null(threshold)) values[values < threshold] <- NA
+  text(coords, labels=values, ...)
   }
  if (method == "points") {
   if (!is.null(threshold)) coords <- coords[values >= threshold, ]
   points(coords, ...)
   }
- invisible(list(coords=coords, labels=labels))
+ invisible(list(coords=coords, labels=values))
 }

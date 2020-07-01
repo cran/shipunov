@@ -2,47 +2,99 @@
 \alias{Overlap}
 \alias{summary.Overlap}
 
-\title{Polygons' overlap}
+\title{Calculates overlap between polygons}
 
-\description{Measures polygons' overlap}
+\description{
+
+Calculates overlaps between polygons (typically, convex hulls or
+confidence ellipses from some scatterplot). Requires 'PBSmapping'
+package.
+
+}
 
 \usage{
-Overlap(ppts, Hulls=TRUE)
+Overlap(ppts, Hulls=TRUE, symmetric=FALSE, negative=FALSE)
 \method{summary}{Overlap}(object, ...)
 }
 
 \arguments{
 \item{ppts}{List with hulls information (e.g., output from Hulls())}
-\item{Hulls}{Did the information come from Hulls()?}
+\item{Hulls}{Did the information come from Hulls() or Ellipses()?}
+\item{symmetric}{Make overlaps symmetric (like in distance matrix)?}
+\item{negative}{Calculate "negative overlaps" (relative distance between non-overlapped hulls)?}
 \item{object}{Object of the class 'Overlap'}
 \item{...}{Additional arguments}
 }
 
 \details{
-'Overlap()' calculates polygons (hulls) overlap (it requires 'PBSmapping' package).
 
-If 'Hulls=FALSE', then list components with names 'centers' and 'outliers'
-will not be attempted to remove from 'ppts' list.
+The main idea of Overlap() is to provide the measurement of the
+separation between groups in 2D space.
 
-Note that summary.Overlap() calculates the arithmetic, not geometric, mean.
+Overlap() employs calculations of areas of polygons and their intersects
+provided by 'PBSmapping' package. Initially, it was based on the code
+provided by J. Oksanen for his "ordihulldist" function.
+
+If 'Hulls=TRUE' (default), then list components with names 'centers' and
+'outliers' will be attempted to remove from 'ppts' list.
+
+By default, overlaps are asymmetric, so overlap between a and b is not
+necessarily equal to the overlap between b and a. If 'symmetric=TRUE',
+then Overlap() will calculate symmetric overlaps, less precise but more
+suitable, e.g., for interpreting overlaps as distances.
+
+When 'negative=TRUE', Overlap() calculates also negative polygon-based
+distances between non-overlapping polygons. They are symmetric and might
+be used as similarities too (please look on examples).
+
+summary.Overlap() provides some general numbers, including mean and total
+overlaps for each hull. In these calculations, hulls without overlaps are
+ignored. Note that summary.Overlap() calculates the arithmetic, not
+geometric, mean (whereras symmetric Overlap() uses geometric mean). The
+average of all overlaps could serve as the reliable measure of the
+quality of dimension reduction.
+
+Please also check out vegan::ordiareatest() function; this studies the
+one-side hypothesis that actuall hull areas are smaller than with
+randomized groups (i.e., that actuall hulls are better than random).
+
 }
-
 \value{
-Object of class 'Overlap', or nothing.
+Object (square matrix) of class 'Overlap', or nothing.
 }
 
-% \references{}
+\references{
+
+Serebryanaya A., Shipunov A. 2009. Morphological variation of plants on
+the uprising islands of northern Russia. Annales Botanici Fennici. 2009.
+46: 81-89.
+
+}
 
 \author{Alexey Shipunov}
 
-\seealso{\code{\link{Hulls}}}
+\seealso{\code{\link{Hulls}}, \code{\link{Ellipses}}}
 
 \examples{
-iris.pca <- prcomp(iris[, 1:4], scale=TRUE)
-iris.p <- iris.pca$x[, 1:2]
-iris.h <- Hulls(iris.p[, 1:2], iris[, 5], plot=FALSE)
-iris.o <- Overlap(iris.h)
+
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
+iris.h <- Hulls(iris.p, iris$Species, plot=FALSE)
+
+Overlap(iris.h)
+Overlap(iris.h, negative=TRUE)
+Overlap(iris.h, symmetric=TRUE)
+
+(iris.o <- Overlap(iris.h, symmetric=TRUE, negative=TRUE))
+as.dist(1 - iris.o) # how to convert overlaps into distance-like objects
+
+summary(Overlap(iris.h))
+summary(Overlap(iris.h, negative=TRUE))
+summary(Overlap(iris.h, symmetric=TRUE))
 summary(iris.o)
+
+iris.e <- Ellipses(iris.p, iris$Species, plot=FALSE, centers=TRUE)
+Overlap(iris.e, negative=TRUE)
+
 }
 
 \keyword{multivariate}

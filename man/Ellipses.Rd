@@ -1,49 +1,84 @@
 \name{Ellipses}
 \alias{Ellipses}
-\title{Groups' confidence ellipses}
-\description{Groups' confidence ellipses}
+\title{Confidence ellipses}
+\description{Calculates and plots group confidence ellipses}
 
 \usage{
-Ellipses(pts, groups, match.color=TRUE, usecolors=NULL, centers=FALSE, c.pch=0, c.cex=3,
- level=0.95, coords=NULL, plot=TRUE, ...)
+Ellipses(pts, groups, match.color=TRUE, usecolors=NULL,
+ centers=FALSE, c.pch=0, c.cex=3,
+ level=0.95, df=1000, prec=51,
+ coords=NULL, plot=TRUE, ...)
 }
 
 \arguments{
 \item{pts}{Data points to plot}
 \item{groups}{Grouping variable}
-\item{level}{Confidence level}
 \item{match.color}{Match colors}
 \item{usecolors}{Use colors (palette)}
 \item{centers}{Show centers?}
 \item{c.pch}{Color of center points}
 \item{c.cex}{Scale of center points}
-\item{coords}{List of coordinates: two-column matrices named as groups, does not need by default}
+\item{level}{Confidence level for F-distribution}
+\item{df}{Used in calculation of P-content according to F(2, df) distribution}
+\item{prec}{Precision of ellipse plotting (default is 51 points)}
+\item{coords}{Pre-calculated ellipses coordinates: list of two-column matrices named as groups (by default, not required)}
 \item{plot}{Plot?}
-\item{...}{Arguments to 'Confelli()' and finally to 'lines()'}
+\item{...}{Arguments to lines()}
 }
 
 \details{
-Uses internal 'Confelli()' function which plots an ellipse with
-covariance matrix C, center b, and P-content level
-according to the F(2, df) distribution.
+
+Note that (at least at the moment), ellipses are plotted with line()
+function, therefore shading is not straightforward (but possible, see
+examples).
+
+Also, with a help from Pinhull() (see its help), it is possible to reveal
+"outliers", points outside of each ellipse borders.
+
 }
 
 \value{
-Invisibly returns the list in form similar to Hulls(), to use as 'coords' or with Overlap()
+
+Invisibly returns the list in form similar to Hulls(), to use as 'coords'
+or with Overlap().
+
 }
 
 % \references{}
 
 \author{Alexey Shipunov}
 
-\seealso{\code{\link{Hulls}}}
+\seealso{\code{\link{Hulls}}, \code{\link{Overlap}}, \code{\link{Pinhull}}}
 
 \examples{
-iris.p <- prcomp(iris[, 1:4], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
 plot(iris.p, type="n", xlab="PC1", ylab="PC2")
 text(iris.p, labels=abbreviate(iris[, 5], 1, method="both.sides"))
-Ellipses(iris.p[, 1:2], iris[, 5], centers=TRUE)
+iris.e <- Ellipses(iris.p[, 1:2], iris[, 5], centers=TRUE)
 
+## calculate overlap between ellipses
+Overlap(iris.e)
+
+## how to plot filled ellipses (this method is applicable also to Hulls())
+plot(iris.p, type="n", xlab="PC1", ylab="PC2")
+text(iris.p, labels=abbreviate(iris[, 5], 1, method="both.sides"))
+iris.e$centers <- NULL # do not forget to remove "centers", if any
+for (i in seq_along(iris.e))
+ polygon(iris.e[[i]], border=NA, col=adjustcolor(i, alpha.f=0.2))
+
+## how to reveal (and mark) "outliers"
+iris.pie <- Pinhull(iris.p, iris.e)
+outs <- which(apply(iris.pie, 1, sum) == 0)
+points(iris.p[outs, ], cex=2, pch=4)
+
+## embedded convex hulls
+plot(iris.p, col=iris$Species)
+for (i in seq_along(iris.e)) lines(iris.e[[i]], col=i, lty=2)
+mi <- cbind(seq_len(nrow(iris)), as.numeric(iris$Species)) # indexing matrix
+emb <- rowSums(iris.pie) == 1 & iris.pie[mi] # rows belong to "proper" ellipse
+Hulls(iris.p[emb, ], iris$Species[emb])
+
+## LDA ellipes
 library(MASS)
 ch.lda <- lda(Species ~ ., data=chaetocnema[, -2])
 ch.lda.pred <- predict(ch.lda, chaetocnema[, -(1:2)])

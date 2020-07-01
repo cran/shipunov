@@ -4,33 +4,44 @@ With R-4, make Ex.cols() use new palettes and allow it to change palettes
 
 With R-4, make Str(..., as.factor=TRUE) use df <- data.frame(as.list(df), stringsAsFactors=TRUE) and also invisibly output new df
 
-Probably, add Hansen & Rahn (1969) matrix (from colby.edu plant_id.c) to data
+Make Booster() in a way analogous to Tapkee(); modify BootA() to use it
 
-Biokey(): test more, fill gaps in conversion pairs, keep node labels (descriptions, taxon names) everywhere, add object type checks, modularize, [make as separate package]
+Extend Bclust() to accumulate and accept the list of 'hclust' objects and probably to employ 'booster'
 
-Make Coarse(phylo) on the base of ape::di2multi() which allows for given number of hierarchies (maybe, by iteration), collapsing and keeping nodes using e.g., bootstrap support
+Extend data with Hansen & Rahn (1969) matrix (from colby.edu plant_id.c)
 
-Make Normalize.ranks(classif) to (1) fit ranks into given list and (2) propagate main (whole numbers) ranks (based on code from Biokey())
+Biokey(): test more, fill gaps in conversion pairs, keep node labels (descriptions, taxon names) everywhere, add object type checks, modularize
 
-Make tool to make dichotomous key from binary table, use rpart:: as helper; look on DichotomousKey Github package
+Experimental Misclass() code needs more testing, especially with table()-specific functions and NAs (but "ignore" seems to work)
 
-MrBayes(): think how to standardize writing Nexus, now there are two ways, "old ips" and "direct"
+Think how to employ J. Oksanens's "ordihulltest" (proportion of cases when randomized classes give better overlap), vegan also has simple polyarea() and polycenter() within summary.ordihull()
 
-BestOverlap(): try parallel::mclapply(); think of Overlap() for ellipses
+Think if "manhattan" and "ward.D" are needed as default in Bclust() and Jclust(); and if "manhattan" needed in examples at all
+
+Think if prcomp(iris..., scale=TRUE) is needed in examples (from experiments, scaling of _iris_ makes results worse)
+
+Think how to standardize MrBayes() writing Nexus (now there are two ways, "old ips" and "direct")
 
 In Ellipses() and Hulls(), it is better to calculate "coords" first, then plot
 
 In bivariate plots, it is better to use xy.coords()
 
-Think how to optimize Misclass(..., best=TRUE) more, especially in the cycle part (permutation part probably optimized to the extreme)
-
-Think how extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated
-
 Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
 
-While Fligner-Policello tests are numerous in R packages, pairwise variant seemengly absents so it is better to keep Rro.test() and pairwise.Rro.test()
+BestOverlap(): try to optimize with parallel::mclapply()
 
-There is a package MRH for Multi-Resolution Estimation of the Hazard Rate, and MRH::MRH() so probably rename shipunov::MRH()
+Idea: Hhomonyms() to work with API or directly with hemihomonyms database; maybe, it deserves the separate package
 
-Using Hcoords() and Tcoords, it is in principle possible to plot 'hclust' object horizontally, without conversion into dendrogram, like series of segments
+Idea: Coarse(phylo) on the base of ape::di2multi() which allows for given number of hierarchies (maybe, by iteration), collapsing and keeping nodes using e.g., bootstrap support
 
+Idea: Normalize.ranks(classif) to (1) fit ranks into given list and (2) propagate main (whole numbers) ranks (based on code from Biokey())
+
+Idea: create dichotomous key from binary table using rpart::rpart() as helper; look on DichotomousKey Github package
+
+Idea: using Hcoords() and Tcoords(), it is in principle possible to plot 'hclust' object horizontally, without conversion into dendrogram, like series of segments
+
+Idea: extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated
+
+Note: while Fligner-Policello tests are numerous in R packages, pairwise variant seemengly absents so it is better to keep Rro.test() and pairwise.Rro.test()
+
+Note: there is a package MRH for Multi-Resolution Estimation of the Hazard Rate, and MRH::MRH() so probably rename shipunov::MRH()

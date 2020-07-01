@@ -16,7 +16,7 @@ importFrom("stats", "IQR", "aggregate", "as.dendrogram", "as.dist",
            "hclust", "is.leaf", "lm", "mad", "median", "model.frame",
            "na.omit", "pairwise.table", "pf", "pnorm", "prcomp",
            "predict", "qf", "quantile", "rnorm", "runif", "sd",
-           "shapiro.test", "var")
+           "shapiro.test", "var", "setNames")
 importFrom("utils", "capture.output", "combn", "head", "menu",
            "object.size", "savehistory", "str", "write.table")
 

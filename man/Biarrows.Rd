@@ -1,12 +1,12 @@
 \name{Biarrows}
 \alias{Biarrows}
 \title{Adds correlation arrows to the scatterplot}
-\description{Calculates correlations between original and derived variables and plots corresponding arrows}
+\description{Plots 'orig' variables as arrows on the 'deriv' variables 2D scatterplot}
 
 \usage{Biarrows(deriv, orig, coeffs=NULL, shrink=0.45, closer=0.9,
  pt.col="forestgreen", pt.cex=1, pt.pch=NA, tx=colnames(orig),
  tx.col="forestgreen", tx.cex=0.8, tx.font=1, tx.pos=NULL, tx.off=0.5, xpd=TRUE,
- ar.col="forestgreen", ar.len=0.05, shift=c(0, 0), ...)}
+ ar.col="forestgreen", ar.len=0.05, shift="auto", ...)}
 
 \arguments{
 \item{deriv}{Data derived from, e.g., dimension reducion of 'orig'}
@@ -26,7 +26,7 @@
 \item{xpd}{Allow text to go outside of plotting region?}
 \item{ar.col}{Color of arrows, default is "forestgreen"}
 \item{ar.len}{Length of the edges of the arrow head (in inches)}
-\item{shift}{Shift from the default center which is c(0, 0)}
+\item{shift}{Shift from the center which is c(0, 0); default is "auto" which is colMeans(deriv)}
 \item{...}{Further arguments to arrows()}
 }
 
@@ -49,9 +49,7 @@ standard biplot(). Please note, however, that Biarrows() is only
 visualization, and numerical conclustions might not be justified.
 
 If 'deriv' data contains more then 2 variables, the rest will be
-discarded. It is supposed that 'deriv' data is centered around 0. If not,
-scale() usually helps to center it (see examples), 'shift' is also
-useful. Both 'deriv' and 'orig' should be either data frames or matrices
+discarded. Both 'deriv' and 'orig' should be either data frames or matrices
 with column names and compatible dimensions, possibly with NAs.
 
 Biarrows(dr, coeffs=...) allows to use pre-calculated coefficients. In
@@ -113,14 +111,14 @@ Biarrows(iris.p$x, tx=rownames(coeffs), coeffs=coeffs)
 
 # ===
 
-plot(scale(iris[, c(1, 3)]))
-Biarrows(scale(iris[, c(1, 3)]), iris.p$x)
+plot(iris[, c(1, 3)])
+Biarrows(iris[, c(1, 3)], iris.p$x)
 title(main="\"Reversed biplot\"")
 
 # ===
 
-plot(scale(iris[, c(1, 3)]))
-Biarrows(scale(iris[, c(1, 3)]), iris[, c(2, 4)])
+plot(iris[, c(1, 3)])
+Biarrows(iris[, c(1, 3)], iris[, c(2, 4)])
 title(main="Iris flowers: lengths vs. widths")
 
 # ===
@@ -138,6 +136,13 @@ Biarrows(iris.ldap$x, iris[, -5])
 Biarrows(iris.ldap$x, iris.p$x[, 1:2], shift=c(9, 2.5),
  shrink=0.95, lty=2, ar.col="darkgrey", tx.col="darkgrey")
 title(main="Triplot: LDA, original variables and PCA axes")
+
+# ===
+
+iris.cl <- Classproj(iris[, -5], iris$Species)
+plot(iris.cl$proj, col=iris$Species)
+Biarrows(iris.cl$proj, iris[, -5])
+title(main="Classproj biplot")
 
 }
 

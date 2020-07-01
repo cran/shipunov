@@ -1,3 +1,13 @@
+shipunov 1.9:
+ Misclass(..., bast=TRUE) reworked to speed up, everything is taken outside of cycles, 'force=TRUE' now also runs experimental fast tabulate()-based code;
+ Biarrows() is now by default with shift="auto" so arrows start out of the center without scaling;
+ Bclabels() now prints bootstrap values as is;
+ Ellipses() and especially Overlap() re-worked, the last now allows to output symmetric and negative overlaps;
+ Hulls() improved to return point indices as row names;
+ new function Vicinities() which helps to find "most central" observations;
+ new function Pinhull() which allows to caclculate polygon memberships, "membership overlaps", ellipse outliers and more;
+ help files improved
+
 shipunov 1.8:
  DESCRIPTION corrected;
  Alldups() improved;

@@ -1,6 +1,7 @@
 \name{Hcoords}
 \alias{Hcoords}
-\title{Calculate coordinates of nodes from 'hclust' plot}
+\title{Calculates coordinates of nodes from 'hclust' plot}
+\description{Takes the 'hclust' plot and calculates coordinates of ann internal nodes}
 
 \usage{
   Hcoords(hcl)
@@ -10,7 +11,7 @@
   \item{hcl}{\code{hclust} object}
 }
 
-\description{
+\details{
 
   This function calculates coordinates for each 'hclust' node. Inspired
   by pvclust::hc2axes().

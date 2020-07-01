@@ -1,6 +1,7 @@
 \name{Tcoords}
 \alias{Tcoords}
-\title{Calculate coordinates of tips from 'hclust' plot}
+\title{Calculates coordinates of tips from 'hclust' plot}
+\description{Takes the 'hclust' plot and calculates coordinates of all tips}
 
 \usage{
   Tcoords(hcl, hang=0.1, add=0, horiz=FALSE)
@@ -13,7 +14,7 @@
   \item{horiz}{Plot values for a horizontal tree?}
 }
 
-\description{
+\details{
 
   This function calculates coordinates for each tip of the plotted
   'hclust' object. It is useful together with plot.hclust(...,
@@ -35,6 +36,10 @@
   To plot new labels in the same order, do not forget to apply the
   'order' component of 'hclust' object (see below for the example).
 
+  Together with Hcoords(), it in principle allows to plot dendrogram in
+  the alternative way (for example, with aid of segments() and text()).
+  This possibility, however, needs a research.
+
 }
 
 \seealso{
@@ -51,6 +56,11 @@ text(Tcoords(hcl, add=0.03), newlabels, col=ifelse(grepl("W.D", newlabels), 2, 1
 
 plot(hcl, labels=FALSE)
 points(Tcoords(hcl), pch=19)
+
+## how to colorize tips, useful if dendrogram is dense
+iris.h <- hclust(dist(iris[, -5]))
+plot(iris.h, labels=FALSE)
+points(Tcoords(iris.h, add=0.01), col=iris$Species[iris.h$order]) # reorder lalels!
 
 ## can be used with Ploth(), i.e., with dendrogram
 Ploth(hcl, labels=NA, horiz=TRUE) # hang=-1 is default

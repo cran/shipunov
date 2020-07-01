@@ -2,7 +2,7 @@
 \alias{Bclust}
 \title{Bootstrapped hclust}
 
-\description{Bootstraps (or jacknife) hierarchical clustering}
+\description{Bootstraps (or jacknifes) hierarchical clustering}
 
 \usage{
 Bclust(data, method.d="manhattan", method.c="ward.D",
@@ -48,12 +48,14 @@ iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 
 \references{
 
-  Felsenstein, J. 1985. \emph{Confidence limits on phylogenies: an
-  approach using the bootstrap.} Evolution. 783-791.
+  Felsenstein J. 1985. Confidence limits on phylogenies: an approach
+  using the bootstrap. Evolution. 39 (4): 783--791.
 
-  Efron, B., E. Halloran, and S. Holmes. 1996. \emph{Bootstrap confidence
-  levels for phylogenetic trees.} Proceedings of the National Academy of
-  Sciences. 93.23: 13429-13429. }
+  Efron B., Halloran E., Holmes S. 1996. Bootstrap confidence levels for
+  phylogenetic trees. Proceedings of the National Academy of Sciences. 93
+  (23): 13429--13429.
+
+}
 
 \seealso{
   \code{\link{Jclust}}, \code{\link{BootA}}, \code{\link{Hcl2mat}},

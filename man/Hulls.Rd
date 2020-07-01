@@ -1,7 +1,7 @@
 \name{Hulls}
 \alias{Hulls}
-\title{Groups' hulls}
-\description{Groups' hulls with centroids calculation}
+\title{Convex hulls for multiple groups}
+\description{Calculates and plots groups hulls and related information}
 
 \usage{Hulls(pts, groups, match.colors=TRUE, usecolors=NULL,
  plot=TRUE, centers=FALSE, c.pch=0, c.cex=3,
@@ -14,7 +14,7 @@
 \item{usecolors}{Which group colors to use (does not rotate)}
 \item{plot}{Plot?}
 \item{centers}{Show centers?}
-\item{c.pch}{Color of center points}
+\item{c.pch}{Type of center points}
 \item{c.cex}{Scale of center points}
 \item{outliers}{Include outliers?}
 \item{coef}{Determines how to detect outliers, see 'coef' from 'boxplot.stats()' }
@@ -23,21 +23,29 @@
 
 \details{
 
-Groups' hulls with optional centroids calculation (requires
-'PBSmapping').
+If 'centers=TRUE', then calculates centroids of polygons corrsponding
+with convex hulls (requires 'PBSmapping'  package).
 
 If 'outliers=FALSE', uses 'boxplot.stats()' to detect outliers (points
 which are most distant from centers). This option could be used for
 cluster sharpening. It also automatically switches to 'centers=TRUE' so
 if you want to plot smoothed hulls but do not want to plot their centers,
-use something like 'c.pch=NA' or 'c.cex=0'.
+use something like 'c.pch=NA' or 'c.cex=0' (see examples).
+
+Please also check Ellipses() function which uses confidence ellipses
+based on F-distribution.
+
+Note that (at least at the moment), polygons are plotted with line()
+function, therefore shading is not straightforward (but possible, see
+examples).
 
 }
 
 \value{
 
-Invisibly outputs list of hulls with coordinates, and possibly also with
-'centers' and 'outliers' components
+Invisibly outputs list of hulls (polygons) with coordinates, and possibly
+also with 'centers' and 'outliers' components. Indices of margin points
+returned as row names of each polygon.
 
 }
 
@@ -45,10 +53,10 @@ Invisibly outputs list of hulls with coordinates, and possibly also with
 
 \author{Alexey Shipunov}
 
-\seealso{\code{\link{Ellipses}}, \code{\link{boxplot.stats}}}
+\seealso{\code{\link{Ellipses}}, \code{\link{Overlap}}, \code{\link{boxplot.stats}}}
 
 \examples{
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 plot(iris.p, type="n", xlab="PC1", ylab="PC2")
 pal <- rainbow(3)
 text(iris.p, labels=abbreviate(iris[, 5], 1, method="both.sides"),
@@ -57,8 +65,22 @@ Hulls(iris.p, iris[, 5], centers=TRUE, usecolors=pal)
 
 ## smoothed hulls
 plot(iris.p, col=iris$Species, xlab="PC1", ylab="PC2")
-ppts <- Hulls(iris.p, iris[, 5], centers=TRUE, outliers=FALSE, coef=2)
+ppts <- Hulls(iris.p, iris[, 5], centers=TRUE, outliers=FALSE, c.pch=NA)
+## reveal outliers
 ppts$outliers
+points(iris.p[ppts$outliers, ], pch=4, cex=1.4)
+
+## this might complement Overlap()
+dist(ppts$centers)
+## how to use centers for clustering groups
+plot(hclust(dist(ppts$centers)))
+
+## how to plot shaded hulls
+plot(iris.p, pch=as.numeric(iris$Species))
+iris.h <- ppts[ppts \%-\% c("centers", "outliers")] # do not forget to remove these
+for (i in seq_len(length(iris.h)))
+ polygon(iris.h[[i]], border=NA, col=adjustcolor(i, alpha.f=0.2))
+
 }
 
 \keyword{aplot}

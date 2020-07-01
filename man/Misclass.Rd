@@ -9,10 +9,10 @@
 \arguments{
 \item{pred}{Predicted class labels}
 \item{obs}{Observed class labels}
-\item{best}{Perform a search for the classification table with minimal misclassification rate?}
+\item{best}{Perform a search for the classification table with minimal misclassification error?}
 \item{ignore}{Vector of class labels to ignore (convert into NAs)}
 \item{quiet}{Output summary?}
-\item{force}{Override the restriction of class number in 'best=TRUE'?}
+\item{force}{Override the restriction of class number in 'best=TRUE' and speed up code?}
 \item{...}{Arguments to 'table'}
 }
 
@@ -30,15 +30,19 @@ case of unsupervised classifications which typically return numeric
 labels. It therefore assumes that the table is a result of some
 non-random process. However, internally it generates all permutations of
 factor levels and could be very slow if there are 8 and more class
-labels. Therefore, more than 8 classes are not allowed (but it is
-possible to override this restriction with 'force=TRUE'.)
+labels. Therefore, more than 8 classes are not allowed. It is possible
+nevertheless to override this restriction with 'force=TRUE'; this option
+also uses the experimental code which replaces internal table() with
+tabulate() and is much faster with many labels.
 
 Variant with 'best=TRUE' might also add empty rows (filled with zeros) to
 the table in case if numbers of classes are not equal.
 
 Additional arguments could be passed for table(), for example,
 'useNA="ifany"'. If supplied data contains NAs, there will be also note
-in the end.
+in the end. Note that tabulate()-based code (activated with force="TRUE")
+does not take table()-specific arguments, so if this is a case, warning
+will be issued.
 
 It is possible to ignore (convert into NAs) some class labels with
 'ignore=...', this is useful for methods like DBSCAN which output special
@@ -84,6 +88,9 @@ binom.test(sum(diag(res)), sum(res))$conf.int
 mcnemar.test(res) # to avoid NA's, add small number to 'res'
 ## how to plot misclassification table
 assocplot(res)
+## how to use Misclass() for Recode()
+nn <- Recode(iris.k$cluster, from=dimnames(res)$pred, to=dimnames(res)$obs)
+head(nn)
 
 library(dbscan)
 iris.db <- dbscan(iris[, -5], eps=0.3)

@@ -15,7 +15,7 @@ Classproj(data, classes, method="DMS")
 
 \details{
 
-'Classproj' is the supervised or semi-supervised (leveraged or educated)
+'Classproj' is the leveraged (supervised) or educated (semi-supervised)
 manifold learning (dimension reduction). See examples for the variety of
 its uses.
 
@@ -29,17 +29,20 @@ Weiliang Qiu.
 }
 
 \value{
-Returns list with 'proj' coordinates of projected data points and 'centers' coordinates of class centers.
+
+Returns list with 'proj' coordinates of projected data points and
+'centers' coordinates of class centers.
+
 }
 
 \references{
 
-Dhillon I.S., Modha D.S., Spangler W.S., 2002. Class visualization of
+Dhillon I.S., Modha D.S., Spangler W.S. 2002. Class visualization of
 high-dimensional data with applications. Computational Statistics and
 Data Analysis. 41: 59--90.
 
-Qiu W.-L., Joe H. 2006. Separation Index and Partial Membership for
-Clustering. Computational Statistics and Data Analysis. 50: 585--603.
+Qiu W.-L., Joe H. 2006. Separation index and partial membership for
+clustering. Computational Statistics and Data Analysis. 50: 585--603.
 
 }
 
