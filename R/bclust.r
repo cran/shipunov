@@ -1,4 +1,4 @@
-Bclust <- function(data, method.d="manhattan", method.c="ward.D",
+Bclust <- function(data, method.d="euclidean", method.c="ward.D",
 FUN=function(.x) hclust(dist(.x, method=method.d), method=method.c),
 iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE) {
  .calc.matches <- function(origin, current, nc=ncol(origin)) {
@@ -84,7 +84,7 @@ Tcoords <- function(hcl, hang=0.1, add=0, horiz=FALSE) {
   yi <- -hcl$merge[i, sngls]
   yh[yi] <- hcl$height[i]
  }
- x <- seq_along(hcl$labels)
+ x <- seq_len(nrow(hcl$merge) + 1L) # like in plot.hclust()
  if (hang >= 0) {
   y <- yh[hcl$order] - (diff(range(hcl$height)) * (hang + add))
   } else {
@@ -95,16 +95,29 @@ Tcoords <- function(hcl, hang=0.1, add=0, horiz=FALSE) {
 
 ## ===
 
-Bclabels <- function(hcl, values, coords=NULL, horiz=FALSE, method="text", threshold=NULL, ...) {
- if (is.null(coords)) coords <- Hcoords(hcl)
- if (horiz) coords[, c(2, 1)] <- coords
-  if (method == "text") {
-  if (!is.null(threshold)) values[values < threshold] <- NA
-  text(coords, labels=values, ...)
-  }
- if (method == "points") {
-  if (!is.null(threshold)) coords <- coords[values >= threshold, ]
-  points(coords, ...)
-  }
- invisible(list(coords=coords, labels=values))
+Fence <- function(hcl, fct, ex=0.05, lwd=2.5, horiz=FALSE, hang=0.1, ...) {
+ pos <- Tcoords(hcl, hang=hang, horiz=horiz)
+ add <- diff(range(hcl$height)) * ex
+ segments(pos[, 1], pos[, 2], y1=pos[, 2] + add, col=as.factor(fct)[hcl$order], lwd=lwd, ...)
+}
+
+## ===
+
+Bclabels <- function(hcl, values, coords=NULL, horiz=FALSE, method="text",
+ threshold=NULL, top=NULL, percent=FALSE, ...) {
+if (is.null(coords)) coords <- Hcoords(hcl)
+if (horiz) coords[, 2:1] <- coords
+if (method == "text") {
+ if (percent) values <- round(values*100)
+ if (!is.null(threshold)) values[values < threshold] <- NA
+ if (percent) values[!is.na(values)] <- paste0(values[!is.na(values)], "%")
+ if (!is.null(top)) values[1:(length(values) - top)] <- NA
+ text(coords, labels=values, ...)
+ }
+if (method == "points") {
+ if (!is.null(threshold)) coords <- coords[values >= threshold, ]
+ if (!is.null(top)) coords <- coords[1:(length(values) - top), ]
+ points(coords, ...)
+ }
+invisible(list(coords=coords, labels=values))
 }

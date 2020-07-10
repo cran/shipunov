@@ -5,7 +5,7 @@ Ellipses <- function(pts, groups, match.color=TRUE, usecolors=NULL,
  ppts <- list()
  out <- seq(along=groups)
  inds <- names(table(groups))
- if(centers) ppts$centers <- matrix(ncol=2, nrow=length(inds), dimnames=list(inds))
+ if (centers) cnts <- matrix(ncol=2, nrow=length(inds), dimnames=list(inds))
  for (is in inds) {
   if (match.color) { m.col <- match(is, inds) } else { m.col <- "black" }
   if (!is.null(usecolors)) m.col <- usecolors[inds == is]
@@ -29,9 +29,10 @@ Ellipses <- function(pts, groups, match.color=TRUE, usecolors=NULL,
    lines(coords[[is]][, 1], coords[[is]][, 2], col=m.col, ...)
    }
   if (centers) {
-   ppts$centers[is, ] <- c(c.X[1], c.X[2])
+   cnts[is, ] <- c(c.X[1], c.X[2])
    if(plot) points(c.X[1], c.X[2], pch=c.pch, cex=c.cex, col=m.col)
   }
  }
+ if (centers) attr(ppts, "centers") <- cnts
  invisible(ppts)
 }

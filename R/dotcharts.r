@@ -1,12 +1,13 @@
-Dotchart1 <- function (x, labels=NULL, groups=NULL, gdata=NULL, ann=par("ann"),
-    xaxt=par("xaxt"), frame.plot=TRUE, log="", cex=par("cex"),
-    pt.cex=cex, pch=21, gpch=21, bg=par("bg"), color=par("fg"),
-    gcolor=par("fg"), lcolor="gray", xlim=range(x[is.finite(x)]),
-    main=NULL, xlab=NULL, ylab=NULL, ...)
+Dotchart1 <- function (x, labels = NULL, groups = NULL, gdata = NULL, offset = 1/8,
+    ann = par("ann"), xaxt = par("xaxt"), frame.plot = TRUE,
+    log = "", cex = par("cex"), pt.cex = cex, pch = 21, gpch = 21,
+    bg = par("bg"), color = par("fg"), gcolor = par("fg"), lcolor = "gray",
+    xlim = range(x[is.finite(x)]), main = NULL, xlab = NULL,
+    ylab = NULL, ...)
 {
-    opar <- par("mai", "mar", "cex", "yaxs")
+    opar <- par("mai", "mar", "mgp", "cex", "yaxs")
     on.exit(par(opar))
-    par(cex=cex, yaxs="i")
+    par(cex = cex, yaxs = "i")
     if (!is.numeric(x))
         stop("'x' must be a numeric vector or matrix")
     n <- length(x)
@@ -17,7 +18,7 @@ Dotchart1 <- function (x, labels=NULL, groups=NULL, gdata=NULL, ann=par("ann"),
             labels <- as.character(seq_len(nrow(x)))
         labels <- rep_len(labels, n)
         if (is.null(groups))
-            groups <- col(x, as.factor=TRUE)
+            groups <- col(x, as.factor = TRUE)
         glabels <- levels(groups)
     }
     else {
@@ -26,30 +27,36 @@ Dotchart1 <- function (x, labels=NULL, groups=NULL, gdata=NULL, ann=par("ann"),
         glabels <- if (!is.null(groups))
             levels(groups)
         if (!is.vector(x)) {
-            cat("convert plotting obj with as.numeric(obj)\n")             # changed!
+##            warning("'x' is neither a vector nor a matrix: using as.numeric(x)")
             x <- as.numeric(x)
+            cat("Converted 'x' with 'as.numeric(x)'\n") # !!!
         }
     }
     plot.new()
     linch <- if (!is.null(labels))
-        max(strwidth(labels, "inch"), na.rm=TRUE)
+        max(strwidth(labels, "inch"), na.rm = TRUE)
     else 0
     if (is.null(glabels)) {
         ginch <- 0
         goffset <- 0
     }
     else {
-        ginch <- max(strwidth(glabels, "inch"), na.rm=TRUE)
-        goffset <- 0.4
+        ginch <- max(strwidth(glabels, "inch"), na.rm = TRUE)
+        goffset <- offset
     }
-    yinch <- if (!is.null(ylab)) 0.4 else 0                                # inserted!
+    nmai <- opar[["mai"]]
+    if (ann)
+        nm.2 <- nmai[2L]
     if (!(is.null(labels) && is.null(glabels))) {
-        nmai <- par("mai")
-        nmai.2.new <- nmai[4L] + max(yinch + linch + goffset, ginch) + 0.1 # changed!
-        if (nmai.2.new > nmai[2L]) {                                       # changed!
-            nmai[2L] <- nmai.2.new                                         # changed!
+        yi <- if (is.null(ylab) || !ann)
+            0
+        else offset
+        nm.2 <- nmai[4L] + max(yi + linch + goffset, ginch) +
+            1/16
+        if (nmai[2L] < nm.2) {
+            nmai[2L] <- nm.2
+            par(mai = nmai)
         }
-        par(mai=nmai)
     }
     if (is.null(groups)) {
         o <- seq_len(n)
@@ -57,53 +64,56 @@ Dotchart1 <- function (x, labels=NULL, groups=NULL, gdata=NULL, ann=par("ann"),
         ylim <- c(0, n + 1)
     }
     else {
-        o <- sort.list(as.numeric(groups), decreasing=TRUE)
+        o <- sort.list(as.numeric(groups), decreasing = TRUE)
         x <- x[o]
         groups <- groups[o]
         color <- rep_len(color, length(groups))[o]
         lcolor <- rep_len(lcolor, length(groups))[o]
         pch <- rep_len(pch, length(groups))[o]
-        offset <- cumsum(c(0, diff(as.numeric(groups)) != 0))
-        y <- seq_len(n) + 2 * offset
+        offset1 <- cumsum(c(0, diff(as.numeric(groups)) != 0)) # !!!
+        y <- seq_len(n) + 2 * offset1 # !!!
         ylim <- range(0, y + 2)
     }
-    plot.window(xlim=xlim, ylim=ylim, log=log)
+    plot.window(xlim = xlim, ylim = ylim, log = log)
     lheight <- par("csi")
     if (!is.null(labels)) {
-        linch <- max(strwidth(labels, "inch"), na.rm=TRUE)
         loffset <- (linch + 0.1)/lheight
-        labs <- labels[o]
-        mtext(labs, side=2, line=loffset, at=y, adj=0,
-            col=color, las=2, cex=cex, ...)
+        mtext(labels[o], side = 2, line = loffset, at = y, adj = 0,
+            col = color, las = 2, cex = cex, ...)
     }
-    abline(h=y, lty="dotted", col=lcolor)
-    points(x, y, pch=pch, col=color, bg=bg, cex=pt.cex/cex)
+    abline(h = y, lty = "dotted", col = lcolor)
+    points(x, y, pch = pch, col = color, bg = bg, cex = pt.cex/cex)
     if (!is.null(groups)) {
         gpos <- rev(cumsum(rev(tapply(groups, groups, length)) +
             2) - 1)
-        ginch <- max(strwidth(glabels, "inch"), na.rm=TRUE)
-        goffset <- (max(linch + 0.2, ginch, na.rm=TRUE) + 0.1)/lheight
-        mtext(glabels, side=2, line=goffset, at=gpos, adj=0,
-            col=gcolor, las=2, cex=cex, ...)
+        goffset <- (max(linch + offset, ginch, na.rm = TRUE) + 1/16)/lheight
+        mtext(glabels, side = 2, line = goffset, at = gpos, adj = 0,
+            col = gcolor, las = 2, cex = cex, ...)
         if (!is.null(gdata)) {
-            abline(h=gpos, lty="dotted")
-            points(gdata, gpos, pch=gpch, col=gcolor, bg=bg,
-                cex=pt.cex/cex, ...)
+            abline(h = gpos, lty = "dotted")
+            points(gdata, gpos, pch = gpch, col = gcolor, bg = bg,
+                cex = pt.cex/cex, ...)
         }
     }
-    axis(1, xaxt=xaxt)
+    axis(1, xaxt = xaxt)
     if (frame.plot)
         box()
-    if (ann)
-        title(main=main, xlab=xlab, ylab=ylab, ...)
+    if (ann) {
+        title(main = main, xlab = xlab, ...)
+        mgp <- par("mgp")
+        par(mgp = c(max(mgp[1], nm.2/lheight - 1.5), mgp[-1]))
+        title(ylab = ylab, ...)
+    }
     invisible()
 }
 
-Dotchart <- function(...) {
- Dotchart1(lcolor="black", bg="white", pt.cex=1.2, ...)
+Dotchart <- function(x, ...) {
+  Dotchart1(x=x, lcolor="black", bg="white", pt.cex=1.2, ...)
 }
 
-Dotchart3 <- function(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2, gridcol="grey", ...) {
+Dotchart3 <- function(values, left, right,
+ pch=21, bg="white", pt.cex=1.2, lty=1, lwd=2, gridcol="grey", ...)
+{
  Dotchart1(values, pch="", lcolor=0, xlim=range(c(values, left, right)), ...)
  grid(col=gridcol)
  for (i in seq_along(values)) {

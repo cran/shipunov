@@ -5,15 +5,16 @@
 
 \usage{
 
-Pinhull(pts, ppts, Hulls=TRUE)
+Pinhull(pts, ppts)
 
 }
 
 \arguments{
 
 \item{pts}{Data points, 2-dimensional}
-\item{ppts}{List with polygon information (e.g., output from Hulls() or Ellipses())}
-\item{Hulls}{Did the information come from Hulls() or Ellipses()?}
+
+\item{ppts}{List with polygon information (e.g., output from Hulls() or
+Ellipses())}
 
 }
 
@@ -22,9 +23,6 @@ Pinhull(pts, ppts, Hulls=TRUE)
 For each 'pts' observation, Pinhull() uses PBSmapping::findPolys() to
 find if it is within (or on the border) of each polygon described in
 'ppts'.
-
-If 'Hulls=TRUE' (default), then list components with names 'centers' and
-'outliers' will be attempted to remove from 'ppts' list.
 
 The output or Pinhull is easy to use to calculate the "observation
 overlap", it also allows to reveal "outliers" (points outside all
@@ -35,7 +33,8 @@ to more than one polygon).
 
 \value{
 
-Logical matrix, each column is the hull (polygon) name, rows correspond with rows of data points.
+Logical matrix, each column is the hull (polygon) name, rows correspond
+with rows of data points.
 
 }
 

@@ -3,7 +3,7 @@ exportPattern(".")
 
 # This is what R CMD check --as-cran suggests:
 importFrom("grDevices", "adjustcolor", "boxplot.stats", "chull",
-           "col2rgb", "colors", "dev.off", "grey", "pdf")
+           "col2rgb", "colors", "dev.off", "grey", "palette", "pdf")
 importFrom("graphics", "abline", "arrows", "axis", "barplot", "box",
            "boxplot", "dotchart", "grid", "hist", "image", "legend",
            "lines", "locator", "matlines", "mtext", "par", "plot",

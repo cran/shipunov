@@ -7,25 +7,33 @@
 \description{Simple bootstrap and jackknife clustering}
 
 \usage{
-Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=TRUE)
+
+Jclust(data, n.cl, iter=1000, method.d="euclidean", method.c="ward.D",
+ bootstrap=TRUE, monitor=TRUE)
+
 \method{print}{Jclust}(x, ...)
-\method{plot}{Jclust}(x, main="", xlab="", sub=NULL, rect.lty=3, rect.col=1, ...)
+
+\method{plot}{Jclust}(x, main="", xlab="", sub=NULL, rect.lty=3,
+ rect.col=1, top=FALSE, ...)
+
 }
 
 \arguments{
 \item{data}{Data}
 \item{n.cl}{Number of desired clusters}
-\item{iter}{Number of iterations}
+\item{iter}{Number of iterations, default 1000}
 \item{method.d}{Distance method}
 \item{method.c}{Hierarchical clustering method}
 \item{bootstrap}{Bootstrap or jackknife?}
+\item{monitor}{If TRUE (default), prints a dot for each replicate}
 \item{x}{Object of the class 'Jclust'}
-\item{rect.lty}{Line type for the rectangles}
-\item{rect.col}{Color of rectangles}
 \item{main}{Plot title}
 \item{xlab}{Horizontal axis label}
 \item{sub}{Horizontal axis sub-label}
-\item{...}{Additional arguments to the 'print()' or 'plot.hclust()'}
+\item{rect.lty}{Line type for the rectangles}
+\item{rect.col}{Color of rectangles}
+\item{top}{Plot values on top?}
+\item{...}{Additional arguments to the print() or plot.hclust()}
 }
 
 \details{
@@ -33,9 +41,22 @@ Jclust(data, n.cl, iter=100, method.d="manhattan", method.c="ward.D", bootstrap=
 Simple method to bootstrap and jackknife cluster memberships, and plot
 consensus membership tree. Requires the desired number of clusters.
 
+Note that Jclust() is fast indirect bootstrap, it boostrap the consensus
+(not the original) tree and narrows results with the desired number of
+clusters. Please consider also Bclust() which is the direct method, and
+phylogeny-based BootA().
+
 }
 
-\value{Returns 'Jclust' object.}
+\value{
+
+Returns 'Jclust' object which is a list with components "meth" (bootstrap
+or jacknife), "mat" (matrix of results), "hclust" (consensus tree as
+'hclust' object), "gr" (groups), "supp" (support values),  "iter" (number
+of iterations) and "n.cl" (number of cluters used.)
+
+
+}
 
 % \references{}
 
@@ -46,8 +67,14 @@ consensus membership tree. Requires the desired number of clusters.
 }
 
 \examples{
-(mo.j <- Jclust(t(moldino), 3, iter=1000))
+
+(mo.j <- Jclust(t(moldino), n.cl=3, iter=1000))
 plot(mo.j)
+
+iris.jb <- Jclust(iris[, -5], n.cl=3)
+plot(iris.jb, labels=FALSE)
+Fence(iris.jb$hclust, iris$Species)
+legend("topright", legend=levels(iris$Species), col=1:3, lwd=2.5, bty="n")
 
 \donttest{
 ## This is how one can bootstrap _all_ reliable cluster numbers:

@@ -7,17 +7,18 @@
 \description{Dotcharts, improved and extended}
 
 \usage{
-Dotchart1(x, labels = NULL, groups = NULL, gdata=NULL,
- ann=par("ann"), xaxt=par("xaxt"), frame.plot=TRUE, log="",
+
+Dotchart1(x, labels=NULL, groups=NULL, gdata=NULL, offset=1/8,
+ ann=par("ann"), xaxt=par("xaxt"),  frame.plot=TRUE, log="",
  cex=par("cex"), pt.cex=cex, pch=21, gpch=21, bg=par("bg"),
- color=par("fg"), gcolor=par("fg"), lcolor= "gray",
- xlim=range(x[is.finite(x)]), main= NULL, xlab=NULL,
- ylab=NULL, ...)
+ color=par("fg"),  gcolor=par("fg"), lcolor="gray", xlim=
+ range(x[is.finite(x)]), main=NULL, xlab=NULL, ylab=NULL, ...)
 
-Dotchart(...)
+Dotchart(x, ...)
 
-Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1,
- lwd=2, gridcol="grey", ...)
+Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2,
+ lty=1, lwd=2, gridcol="grey", ...)
+
 }
 
 \arguments{
@@ -25,6 +26,7 @@ Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1,
 \item{labels}{A vector of labels for each point.}
 \item{groups}{An optional factor indicating how the elements of 'x' are grouped.}
 \item{gdata}{Data values for the groups. This is typically a summary such as the median or mean of each group.}
+\item{offset}{Offset in inches of 'ylab' and 'labels'.}
 \item{ann}{Logical value indicating whether title and x and y axis labels should appear on the plot.}
 \item{xaxt}{String indicating the x-axis style; use 'n' to suppress and see also par("xaxt").}
 \item{frame.plot}{Logical indicating whether a box should be drawn around the plot.}
@@ -50,13 +52,24 @@ Dotchart3(values, left, right, pch=21, bg="white", pt.cex=1.2, lty=1,
 }
 
 \details{
+
 For better explanations of options, see 'help(dotchart)'.
 
-'Dotchart1()' is a default 'dotchart()' corrected for use with 1-dimensional tables with 'ylab' and/or changed 'par("mar")[2]'. So comparing with the default 'dotchart()', it has a better left margin. It also outputs message instead of warning.
+Dotchart1() is a dotchart() corrected for use with 1-dimensional tables.
+If the argument is a 1-dimensional table, Dotchart() converts it into
+numeric vector first and instead of warning, outputs the message. This is
+helpful to the beginners with R, and especially on macOS GUI where
+warnings are in red. It also corrects the bug introduced in dotchart()
+with R 4.0.0. There is a hope that with R > 4.0.2, this function should
+become obsolete.
 
-'Dotchart()' is a prettified 'Dotchart1()' with the following defaults: 'Dotchart1(lcolor="black", bg="white", pt.cex=1.2, ...)'. Use it as a shortcut.
+Dotchart() is a prettified dotchart with the following defaults:
+'lcolor="black", bg="white", pt.cex=1.2'.
 
-'Dotchart3()' shows values together with ranges. It is an extension of 'Dotchart1()'; for each value, it shows ranges. Does not work with grouped data. A bit similar to 'Linechart()' but more general.
+Dotchart3() is the dotchart extension which shows values together with
+ranges. Somewhat similar to Linechart() but more general (and does not
+work with grouped data).
+
 }
 
 % \value{}
@@ -68,21 +81,17 @@ For better explanations of options, see 'help(dotchart)'.
 \seealso{\code{\link{dotchart}}, \code{\link{Linechart}}}
 
 \examples{
+
 ## Compare:
 aa <- table(c(1, 1, 1, 2, 2, 3))
-##
-Dotchart1(aa, ylab="Ylab") # shows 'ylab'; outputs message instead of warning
-dotchart(aa, ylab="Ylab") # does not show 'ylab'; produces warning
-##
-## changes all margins (note: Dotchart1() cannot forcedly _decrease_ left margin)
-old.par <- par(mar=c(1, 10, 1, 1)) ; Dotchart1(aa, ylab="Ylab") ; par(old.par)
-## does not change left margin
-old.par <- par(mar=c(1, 10, 1, 1)) ; dotchart(aa, ylab="Ylab") ; par(old.par)
+dotchart(aa, ylab="Ylab") # produces warning; does not show 'ylab' if R version < 4
+Dotchart(aa, ylab="Ylab") # outputs message instead of warning; always shows 'ylab'
 
-Dotchart(aa)
+iris1 <- aggregate(iris[, 1], iris[5], function(.x) fivenum(.x)[c(3, 1, 5)])
+iris1x <- iris1$x
+row.names(iris1x) <- iris1$Species
+Dotchart3(iris1x[, 1], iris1x[, 2], iris1x[, 3])
 
-Dotchart3(structure(1:3, names=LETTERS[1:3]), 0:2, 2:4)
-Dotchart3(structure(0:2, names=LETTERS[1:3]), 0:2, 2:4, pch="") # ranges only
 }
 
 \keyword{hplot}

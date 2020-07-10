@@ -3,12 +3,13 @@
 
 \title{'str()' enchanced for data frames}
 
-\description{Enhanced 'str()': with variable numbers, row names and missing data indication}
+\description{Enhanced 'str()': with variable numbers, row names, missing data indication and possibly more}
 
-\usage{Str(df)}
+\usage{Str(df, as.factor=FALSE)}
 
 \arguments{
 \item{df}{Data frame}
+\item{as.factor}{Convert character columns to factors?}
 }
 
 \details{
@@ -22,12 +23,23 @@ output of internal 'str()', changes it and outputs the new one. If the
 object is not a data frame or is a data frame with non-atomic columns,
 then output is not changed.
 
+If 'as.factor=TRUE', converts all character columns to factors before
+reporting the structure, thus mimicking pre-R4 behavior of many functions
+related with data frames (and also invisibly outputs the new data frame).
+Might be useful as is, for example, to understand the number of unique
+character values which will be shown as "factor levels".
+
 Alternative: DescTools::Str() which uses cycles (slower!), has less
 features, but works with non-atomic columns.
 
 }
 
-% \value{}
+\value{
+
+If 'as.factor=TRUE', invisibly outputs the data frame with all character
+columns converted into factors.
+
+}
 
 % \references{}
 
@@ -41,11 +53,19 @@ row.names(trees1)[1] <- "a"
 trees1[1, 1] <- NA
 Str(trees)
 Str(trees1)
+
 \dontrun{
 trees.crazy <- trees
 trees.crazy[[2]] <- trees[, 2, drop=FALSE]
 Str(trees.crazy) # does not work with data frames with non-atomic columns
 }
+
+abc <- data.frame(a=letters[1:10], b=LETTERS[1:10], c=1:10)
+abc[3, 1] <- NA
+Str(abc)
+abc.new <- Str(abc, as.factor=TRUE)
+Str(abc.new)
+
 }
 
 \keyword{environment}

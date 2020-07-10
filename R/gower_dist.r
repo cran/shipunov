@@ -1,11 +1,11 @@
-Gower.dist<- function(data.x, data.y=data.x, rngs=NULL, KR.corr=TRUE) {
+Gower.dist <- function(data.x, data.y=data.x, rngs=NULL, KR.corr=TRUE, na.rm=FALSE) {
 gower.fcn <- function(x, y, rng=NULL, KR.corr=TRUE) {
 nx <- length(x)
 ny <- length(y)
 cx <- class(x)
 cy <- class(y)
 delta <- matrix(1, nx, ny)
-if (!identical(cx, cy)) stop("the x and y object are of different type")
+if (!identical(cx, cy)) stop("objects x and y have different types")
 if (is.logical(x)) {
     dd <- abs(outer(X=x, Y=y, FUN="-"))
     delta[outer(x == FALSE, y == FALSE, FUN="&")] <- 0
@@ -84,6 +84,7 @@ if (is.null(dim(data.x)) && is.null(dim(data.y))) {
     }
     out <- num / den
 }
+if (anyNA(out) && na.rm) out[is.na(out)] <- max(out, na.rm=TRUE)
 if (!is.null(row.names(data.x))) row.names(out) <- row.names(data.x)
 if (!is.null(row.names(data.y))) colnames(out) <- row.names(data.y)
 if (identical(data.x, data.y)) out <- as.dist(out)

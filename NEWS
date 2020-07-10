@@ -1,6 +1,17 @@
+shipunov 1.10:
+ 'PBSmapping' package is now imported, not suggested so it should be installed together with 'shipunov';
+ Dotchart1(), Dotchart(), Linechart(), Ex.col(), Str() functions and corresponding help files improved;
+ Gower.dist() now controls the missing data in the output;
+ Tcoords() now outputs proper coordinates even if labels are not present;
+ new functions Polycenter() and Polyarea(), function Squares() re-worked;
+ Hulls() and Ellipses() output now "centers" and "outliers" as _attributes_, please note that this might affect older scripts;
+ Overlap(), Squares() and Pinhull() are improved, their option "Hulls=" removed;
+ Jclust() and Bclabels() updated;
+ new Fences() function which colorizes tips of 'hclust' dendrogram.
+
 shipunov 1.9:
- Misclass(..., bast=TRUE) reworked to speed up, everything is taken outside of cycles, 'force=TRUE' now also runs experimental fast tabulate()-based code;
- Biarrows() is now by default with shift="auto" so arrows start out of the center without scaling;
+ Misclass(..., best=TRUE) reworked to speed up, everything is taken outside of cycles, 'force=TRUE' now also runs experimental fast tabulate()-based code;
+ Biarrows() is now by default with 'shift="auto"' so arrows start out of the center without scaling;
  Bclabels() now prints bootstrap values as is;
  Ellipses() and especially Overlap() re-worked, the last now allows to output symmetric and negative overlaps;
  Hulls() improved to return point indices as row names;
@@ -35,7 +46,7 @@ shipunov 1.7:
 shipunov 1.6:
  help files improved;
  small bug in BootRF() and BootKNN() corrected;
- BookKNN() now also handles Dnn();
+ BootKNN() now also handles Dnn();
  Gradd(..., what="lines") now also plots decision boundaries;
  help(Gradd) simplified and two packages removed from "Suggested";
  functions Co.test() and Is.tax.inform.char() removed as very simple and rarely used;

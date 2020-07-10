@@ -1,9 +1,3 @@
-With R-4, make Dotchart1() just a dotchart() wrapper which converts non-numeric objects first (and signals it), think how to keep the reverse compatibility
-
-With R-4, make Ex.cols() use new palettes and allow it to change palettes
-
-With R-4, make Str(..., as.factor=TRUE) use df <- data.frame(as.list(df), stringsAsFactors=TRUE) and also invisibly output new df
-
 Make Booster() in a way analogous to Tapkee(); modify BootA() to use it
 
 Extend Bclust() to accumulate and accept the list of 'hclust' objects and probably to employ 'booster'
@@ -14,10 +8,6 @@ Biokey(): test more, fill gaps in conversion pairs, keep node labels (descriptio
 
 Experimental Misclass() code needs more testing, especially with table()-specific functions and NAs (but "ignore" seems to work)
 
-Think how to employ J. Oksanens's "ordihulltest" (proportion of cases when randomized classes give better overlap), vegan also has simple polyarea() and polycenter() within summary.ordihull()
-
-Think if "manhattan" and "ward.D" are needed as default in Bclust() and Jclust(); and if "manhattan" needed in examples at all
-
 Think if prcomp(iris..., scale=TRUE) is needed in examples (from experiments, scaling of _iris_ makes results worse)
 
 Think how to standardize MrBayes() writing Nexus (now there are two ways, "old ips" and "direct")
@@ -26,9 +16,9 @@ In Ellipses() and Hulls(), it is better to calculate "coords" first, then plot
 
 In bivariate plots, it is better to use xy.coords()
 
-Gap.code(): try to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
-
 BestOverlap(): try to optimize with parallel::mclapply()
+
+Gap.code(): think how to optimize more; possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
 
 Idea: Hhomonyms() to work with API or directly with hemihomonyms database; maybe, it deserves the separate package
 

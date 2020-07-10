@@ -28,9 +28,8 @@ Ellipses(pts, groups, match.color=TRUE, usecolors=NULL,
 
 \details{
 
-Note that (at least at the moment), ellipses are plotted with line()
-function, therefore shading is not straightforward (but possible, see
-examples).
+Note that (at least at the moment), ellipses are plotted with line(),
+therefore shading is not straightforward (but possible, see examples).
 
 Also, with a help from Pinhull() (see its help), it is possible to reveal
 "outliers", points outside of each ellipse borders.
@@ -39,8 +38,8 @@ Also, with a help from Pinhull() (see its help), it is possible to reveal
 
 \value{
 
-Invisibly returns the list in form similar to Hulls(), to use as 'coords'
-or with Overlap().
+Invisibly returns the list in the form similar to Hulls(), to use as a
+list of polygons or with Overlap().
 
 }
 
@@ -59,14 +58,13 @@ iris.e <- Ellipses(iris.p[, 1:2], iris[, 5], centers=TRUE)
 ## calculate overlap between ellipses
 Overlap(iris.e)
 
-## how to plot filled ellipses (this method is applicable also to Hulls())
+## how to plot filled ellipses
 plot(iris.p, type="n", xlab="PC1", ylab="PC2")
 text(iris.p, labels=abbreviate(iris[, 5], 1, method="both.sides"))
-iris.e$centers <- NULL # do not forget to remove "centers", if any
 for (i in seq_along(iris.e))
  polygon(iris.e[[i]], border=NA, col=adjustcolor(i, alpha.f=0.2))
 
-## how to reveal (and mark) "outliers"
+## how to reveal (and label) "outliers", points outside of _all_ ellipses
 iris.pie <- Pinhull(iris.p, iris.e)
 outs <- which(apply(iris.pie, 1, sum) == 0)
 points(iris.p[outs, ], cex=2, pch=4)
@@ -75,7 +73,8 @@ points(iris.p[outs, ], cex=2, pch=4)
 plot(iris.p, col=iris$Species)
 for (i in seq_along(iris.e)) lines(iris.e[[i]], col=i, lty=2)
 mi <- cbind(seq_len(nrow(iris)), as.numeric(iris$Species)) # indexing matrix
-emb <- rowSums(iris.pie) == 1 & iris.pie[mi] # rows belong to "proper" ellipse
+## remove "outliers" in broad sense, points which are outside of its "own" ellipse:
+emb <- rowSums(iris.pie) == 1 & iris.pie[mi]
 Hulls(iris.p[emb, ], iris$Species[emb])
 
 ## LDA ellipes

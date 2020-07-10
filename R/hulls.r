@@ -19,22 +19,14 @@ for (is in inds) {
  }
 if(!outliers) centers <- TRUE
 if(centers) {
-  ppol <- ppts
-  len <- length(ppol)
-  for (i in 1:len) {
-   ppol[[i]] <- data.frame(ppol[[i]], PID=i, POS=seq_len(nrow(ppol[[i]])))
-   names(ppol[[i]])[1:2] <- c("X", "Y")
-  }
-  centers <- matrix(ncol=2, nrow=len)
-  for (i in 1:len) centers[i,] <- unlist(PBSmapping::calcCentroid(ppol[[i]])[c("X", "Y")])
-  if (match.colors) {m.col <- 1:len} else {m.col <- "black"}
+  cnts <- t(sapply(ppts, Polycenter))
+  if (match.colors) { m.col <- seq_along(ppts) } else { m.col <- "black" }
   if (!is.null(usecolors)) m.col <- usecolors
-  if (plot & outliers) points(centers, pch=c.pch, cex=c.cex, col=m.col)
-  row.names(centers) <- names(ppol)
-  ppts$centers <- centers
+  if (plot & outliers) points(cnts, pch=c.pch, cex=c.cex, col=m.col)
+  attr(ppts, "centers") <- cnts
   }
 if(!outliers) {
- if (plot) points(centers, pch=c.pch, cex=c.cex, col=m.col)
+ if (plot) points(cnts, pch=c.pch, cex=c.cex, col=m.col)
  lout <- numeric(0)
  for (is in inds) {
   if (match.colors) { m.col <- match(is, inds) } else { m.col <- "black" }
@@ -42,7 +34,7 @@ if(!outliers) {
   gr <- out[groups == is]
   if (length(gr) > 1) {
    X <- pts[gr, 1:2]
-   C <- centers[match(is, inds), ]
+   C <- cnts[match(is, inds), ]
    D <- apply(X, 1, function(.x) sqrt(sum((.x - C)^2)))
    outliers <- D %in% boxplot.stats(D, coef=coef)$out
    X <- X[!outliers, ]
@@ -54,7 +46,7 @@ if(!outliers) {
    }
   lout <- c(lout, (seq_len(nrow(pts)))[gr][outliers])
  }
- ppts$outliers <- lout
+ attr(ppts, "outliers") <- lout
 }
 invisible(ppts)
 }

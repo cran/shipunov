@@ -1,8 +1,4 @@
-Pinhull <- function(pts, ppts, Hulls=TRUE) {
-if(Hulls) {
- if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
- if("outliers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "outliers")]
-}
+Pinhull <- function(pts, ppts) {
 ncol <- length(ppts)
 out <- matrix(FALSE, ncol=ncol, nrow=nrow(pts))
 colnames (out) <- names(ppts)

@@ -8,10 +8,18 @@
 }
 
 \arguments{
+
   \item{hcl}{\code{hclust} object}
-  \item{hang}{The fraction of the plot height by which labels should hang below the rest of the plot; better to make it equal to the 'hang' from \code{hclust} (default is 0.1).}
-  \item{add}{Add to 'hang' to make labels look better; reliable value is about 0.03}
+
+  \item{hang}{The fraction of the plot height by which labels should hang
+  below the rest of the plot; better to make it equal to the 'hang' from
+  \code{hclust} (default is 0.1).}
+
+  \item{add}{Add to 'hang' to make labels look better; reliable value is
+  about 0.03}
+
   \item{horiz}{Plot values for a horizontal tree?}
+
 }
 
 \details{
@@ -54,6 +62,7 @@ newlabels <- newlabels[hcl$order] # do not forget to reorder labels!
 plot(hcl, labels=FALSE)
 text(Tcoords(hcl, add=0.03), newlabels, col=ifelse(grepl("W.D", newlabels), 2, 1))
 
+## points instead of text labels
 plot(hcl, labels=FALSE)
 points(Tcoords(hcl), pch=19)
 

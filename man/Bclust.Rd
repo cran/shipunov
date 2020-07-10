@@ -5,7 +5,7 @@
 \description{Bootstraps (or jacknifes) hierarchical clustering}
 
 \usage{
-Bclust(data, method.d="manhattan", method.c="ward.D",
+Bclust(data, method.d="euclidean", method.c="ward.D",
 FUN=function(.x) hclust(dist(.x, method=method.d), method=method.c),
 iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 }
@@ -44,6 +44,12 @@ iter=1000, mc.cores=1, monitor=TRUE, bootstrap=TRUE)
 
   Bclust() and companion functions were based on functions from the
   'bootstrap' package of Sebastian Gibb.
+
+  Please note that this method frequently underestimates the cluster
+  stability when number of characters is relatively small. One of
+  possible remedies is to use hyber-binding (like "cbind(data, data,
+  data)") to reach the reliable number of characters.
+
 }
 
 \references{

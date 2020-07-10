@@ -103,27 +103,6 @@ return(res)
 
 ## ===
 
-Str <- function(df)
-{
- if (is.data.frame(df) & sum(sapply(df, is.atomic)) == length(df)) {
- str.tmp <- sub("^ \\$ ", "", capture.output(str(df, list.len=ncol(df))))
- nums <- prettyNum(0:length(df), width=2)
- nums[1] <- ""
- nas <- c(0, sapply(df, function(.x) sum(is.na(.x))))
- str.tmp <- ifelse(nas > 0, sub(": ", "* ", str.tmp), str.tmp)
- cat(paste(nums, str.tmp, "\n", sep=" "))
- if (!identical(as.character(seq_len(nrow(df))), row.names(df))) {
-  rown.tmp <- capture.output(str(row.names(df), vec.len=5))
-  rown.tmp <- sub("chr", "row.names", rown.tmp)
-  cat(rown.tmp, "\n")
-  }
- } else {
- str(df)
- }
-}
-
-# ===
-
 Table2df <- function(table)
 {
  F <- array(table, dim(table), dimnames(table))
@@ -447,37 +426,6 @@ Boxplots <- function(vars, groups, boxcols=Pastels, legpos="topleft", srt=45, ad
 
 ## ===
 
-Linechart <- function(vars, groups, xticks=TRUE, xmarks=TRUE, mad=FALSE, pch=19, se.lwd=1, se.col=1, ...)
-{
- if (!is.factor(groups)) stop("Grouping variable must be a factor")
- svars <- scale(vars)
- nvars <- ncol(vars)
- groups <- droplevels(groups)
- ngroups <- length(levels(groups))
- #
- if (mad)
- {
- centers <- aggregate(svars, list(groups), median, na.rm=TRUE); row.names(centers) <- centers$Group.1; centers <- as.matrix(centers[-1])
- starts <- as.matrix(aggregate(svars, list(groups), function(.x) median(.x, na.rm=TRUE)-mad(.x, na.rm=TRUE))[-1])
- ends <- as.matrix(aggregate(svars, list(groups), function(.x) median(.x, na.rm=TRUE)+mad(.x, na.rm=TRUE))[-1])
- } else {
- centers <- aggregate(svars, list(groups), function(.x) fivenum(.x)[3]); row.names(centers) <- centers$Group.1; centers <- as.matrix(centers[-1])
- starts <- as.matrix(aggregate(svars, list(groups), function(.x) fivenum(.x)[2])[-1])
- ends <- as.matrix(aggregate(svars, list(groups), function(.x) fivenum(.x)[4])[-1])
- }
- #
- oldpar <- par(xaxt="n")
- dotchart(centers, xlim=c(min(starts), max(ends)), pch=pch, ...)
- par(oldpar)
- yval <- rev(c(1:(nvars * (ngroups+2)))[c(rep(TRUE, ngroups), FALSE, FALSE)])
- yval <- unlist(lapply(split(yval, rep(1:nvars, each=ngroups)), rev))
- segments(starts, yval, ends, yval, lwd=se.lwd, col=se.col)
- if(xticks) axis(side=1, labels=xmarks)
- invisible(list(starts=starts, medians=centers, ends=ends))
-}
-
-## ===
-
 Ex.lty <- Ex.lines <- function(custom="431313")
 {
 oldpar <- par(mar=c(0,0,0,0))
@@ -516,47 +464,6 @@ for(i in 1:np)
  if(cextext > 0) text(ix[i]-.3, iy[i], pc, col=coltext, cex=cextext)
  }
 par(oldpar)
-}
-
-## ===
-
-Ex.col <- Ex.cols <- function(all=FALSE)
-{
-if(!all)
-{
- oldpar <- par(mar=c(0,0,0,0))
- plot(1, ylim=c(0,9), xlim=c(0,.7), axes=FALSE, type="n", xlab="", ylab="")
- cols <- c("white", "black", "red", "green3", "blue", "cyan", "magenta", "yellow", "gray")
- nums <- c(0:8)
- labels <- paste(nums, cols, sep="  ")
- for(i in 0:8) rect(.3, i-.2, .7, i+.2, col=cols[9-i], border=NA)
- text(rep(.1,6), 8:0, labels=labels, pos=4)
- par(oldpar)
- invisible(cols) # just in case if default palette replaced with something else
-}
-else
-{
-color.rgb <- t(col2rgb(colors()))
-color.text <- ifelse(apply(color.rgb, 1, mean) > 127, "black", "white")
-color.df <- data.frame(name=colors(), red=color.rgb[, "red"], green=color.rgb[, "green"], blue=color.rgb[, "blue"], text=color.text)
-color.df <- color.df[-grep("gray[1-9][1-9]|grey[1-9]", colors()),] # remove most of greys/grays
-color.df <- droplevels(color.df)
-n.col <- 10
-n.row <- 48
-op <- par(mar=rep(0,4))
-plot(c(0, n.col), c(0, n.row), type="n", bty="n", ylab="", xlab="", axes=FALSE)
-for(i in 1:n.col)
-{
- color.count <- (i-1) * n.row
- color.mod <- length(colors()) - color.count
- y.val <- ifelse(color.mod < n.row, n.row - color.mod + 1, 1)
- color.names <- as.character(color.df[color.count + 1:n.row, "name"])
- rect(i - 1, y.val - 0.5, i, n.row:y.val + 0.5, border="black", col=color.names)
- color.text <- as.character(color.df[color.count + 1:n.row, "text"])
- text(i-0.5, n.row:y.val, labels=color.names, cex=0.5, col=color.text)
-}
-par(op)
-}
 }
 
 # ===

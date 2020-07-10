@@ -13,17 +13,23 @@ package.
 }
 
 \usage{
-Overlap(ppts, Hulls=TRUE, symmetric=FALSE, negative=FALSE)
+Overlap(ppts, symmetric=FALSE, negative=FALSE)
 \method{summary}{Overlap}(object, ...)
 }
 
 \arguments{
+
 \item{ppts}{List with hulls information (e.g., output from Hulls())}
-\item{Hulls}{Did the information come from Hulls() or Ellipses()?}
+
 \item{symmetric}{Make overlaps symmetric (like in distance matrix)?}
-\item{negative}{Calculate "negative overlaps" (relative distance between non-overlapped hulls)?}
+
+\item{negative}{Calculate "negative overlaps" (relative distance between
+non-overlapped hulls)?}
+
 \item{object}{Object of the class 'Overlap'}
+
 \item{...}{Additional arguments}
+
 }
 
 \details{
@@ -34,9 +40,6 @@ separation between groups in 2D space.
 Overlap() employs calculations of areas of polygons and their intersects
 provided by 'PBSmapping' package. Initially, it was based on the code
 provided by J. Oksanen for his "ordihulldist" function.
-
-If 'Hulls=TRUE' (default), then list components with names 'centers' and
-'outliers' will be attempted to remove from 'ppts' list.
 
 By default, overlaps are asymmetric, so overlap between a and b is not
 necessarily equal to the overlap between b and a. If 'symmetric=TRUE',

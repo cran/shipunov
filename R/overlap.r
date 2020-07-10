@@ -1,9 +1,5 @@
-Overlap <- function(ppts, Hulls=TRUE, symmetric=FALSE, negative=FALSE)
+Overlap <- function(ppts, symmetric=FALSE, negative=FALSE)
 {
-if(Hulls) {
- if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
- if("outliers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "outliers")]
-}
 ppol <- ppts
 len <- length(ppol)
 for (i in 1:len) {
@@ -92,24 +88,4 @@ row.names(SUMM) <- NULL
 MIN <- which.min(sapply(RES, `[[`, "tmpm"))
 BESTO <- RES[[MIN]]$tmpo
 return(list(best=MIN, best.overlap=BESTO, summary=SUMM))
-}
-
-## ===
-
-Squares <- function(ppts, relative=FALSE, Hulls=TRUE) {
-if(Hulls) {
- if("centers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "centers")]
- if("outliers" %in% names(ppts)) ppts <- ppts[-which(names(ppts) == "outliers")]
-}
-len <- length(ppts)
-sq <- numeric(len)
-names(sq) <- names(ppts)
-for (i in 1:len)
- {
- ppts[[i]] <- data.frame(ppts[[i]], PID=i, POS=seq_len(nrow(ppts[[i]])))
- names(ppts[[i]])[1:2] <- c("X", "Y")
- sq[i] <- PBSmapping::calcArea(ppts[[i]])$area
- }
-if (relative) sq <- sq/(sum(sq))
-sq
 }

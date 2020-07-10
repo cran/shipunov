@@ -3,27 +3,31 @@
 \title{Areas of polygons}
 \description{Calculates areas of polygons}
 
-\usage{Squares(ppts, relative=FALSE, Hulls=TRUE)}
+\usage{Squares(ppts, relative=FALSE)}
 
 \arguments{
-\item{ppts}{Hulls information (e.g., output from Hulls() or Ellipses())}
+
+\item{ppts}{Output from Hulls() or Ellipses(), or just a list of
+polygons}
+
 \item{relative}{Calculate relative squares?}
-\item{Hulls}{Did the information come from Hulls() or Ellipses()?}
+
 }
 
 \details{
 
-Calculates areas of polygons (requires 'PBSmapping' package). Might be
-useful to understand better the group variability.
+"List of polygons" must be the list which contains any number of
+two-column numerical matrices of data frames, each represents the
+vertices of one polygon.
 
-If 'Hulls=TRUE' (default), then list components with names 'centers' and
-'outliers' will be attempted to remove from 'ppts' list.
+Might be useful to understand the variability of groups.
 
 }
 
 \value{
 
-Numerical vector, one element per polygon.
+Numerical (possibly named) vector of polygon areas, one element per
+polygon.
 
 }
 
