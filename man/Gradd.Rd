@@ -65,7 +65,7 @@ example below.
 \examples{
 ## SVM:
 library(e1071)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.svm.pca <- svm(Species ~ ., data=cbind(iris[5], iris.p))
 plot(iris.p, type="n", main="SVM")
 Gradd(iris.svm.pca, iris.p) # type="ids" (default)
@@ -74,7 +74,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## LDA:
 library(MASS)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.lda.pca <- lda(Species ~ . , data=cbind(iris[5], iris.p))
 plot(iris.p, type="n", main="LDA")
 Gradd(iris.lda.pca, iris.p, type="lda")
@@ -83,7 +83,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## tree::tree() (note how to draw decision boundaries):
 library(tree)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.tree.pca <- tree(Species ~ . , data=cbind(iris[5], iris.p))
 plot(iris.p, type="n", main="tree")
 Gradd(iris.tree.pca, iris.p, type="tree", what="lines")
@@ -92,7 +92,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## randomForest:
 library(randomForest)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.rf.pca <- randomForest(Species ~ ., data=cbind(iris[5], iris.p))
 plot(iris.p, type="n", main="randomForest")
 Gradd(iris.rf.pca, iris.p) # type="ids" (default)
@@ -101,7 +101,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## naiveBayes (note how to use training subsample):
 library(e1071)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 sel <- 1:nrow(iris) %in% seq(1, nrow(iris), 5)
 plot(iris.p, col=iris$Species, pch=ifelse(sel, 19, 1), main="naiveBayes")
 iris.nb2 <- naiveBayes(Species ~ ., data=cbind(iris[5], iris.p)[sel, ])
@@ -122,7 +122,7 @@ text(iris.m, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## QDA:
 library(MASS)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.qda.pca <- qda(Species ~ . , data=cbind(iris[5], iris.p))
 plot(iris.p, type="n", main="QDA")
 Gradd(iris.qda.pca, iris.p, type="lda")
@@ -131,7 +131,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## nnet:
 library(nnet)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 iris.nnet.pca <- nnet(Species ~ . , data=cbind(iris[5], iris.p), size=4)
 plot(iris.p, type="n", main="nnet")
 Gradd(iris.nnet.pca, iris.p, type="tree")
@@ -140,7 +140,7 @@ text(iris.p, col=as.numeric(iris[, 5]), labels=abbreviate(iris[, 5], 1,
 
 ## kNN (note how to employ User.Predict()):
 library(class)
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 plot(iris.p, type="n", main="kNN")
 Gradd(cbind(iris[5], iris.p), iris.p, type="user",
  User.Predict=function(model2var, X) knn(model2var[, 2:3], X, model2var[, 1], k=5))

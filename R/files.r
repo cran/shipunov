@@ -1,7 +1,4 @@
-Files <- function(root=getwd(), # root directory to explore (default is current working directory)
- multiple=FALSE, # allows multiple files to be selected
- hidden=FALSE) # converts into 'listfiles(all.files=...)'
-{
+Files <- function(root=getwd(),  multiple=FALSE, hidden=FALSE) {
  x <- c(dirname(normalizePath(root)), list.files(root, full.names=TRUE, all.files=hidden))
  isdir <- file.info(x)$isdir
  obj <- sort(isdir, index.return=TRUE, decreasing=TRUE)
@@ -13,10 +10,10 @@ Files <- function(root=getwd(), # root directory to explore (default is current 
  files <- c()
  sel <- -1
  while (TRUE) {
-  sel <- menu(lbls, title=sprintf('Select file(s) (0 to quit with dirname)\n
+  sel <- menu(lbls, title=sprintf('Select file(s) (0 to quit with dirname or filelist)\n
    Current directory: %s', root))
   if (sel == 0) {
-   files <- root
+   if (!multiple) files <- root
    break
   }
   if (sel == length(lbls)) {

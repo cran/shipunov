@@ -54,14 +54,42 @@ Bclabels(hcl, values, coords=NULL, horiz=FALSE, method="text",
 
 \examples{
 
-bb <- Bclust(t(moldino)) # specify 'mc.cores=4' or similar to speed up the process
-plot(bb$hclust)
-Bclabels(bb$hclust, bb$values, col="red", pos=3, offset=0.1, threshold=0.5)
+## 'atmospheres' data
+(bb <- Bclust(t(atmospheres))) # specify 'mc.cores=4' or similar to speed up the process
 
-iris.bb <- Bclust(iris[, rep(1:4, 6)], iter=100)
-## uses hyper-binding to make number of variables reliable
-## remove iter=100 for better bootstrap
+## standard use
+plot(bb$hclust)
+Bclabels(bb$hclust, bb$values, col="blue", pos=3, offset=0.1, threshold=0.9)
+
+## 'points' method
+plot(bb$hclust)
+Bclabels(bb$hclust, bb$values, method="points", threshold=0.9, pch=19, cex=2)
+
+## 'points' which grow with support
+plot(bb$hclust)
+Bclabels(bb$hclust, bb$values, method="points", pch=19, cex=bb$values*3)
+
+## pre-defined coordinates
+coords1 <- Hcoords(bb$hclust)
+plot(bb$hclust)
+Bclabels(bb$hclust, bb$values, coords=coords1, method="points", pch=19,
+ cex=bb$values*3)
+
+## use with horizontal Ploth()
+oldpar <- par(mar=c(2,1,0,4))
+Ploth(bb$hclust, horiz=TRUE)
+Bclabels(bb$hclust, bb$values, col="blue", pos=3, offset=0.1, horiz=TRUE)
+par(oldpar)
+
+## 'moldino' data
+m.bb <- Bclust(t(moldino)) # specify 'mc.cores=4' or similar to speed up the process
+plot(m.bb$hclust)
+Bclabels(m.bb$hclust, m.bb$values, col="red", pos=3, offset=0.1, threshold=0.5)
+
+## 'iris' data, with hyper-binding to make number of variables reliable
+iris.bb <- Bclust(iris[, rep(1:4, 6)], iter=100) # remove iter=100 for better bootstrap
 plot(iris.bb$hclust, labels=FALSE, main="", xlab="", sub="Bootstrap, 100 replicates")
+## use 'percent' and 'top'
 Bclabels(iris.bb$hclust, iris.bb$values, top=5, percent=TRUE, pos=3, offset=0.1)
 Fence(iris.bb$hclust, iris$Species)
 legend("topright", legend=levels(iris$Species), col=1:3, lwd=2.5, bty="n")

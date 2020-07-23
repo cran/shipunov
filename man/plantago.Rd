@@ -4,7 +4,12 @@
 \title{plantago}
 
 \description{
-Plantago (ribworts, plantains) species from European Russia: morphological table (Shipunov, 1998).
+
+Plantago (ribworts, plantains) species from European Russia:
+morphological table (Shipunov, 1998).
+
+All not applicable, unknown and "both" values are labeled as "NA".
+
 }
 
 \usage{
@@ -12,7 +17,10 @@ plantago
 }
 
 \format{
-This data frame has species names as row names, and contains the following columns (all variables are binary):
+
+This data frame has species names as row names, and contains the
+following columns (all variables are binary):
+
 \describe{
 \item{\code{V01}}{0 annuals or biennials, 1 perennials}
 \item{\code{V02}}{0 not taller than 20 cm, 1 taller than 20 cm}
@@ -78,7 +86,11 @@ This data frame has species names as row names, and contains the following colum
 }}
 
 \source{
-Shipunov A. 1998. Plantains (genera Plantago L. and Psyllium Mill., Plantaginaceae) of European Russia and adjacent territories. Ph. D. Thesis. Moscow State University.
+
+Shipunov A. 1998. Plantains (genera Plantago L. and Psyllium Mill.,
+Plantaginaceae) of European Russia and adjacent territories. Ph. D.
+Thesis. Moscow State University.
+
 }
 
 \examples{

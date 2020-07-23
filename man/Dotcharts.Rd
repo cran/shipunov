@@ -60,8 +60,8 @@ If the argument is a 1-dimensional table, Dotchart() converts it into
 numeric vector first and instead of warning, outputs the message. This is
 helpful to the beginners with R, and especially on macOS GUI where
 warnings are in red. It also corrects the bug introduced in dotchart()
-with R 4.0.0. There is a hope that with R > 4.0.2, this function should
-become obsolete.
+with R 4.0.0. With R > 4.0.2, this function should become (except for
+warning issue) obsolete.
 
 Dotchart() is a prettified dotchart with the following defaults:
 'lcolor="black", bg="white", pt.cex=1.2'.

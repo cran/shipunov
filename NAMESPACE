@@ -21,6 +21,7 @@ importFrom("utils", "capture.output", "combn", "head", "menu",
            "object.size", "savehistory", "str", "write.table")
 
 # Register S3 methods:
+S3method(plot, Bclust)
 S3method(plot, Infill)
 S3method(plot, Jclust)
 S3method(print, Jclust)

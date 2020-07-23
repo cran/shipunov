@@ -1,5 +1,16 @@
+shipunov 1.11:
+ Bclust() now accepts the pre-built list of 'hclust' objects;
+ plot.Jclust() now plots rectangle borders even if they go outside of plotting region;
+ new method plot.Bclust() for quick plotting boostrap values;
+ Bclust() is now able to count the relative matches;
+ new function SM.dist() for simple match distances;
+ Files() corrected so it now outputs file list if needed;
+ new data 'hrahn' and related multi-entry identification system;
+ Pleiad() now converts dissimilarities into similarities and can colorize negative correlations;
+ help files improved.
+
 shipunov 1.10:
- 'PBSmapping' package is now imported, not suggested so it should be installed together with 'shipunov';
+ "PBSmapping" package is now imported, not suggested so it should be installed together with "shipunov";
  Dotchart1(), Dotchart(), Linechart(), Ex.col(), Str() functions and corresponding help files improved;
  Gower.dist() now controls the missing data in the output;
  Tcoords() now outputs proper coordinates even if labels are not present;
@@ -7,23 +18,23 @@ shipunov 1.10:
  Hulls() and Ellipses() output now "centers" and "outliers" as _attributes_, please note that this might affect older scripts;
  Overlap(), Squares() and Pinhull() are improved, their option "Hulls=" removed;
  Jclust() and Bclabels() updated;
- new Fences() function which colorizes tips of 'hclust' dendrogram.
+ new Fences() function which colorizes tips of "hclust" dendrogram.
 
 shipunov 1.9:
- Misclass(..., best=TRUE) reworked to speed up, everything is taken outside of cycles, 'force=TRUE' now also runs experimental fast tabulate()-based code;
- Biarrows() is now by default with 'shift="auto"' so arrows start out of the center without scaling;
+ Misclass(..., best=TRUE) reworked to speed up, everything is taken outside of cycles, "force=TRUE" now also runs experimental fast tabulate()-based code;
+ Biarrows() is now by default with "shift="auto"" so arrows start out of the center without scaling;
  Bclabels() now prints bootstrap values as is;
  Ellipses() and especially Overlap() re-worked, the last now allows to output symmetric and negative overlaps;
  Hulls() improved to return point indices as row names;
  new function Vicinities() which helps to find "most central" observations;
- new function Pinhull() which allows to caclculate polygon memberships, "membership overlaps", ellipse outliers and more;
+ new function Pinhull() which allows to calculate polygon memberships, "membership overlaps", ellipse outliers and more;
  help files improved
 
 shipunov 1.8:
  DESCRIPTION corrected;
  Alldups() improved;
- in Hulls() 'match.color' changed to 'match.colors' (hopefully, will not affect anything);
- new function Tcoords() to calculate coordinates of tips in 'hclust' and Ploth() plots;
+ in Hulls() "match.color" changed to "match.colors" (hopefully, will not affect anything);
+ new function Tcoords() to calculate coordinates of tips in "hclust" and Ploth() plots;
  Pleiad() and its documentation slightly corrected;
  in Saynodynamite(), color is now simply "red";
  help files improved;
@@ -31,13 +42,13 @@ shipunov 1.8:
  some corrections for R-4;
  Ploth() improved to change, e.g., label font;
  Misclass() corrected in case if there are more predicted than observed classes;
- Misclass(..., best=TRUE) now uses recursive .permutations() modified from gtools package, it allowed to increase the maximal number of classes from 7 to 8 ;)
+ Misclass(..., best=TRUE) now uses recursive .permutations() modified from "gtools" package, it allowed to increase the maximal number of classes from 7 to 8 ;)
 
 shipunov 1.7:
- Plot.phylocl() now allows 'cex' for all labels;
+ Plot.phylocl() now allows "cex" for all labels;
  function Peaks() removed as it was not really useful;
  Biarrows() improved;
- seq_len() or seq_along() used instead of '1:...';
+ seq_len() or seq_along() used instead of "1:...";
  Files() corrected;
  Cosine.dist() and Misclass() improved;
  Alldups() extended to work with matrices and data frames;
@@ -50,7 +61,7 @@ shipunov 1.6:
  Gradd(..., what="lines") now also plots decision boundaries;
  help(Gradd) simplified and two packages removed from "Suggested";
  functions Co.test() and Is.tax.inform.char() removed as very simple and rarely used;
- compatibility established with new R 'stringsAsFactors=TRUE';
+ compatibility established with new R "stringsAsFactors=TRUE";
  new function Biarrows() to make biplot from any dimension reduction;
  Plot.phylocl() can now keep monotypic clades.
 
@@ -77,7 +88,7 @@ shipunov 1.4:
  R() renamed into R.logo();
  Life() improved;
  Rpart2newick() and Biokey() now keep node labels;
- MrBayes() changed after new version of ips package
+ MrBayes() changed after new version of "ips" package
 
 shipunov 1.3:
  Gradd() bug corrected;
@@ -121,7 +132,7 @@ shipunov 1.1:
  new Bclust() function and its allies;
  new Updist() function;
  Misclass(..., quiet=TRUE) now suppresses output;
- 'Rresults' script improved;
+ "Rresults" script improved;
  new Root1() function;
  Draw.arrow() removed;
  Histp() removed()

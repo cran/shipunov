@@ -45,7 +45,7 @@ plot(iris.m$points, col=as.numeric(iris$Species), xlab=xlab, ylab=ylab)
 iris.cmd <- cmdscale(iris.dist)
 MDSv(iris.cmd)
 
-iris.p <- prcomp(iris[, -5], scale=TRUE)
+iris.p <- prcomp(iris[, -5])
 MDSv(iris.p$x)
 100*summary(iris.p)$importance[2, ] # compare with MDSv() results
 

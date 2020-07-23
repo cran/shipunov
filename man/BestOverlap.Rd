@@ -64,7 +64,7 @@ B <- 100
 xylabels <- vector("list", length=0)
 for (n in 1:B) {
 ROWS <- sample(nrow(iris), replace=TRUE)
-tmp <- prcomp(iris[ROWS, -5], scale=TRUE)$x[, 1:2]
+tmp <- prcomp(iris[ROWS, -5])$x[, 1:2]
 xylabels[[n]] <- data.frame(x=tmp[, 1], y=tmp[, 2], labels=iris[ROWS, 5])
 }
 BestOverlap(xylabels)
@@ -74,7 +74,7 @@ B <- nrow(iris)
 xylabels <- vector("list", length=0)
 for (n in 1:B) {
 ROWS <- (1:B)[-n]
-tmp <- prcomp(iris[ROWS, -5], scale=TRUE)$x[, 1:2]
+tmp <- prcomp(iris[ROWS, -5])$x[, 1:2]
 xylabels[[n]] <- data.frame(x=tmp[, 1], y=tmp[, 2], labels=iris[ROWS, 5])
 }
 BestOverlap(xylabels)
@@ -102,7 +102,7 @@ BestOverlap(xylabels)
 ## One dimension reduction but many clusterings
 B <- 100
 xylabels <- vector("list", length=0)
-tmp1 <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+tmp1 <- prcomp(iris[, -5])$x[, 1:2]
 for (n in 1:B) {
 tmp2 <- kmeans(iris[, -5], centers=3)$cluster
 xylabels[[n]] <- data.frame(x=tmp1[, 1], y=tmp1[, 2], labels=letters[tmp2])

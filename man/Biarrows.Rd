@@ -77,7 +77,7 @@ plot(iris.cmd, xlab="Dim 1", ylab="Dim 2")
 Biarrows(iris.cmd, iris[, -5])
 title(main="MDS biplot with Biarrows()")
 
-# ===
+## ===
 
 library(MASS)
 iris.mds <- isoMDS(dist(unique(iris[, -5])))
@@ -85,7 +85,7 @@ plot(iris.mds$points, xlab="Dim 1", ylab="Dim 2")
 Biarrows(iris.mds$points, unique(iris[, -5]))
 title(main="Non-metric MDS biplot with Biarrows()")
 
-# ===
+## ===
 
 library(MASS)
 iris.smm <- sammon(dist(unique(iris[, -5])))
@@ -93,7 +93,7 @@ plot(iris.smm$points, xlab="Dim 1", ylab="Dim 2")
 Biarrows(iris.smm$points, unique(iris[, -5]))
 title(main="Sammon mapping biplot with Biarrows()")
 
-# ===
+## ===
 
 iris.p <- prcomp(iris[, -5], scale=TRUE)
 biplot(iris.p, xpd=TRUE, main="Original PCA biplot")
@@ -101,7 +101,7 @@ plot(iris.p$x)
 Biarrows(iris.p$x, iris[, -5])
 title(main="PCA biplot with Biarrows()")
 
-# ===
+## ===
 
 plot(iris.p$x, xlab="PCA1", ylab="PCA2")
 ## how to use 'coeffs'
@@ -109,25 +109,25 @@ plot(iris.p$x, xlab="PCA1", ylab="PCA2")
 (coeffs <- cor(iris[, -5], iris.p$x, method="spearman"))
 Biarrows(iris.p$x, tx=rownames(coeffs), coeffs=coeffs)
 
-# ===
+## ===
 
 plot(iris[, c(1, 3)])
 Biarrows(iris[, c(1, 3)], iris.p$x)
 title(main="\"Reversed biplot\"")
 
-# ===
+## ===
 
 plot(iris[, c(1, 3)])
 Biarrows(iris[, c(1, 3)], iris[, c(2, 4)])
 title(main="Iris flowers: lengths vs. widths")
 
-# ===
+## ===
 
 plot(iris.p$x)
 Biarrows(iris.p$x[, 1:2], iris.p$x[, 1:2])
 title(main="\"Self-biplot\" on PCA")
 
-# ===
+## ===
 
 library(MASS)
 iris.ldap <- predict(lda(Species ~ ., data=iris), iris[, -5])
@@ -137,7 +137,7 @@ Biarrows(iris.ldap$x, iris.p$x[, 1:2], shift=c(9, 2.5),
  shrink=0.95, lty=2, ar.col="darkgrey", tx.col="darkgrey")
 title(main="Triplot: LDA, original variables and PCA axes")
 
-# ===
+## ===
 
 iris.cl <- Classproj(iris[, -5], iris$Species)
 plot(iris.cl$proj, col=iris$Species)

@@ -1,8 +1,8 @@
 Package: shipunov
 Type: Package
 Title: Miscellaneous Functions from Alexey Shipunov
-Version: 1.10
-Date: 2020-07-10
+Version: 1.11
+Date: 2020-07-23
 Author: Alexey Shipunov [aut, cre], Paul Murrell [ctb], Marcello D'Orazio [ctb], Stephen Turner [ctb], Eugeny Altshuler [ctb], Roland Rau [ctb], Marcus W Beck [ctb], Sebastian Gibb [ctb], Weiliang Qiu [ctb], Emmanuel Paradis [ctb], Roger Koenker [ctb], R Core Team [ctb]
 Maintainer: Alexey Shipunov <dactylorhiza@gmail.com>
 Description: A collection of functions for data manipulation, plotting and statistical computing,
@@ -23,6 +23,6 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
 NeedsCompilation: no
-Packaged: 2020-07-10 08:53:43 UTC; alexey
+Packaged: 2020-07-22 22:49:09 UTC; alexey
 Repository: CRAN
-Date/Publication: 2020-07-10 09:10:02 UTC
+Date/Publication: 2020-07-23 04:20:02 UTC

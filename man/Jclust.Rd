@@ -13,8 +13,8 @@ Jclust(data, n.cl, iter=1000, method.d="euclidean", method.c="ward.D",
 
 \method{print}{Jclust}(x, ...)
 
-\method{plot}{Jclust}(x, main="", xlab="", sub=NULL, rect.lty=3,
- rect.col=1, top=FALSE, ...)
+\method{plot}{Jclust}(x, main="", xlab=NULL, rect.lty=3, rect.col=1,
+ top=FALSE, rect.xpd=TRUE, ...)
 
 }
 
@@ -29,10 +29,10 @@ Jclust(data, n.cl, iter=1000, method.d="euclidean", method.c="ward.D",
 \item{x}{Object of the class 'Jclust'}
 \item{main}{Plot title}
 \item{xlab}{Horizontal axis label}
-\item{sub}{Horizontal axis sub-label}
 \item{rect.lty}{Line type for the rectangles}
 \item{rect.col}{Color of rectangles}
 \item{top}{Plot values on top?}
+\item{rect.xpd}{Plot rectangle sides if they go outside the plotting region?}
 \item{...}{Additional arguments to the print() or plot.hclust()}
 }
 
@@ -40,6 +40,10 @@ Jclust(data, n.cl, iter=1000, method.d="euclidean", method.c="ward.D",
 
 Simple method to bootstrap and jackknife cluster memberships, and plot
 consensus membership tree. Requires the desired number of clusters.
+
+The default clustering method is the variance-minimizing "ward.D" (which
+works better with Euclidean distances); to make it coherent with hclust()
+default, specify 'method.c="complete"'.
 
 Note that Jclust() is fast indirect bootstrap, it boostrap the consensus
 (not the original) tree and narrows results with the desired number of
@@ -51,10 +55,10 @@ phylogeny-based BootA().
 \value{
 
 Returns 'Jclust' object which is a list with components "meth" (bootstrap
-or jacknife), "mat" (matrix of results), "hclust" (consensus tree as
-'hclust' object), "gr" (groups), "supp" (support values),  "iter" (number
-of iterations) and "n.cl" (number of cluters used.)
-
+or jacknife), "mat" (matrix of results, consensus matrix), "hclust"
+(consensus tree as 'hclust' object), "gr" (groups), "supp" (support
+values), "iter" (number of iterations) and "n.cl" (number of cluters
+used.)
 
 }
 

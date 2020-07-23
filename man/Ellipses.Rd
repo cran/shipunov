@@ -50,7 +50,8 @@ list of polygons or with Overlap().
 \seealso{\code{\link{Hulls}}, \code{\link{Overlap}}, \code{\link{Pinhull}}}
 
 \examples{
-iris.p <- prcomp(iris[, -5], scale=TRUE)$x[, 1:2]
+
+iris.p <- prcomp(iris[, -5])$x[, 1:2]
 plot(iris.p, type="n", xlab="PC1", ylab="PC2")
 text(iris.p, labels=abbreviate(iris[, 5], 1, method="both.sides"))
 iris.e <- Ellipses(iris.p[, 1:2], iris[, 5], centers=TRUE)

@@ -39,7 +39,7 @@ polygon.
 
 \examples{
 
-iris.pca <- prcomp(iris[, 1:4], scale=TRUE)
+iris.pca <- prcomp(iris[, -5])
 iris.p <- iris.pca$x[, 1:2]
 
 iris.h <- Hulls(iris.p[, 1:2], as.numeric(iris[, 5]), plot=FALSE)

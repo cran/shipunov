@@ -41,21 +41,21 @@ j.clust
 
 print.Jclust <- function(x, ...)
 {
-cat("\n", x$meth, "support for", x$n.cl, "clusters,", x$iter, "iterations: \n")
-cat("\n")
-if (is.null(names(x$gr))) names(x$gr) <- as.character(x$gr)
-clus <- aggregate(names(x$gr), list(x$gr), toString)
-clus <- cbind(x$supp*100, clus)
-colnames(clus) <- c("support", "cluster", "members")
-print(clus[rev(order(clus$support)),], row.names=FALSE, ...)
+ cat("\n", x$meth, "support for", x$n.cl, "clusters,", x$iter, "iterations: \n")
+ cat("\n")
+ if (is.null(names(x$gr))) names(x$gr) <- as.character(x$gr)
+ clus <- aggregate(names(x$gr), list(x$gr), toString)
+ clus <- cbind(x$supp*100, clus)
+ colnames(clus) <- c("support", "cluster", "members")
+ print(clus[rev(order(clus$support)),], row.names=FALSE, ...)
 }
 
 
 ## ===
 
-plot.Jclust <- function (x, main="", xlab="", sub=NULL, rect.lty=3, rect.col=1, top=FALSE, ...) {
-if (is.null(sub)) sub <- paste(x$meth, ", ", x$iter, " replicates", sep = "")
-plot(x$hclust, main=main, xlab=xlab, sub=sub, ...)
+plot.Jclust <- function (x, main="", xlab=NULL, rect.lty=3, rect.col=1, top=FALSE, rect.xpd=TRUE, ...) {
+if (is.null(xlab)) xlab <- paste(x$meth, ", ", x$iter, " replicates", sep = "")
+plot(x$hclust, main=main, xlab=xlab, ...)
 tree <- x$hclust
 k <- x$n.cl
 cluster <- x$gr
@@ -69,7 +69,7 @@ for (n in seq_along(which)) {
  xright <- m[which[n] + 1] + 0.32
  xmid <- (xleft + xright)/2
  ytop <- mean(rev(tree$height)[(k - 1):k])
- rect(xleft, ybottom, xright, ytop, lty = rect.lty, border = rect.col)
+ rect(xleft, ybottom, xright, ytop, lty=rect.lty, border=rect.col, xpd=rect.xpd)
  text(xmid, if(top) ytop else ybottom, labels = paste0(round(x$sup[clusorder[n]] * 100, 1), "%"), pos=3)
  }
 }
