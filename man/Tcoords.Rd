@@ -15,8 +15,8 @@
   below the rest of the plot; better to make it equal to the 'hang' from
   \code{hclust} (default is 0.1).}
 
-  \item{add}{Add to 'hang' to make labels look better; reliable value is
-  about 0.03}
+  \item{add}{Add to 'hang' to make labels look better; the reliable value
+  is about 0.03}
 
   \item{horiz}{Plot values for a horizontal tree?}
 
@@ -41,17 +41,26 @@
   default, labels will be plotted horizontally, not vertically as it is
   in plot.hclust().
 
-  To plot new labels in the same order, do not forget to apply the
-  'order' component of 'hclust' object (see below for the example).
+  Tcoords() treats labels in order of their appearance on the dendrogram
+  and not in their initial order, so do not forget to apply the 'order'
+  component of 'hclust' object (see below for examples).
 
-  Together with Hcoords(), it in principle allows to plot dendrogram in
-  the alternative way (for example, with aid of segments() and text()).
-  This possibility, however, needs a research.
+  Together with Hcoords(), Tcoords() in principle allows to plot
+  dendrogram in the alternative way (for example, with aid of segments()
+  and text()). That will allow, for example, to plot 'hclust'
+  horizontally without conversion into dendrogram. This possibility,
+  however, reqiures a further research.
+
+  Please also see Fence() and Tctext() which are convenient functions
+  based on Tcoords() for adding segments and text labels, respectively.
 
 }
 
 \seealso{
-  \code{\link{hclust}}
+
+  \code{\link{hclust}}, \code{\link{Ploth}}, \code{\link{Fence}},
+  \code{\link{Tctext}}
+
 }
 
 \examples{
@@ -74,7 +83,7 @@ points(Tcoords(iris.h, add=0.01), col=iris$Species[iris.h$order]) # reorder lale
 ## can be used with Ploth(), i.e., with dendrogram
 Ploth(hcl, labels=NA, horiz=TRUE) # hang=-1 is default
 tc <- Tcoords(hcl, hang=-1, horiz=TRUE)
-text(tc, newlabels, pos=4, xpd=TRUE)
+text(tc, newlabels, pos=4, xpd=TRUE, cex=1.1) # Ploth() cannot change text size
 
 }
 

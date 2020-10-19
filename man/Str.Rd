@@ -26,8 +26,9 @@ then output is not changed.
 If 'as.factor=TRUE', converts all character columns to factors before
 reporting the structure, thus mimicking pre-R4 behavior of many functions
 related with data frames (and also invisibly outputs the new data frame).
-Might be useful as is, for example, to understand the number of unique
-character values which will be shown as "factor levels".
+Might be useful, for example, to understand the number of unique
+character values which will be shown as "factor levels", works well in
+conjunction with summary(), please see examples.
 
 Alternative: DescTools::Str() which uses cycles (slower!), has less
 features, but works with non-atomic columns.
@@ -57,14 +58,15 @@ Str(trees1)
 \dontrun{
 trees.crazy <- trees
 trees.crazy[[2]] <- trees[, 2, drop=FALSE]
-Str(trees.crazy) # does not work with data frames with non-atomic columns
+str(trees.crazy)
+Str(trees.crazy) # columns non-atomic: output as from str()
 }
 
-abc <- data.frame(a=letters[1:10], b=LETTERS[1:10], c=1:10)
+abc <- data.frame(N=1:26, LETTERS, letters, stringsAsFactors=FALSE)
 abc[3, 1] <- NA
 Str(abc)
-abc.new <- Str(abc, as.factor=TRUE)
-Str(abc.new)
+Str(abc, as.factor=TRUE)
+summary(Str(abc, as.factor=TRUE))
 
 }
 

@@ -1,31 +1,59 @@
-Test Biokey() more, fill gaps in conversion pairs, keep node labels (descriptions, taxon names) everywhere, add object type checks, modularize
+Rostova.tbl(): probably, make splitting variable independent; think how
+to enhance Topm() with significance of correlations
 
-Test experimental Misclass() code, especially with table()-specific functions and NAs (but "ignore" seems to work)
+Partkey(): interactive stepwise dichotomous key from morphological table
+using rpart::rpart() or tree::tree() as helper
 
-Think if it is possible to optimize BestOverlap() with parallel::mclapply() or similar
+Test Biokey() more, fill gaps in conversion pairs, keep node labels
+(descriptions, taxon names) everywhere, add object type checks,
+modularize
 
-Think how to optimize Gap.code(); possible alternative: rle() each sequence, then extract pos/len of gaps and match (and check inclusions) sequence gaps in the union of all gaps
+Test experimental Misclass() code, especially with table()-specific
+functions and NAs (but "ignore" seems to work)
 
-Think how to standardize MrBayes() writing Nexus (now there are two ways, "old ips" and "direct")
+Think how to use dichotomousKey::dk_classify() as prototype of the
+function which reads Biokey() key ineractively
+
+Think if it is possible to optimize BestOverlap() with
+parallel::mclapply() or similar
+
+Think how to optimize Gap.code(); possible alternative: rle() each
+sequence, then extract pos/len of gaps and match (and check inclusions)
+sequence gaps in the union of all gaps
+
+Think how to standardize MrBayes() writing Nexus (now there are two ways,
+"old ips" and "direct")
 
 Idea: Booster() analogous to Tapkee(); modify BootA() to use it
 
-Idea: create a flower formula representation (likely list), make code to find the shortest path between two formulas with elementary operations (Antopolsky's ideas), make code to use formulas for creation of SVG flower diagrams (Kebert's PHP code)
+Idea: first, create a flower formula representation, and make code to
+find the shortest path between two formulas with elementary operations
+(Antopolsky's ideas)
 
-Idea: HHomonyms() to work with API or directly with hemihomonyms database; maybe, it deserves the separate package
+Idea: HHomonyms() to work with API or directly with hemihomonyms
+database; maybe, it deserves the separate package
 
-Idea: Coarse(phylo) on the base of ape::di2multi() which allows for given number of hierarchies (maybe, by iteration), collapsing and keeping nodes using e.g., bootstrap support
+Idea: Coarse(phylo) on the base of ape::di2multi() which allows for given
+number of hierarchies (maybe, by iteration), collapsing and keeping nodes
+using e.g., bootstrap support
 
-Idea: Normalize.ranks(classif) to (1) fit ranks into given list and (2) propagate main (whole numbers) ranks (based on code from Biokey())
+Idea: Normalize.ranks(classif) to (1) fit ranks into given list and (2)
+propagate main (whole numbers) ranks (based on code from Biokey())
 
-Idea: create dichotomous key from binary table using rpart::rpart() as helper; look on DichotomousKey Github package
+Idea: using Hcoords() and Tcoords(), it is in principle possible to plot
+'hclust' object horizontally, without conversion into dendrogram, like
+series of segments
 
-Idea: using Hcoords() and Tcoords(), it is in principle possible to plot 'hclust' object horizontally, without conversion into dendrogram, like series of segments
-
-Idea: extract 'clipper' and adjacent polygon functions from PBSmapping:: sources and make them work from within shipunov::; however, in that case Windows distribution will become more complicated
+Idea: extract 'clipper' and adjacent polygon functions from PBSmapping::
+sources and make them work from within shipunov::; however, in that case
+Windows distribution will become more complicated
 
 Note: in bivariate plots, it is better to use xy.coords()
 
-Note: while Fligner-Policello tests are numerous in R packages, pairwise variant is seemingly absent so it is better to keep Rro.test() and pairwise.Rro.test()
+Note: while Fligner-Policello tests are numerous in R packages, pairwise
+variant is seemingly absent so it is better to keep Rro.test() and
+pairwise.Rro.test()
 
-Note: there is a package MRH for Multi-Resolution Estimation of the Hazard Rate, and MRH::MRH() so maybe it is worth to rename shipunov::MRH() or somehow mention this
+Note: there is a package MRH for Multi-Resolution Estimation of the
+Hazard Rate, and MRH::MRH() so maybe it is worth to rename
+shipunov::MRH() or somehow mention this

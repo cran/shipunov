@@ -52,8 +52,6 @@ iris.e <- Ellipses(iris.p, iris$Species, plot=FALSE)
 
 ## convex hulls
 iris.pih <- Pinhull(iris.p, iris.h)
-## this measure of membership overlap is analogous to Overlap()
-dist(t(iris.pih), method="binary")
 
 ## confidence ellipses
 iris.pie <- Pinhull(iris.p, iris.e)
@@ -68,6 +66,14 @@ key <- key[order(key[, "group"]), ]
 mem <- aggregate(1:nrow(iris.p), list(group=iris.pie.g[, "group"]), paste0, collapse=", ")
 mem <- cbind(key, mem)
 mem[, mem \%-\% "group"] # all memberships
+
+## distance based on membership intersection, Overlap() analog
+dist(t(iris.pie), method="binary") # asymmetric binary
+SM.dist(t(iris.pie)) # symmetric binary
+
+## uniqueness of species
+lapply(1:3, function(.x) sum(rowSums(iris.pie[as.numeric(iris$Species) == .x,
+ ]) > 1)/table(iris$Species)[.x]) ## versicolor is least unique
 
 }
 

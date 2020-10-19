@@ -14,26 +14,52 @@ Jclust(data, n.cl, iter=1000, method.d="euclidean", method.c="ward.D",
 \method{print}{Jclust}(x, ...)
 
 \method{plot}{Jclust}(x, main="", xlab=NULL, rect.lty=3, rect.col=1,
- top=FALSE, rect.xpd=TRUE, ...)
+ rect.xpd=TRUE, top=FALSE, lab.pos=3, lab.offset=0.5, lab.col=par("col"),
+ lab.font=par("font"), ...)
 
 }
 
 \arguments{
+
 \item{data}{Data}
+
 \item{n.cl}{Number of desired clusters}
+
 \item{iter}{Number of iterations, default 1000}
+
 \item{method.d}{Distance method}
+
 \item{method.c}{Hierarchical clustering method}
+
 \item{bootstrap}{Bootstrap or jackknife?}
+
 \item{monitor}{If TRUE (default), prints a dot for each replicate}
+
 \item{x}{Object of the class 'Jclust'}
+
 \item{main}{Plot title}
+
 \item{xlab}{Horizontal axis label}
+
 \item{rect.lty}{Line type for the rectangles}
+
 \item{rect.col}{Color of rectangles}
+
+\item{rect.xpd}{Plot rectangle sides if they go outside the plotting
+region?}
+
 \item{top}{Plot values on top?}
-\item{rect.xpd}{Plot rectangle sides if they go outside the plotting region?}
+
+\item{lab.pos}{Position specifier for the values text labels}
+
+\item{lab.offset}{Distance of the text labels in fractions of a character width}
+
+\item{lab.col}{Color of the text labels}
+
+\item{lab.font}{Font of the text labels}
+
 \item{...}{Additional arguments to the print() or plot.hclust()}
+
 }
 
 \details{
@@ -67,14 +93,26 @@ used.)
 \author{Alexey Shipunov}
 
 \seealso{
-  \code{\link{Bclust}}, \code{\link{BootA}}
+
+\code{\link{Bclust}},
+
+\code{\link{BootA}},
+
+\code{\link{Fence}}
+
 }
 
 \examples{
 
+## 'moldino' data, 1000 iterations
 (mo.j <- Jclust(t(moldino), n.cl=3, iter=1000))
 plot(mo.j)
 
+## adjust locations of value labels
+data.jb <- Jclust(t(atmospheres), method.c="complete", n.cl=3)
+plot(data.jb, top=TRUE, lab.pos=1, lab.offset=1, lab.col=2, lab.font=2)
+
+## plot together with Fence()
 iris.jb <- Jclust(iris[, -5], n.cl=3)
 plot(iris.jb, labels=FALSE)
 Fence(iris.jb$hclust, iris$Species)

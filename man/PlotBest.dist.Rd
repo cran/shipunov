@@ -1,26 +1,34 @@
 \name{PlotBest.dist}
 \alias{PlotBest.dist}
-\title{Plots dotchart with best base distance method}
+\title{Dotchart which reflects the "best" base distance method}
 
-\description{Plots dotchart with best base distance method}
-\usage{PlotBest.dist(data, distances=c("euclidean", "maximum", "manhattan",
- "canberra", "binary", "minkowski"), dim=2, plot=TRUE)}
+\description{Plots dotchart with shows correspondences between data and various base distances}
+
+\usage{
+
+PlotBest.dist(data, distances=c("euclidean", "maximum", "manhattan",
+"canberra", "binary", "minkowski"))
+
+}
 
 \arguments{
 \item{data}{Data frame with values}
 \item{distances}{Distances to use}
-\item{dim}{Number of dimensions}
-\item{plot}{Plot?}
 }
 
 \details{
-Plots the "best" base distance method.
-Uses correlation between multidimensional scaling of distance object and PCA of data.
-Two dimensions are default, change it with "dim" option.
+
+Shows the "best" distance method. Please note that this is a mere
+visualization, and numbers are used only to understand the relative
+correspondence between raw data and distances.
+
+Uses maximal correlations between multidimensional scaling of distance
+object (converted internally to Euclidean) and PCA of data. Both MDS and
+PCA use two dimensions.
+
 }
 
-\value{Numeric vector with correlation values (equal to the number of distances
-involved)}
+% \value{}
 
 % \references{}
 
@@ -29,7 +37,11 @@ involved)}
 % \seealso{}
 
 \examples{
+
 PlotBest.dist(iris[, -5])
+
+PlotBest.dist(t(moldino))
+
 }
 
 \keyword{hplot}

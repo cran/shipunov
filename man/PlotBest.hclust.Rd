@@ -4,8 +4,12 @@
 
 \description{Plots dotchart with best clustering method}
 
-\usage{PlotBest.hclust(dist, clust=c("ward.D", "ward.D2", "single", "complete",
- "average", "mcquitty", "median", "centroid"), plot=TRUE)}
+\usage{
+
+PlotBest.hclust(dist, clust=c("ward.D", "ward.D2", "single", "complete",
+"average", "mcquitty", "median", "centroid"), plot=TRUE)
+
+}
 
 \arguments{
 \item{dist}{Distance matrix}
@@ -14,12 +18,18 @@
 }
 
 \details{
-Plots the "best" hierarchical clustering method.
-Uses cophenetic correlation.
+
+Shows the "best" hierarchical clustering method. Uses cophenetic
+correlation.
+
 }
 
-\value{Numeric vector with correlation values (equal to the number of clusterings
-involved)}
+\value{
+
+Numeric vector with correlation values (equal to the number of
+clusterings involved)
+
+}
 
 % \references{}
 
@@ -28,7 +38,11 @@ involved)}
 % \seealso{}
 
 \examples{
-PlotBest.hclust(dist(iris[, -5], method="manhattan"))
+
+PlotBest.hclust(dist(iris[, -5]))
+
+PlotBest.hclust(dist(t(moldino)))
+
 }
 
 \keyword{hplot}

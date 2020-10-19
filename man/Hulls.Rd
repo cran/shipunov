@@ -47,6 +47,9 @@ Invisibly outputs list of hulls (polygons) with coordinates, and possibly
 also with 'centers' and 'outliers' attributes. Indices of margin points
 returned as row names of each polygon.
 
+See also package 'cluster' for ellipsoidhulls() function that allows to
+draw ellipse-like hulls.
+
 }
 
 % \references{}

@@ -34,6 +34,9 @@ therefore shading is not straightforward (but possible, see examples).
 Also, with a help from Pinhull() (see its help), it is possible to reveal
 "outliers", points outside of each ellipse borders.
 
+See also package 'cluster' for ellipsoidhulls() function that allows to
+draw ellipse-like hulls.
+
 }
 
 \value{

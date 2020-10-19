@@ -1,3 +1,11 @@
+shipunov 1.11-1:
+ Cosine.dist() removed as it is not useful in the context of package;
+ SM.dist() can now ignore similarities in zeroes and discretize numerical variables;
+ new function Tctext() which is based on but more convenient than Tcoords() for labeling 'hclust' plots;
+ PlotBest.dist() and PlotBest.mdist() improved (and simplified);
+ plot.Jclust() now accepts 'pos' and 'offset' oprions for text;
+ help files improved.
+
 shipunov 1.11:
  Bclust() now accepts the pre-built list of 'hclust' objects;
  plot.Jclust() now plots rectangle borders even if they go outside of plotting region;

@@ -53,7 +53,9 @@ print.Jclust <- function(x, ...)
 
 ## ===
 
-plot.Jclust <- function (x, main="", xlab=NULL, rect.lty=3, rect.col=1, top=FALSE, rect.xpd=TRUE, ...) {
+plot.Jclust <- function (x, main="", xlab=NULL, rect.lty=3, rect.col=1,
+rect.xpd=TRUE, top=FALSE,  lab.pos=3, lab.offset=0.5,
+lab.col=par("col"), lab.font=par("font"), ...) {
 if (is.null(xlab)) xlab <- paste(x$meth, ", ", x$iter, " replicates", sep = "")
 plot(x$hclust, main=main, xlab=xlab, ...)
 tree <- x$hclust
@@ -70,6 +72,8 @@ for (n in seq_along(which)) {
  xmid <- (xleft + xright)/2
  ytop <- mean(rev(tree$height)[(k - 1):k])
  rect(xleft, ybottom, xright, ytop, lty=rect.lty, border=rect.col, xpd=rect.xpd)
- text(xmid, if(top) ytop else ybottom, labels = paste0(round(x$sup[clusorder[n]] * 100, 1), "%"), pos=3)
+ text(xmid, if(top) ytop else ybottom,
+  labels=paste0(round(x$sup[clusorder[n]] * 100, 1), "%"),
+  pos=lab.pos, offset=lab.offset, col=lab.col, font=lab.font)
  }
 }
