@@ -1,6 +1,6 @@
-8b0a19efd6886dc03b470ab7e2fd7a1a *DESCRIPTION
+7570f751223344b238c51c5f5aa8764b *DESCRIPTION
 e2741bce246b584c1c45e3e96ddfbfd3 *NAMESPACE
-3b0ff1cfa1d28860bf0f797ab39f7c1f *NEWS
+9bff2fc10b719e9c560a5f87ff7f1bc8 *NEWS
 ccf7df03cbed7196f92a59a011abbf9a *R/aaa.r
 69555c9b4912ec227eb1d2b4f7ad6673 *R/adj_rand.r
 16d8c983a5a9f93daa7d726e00022d46 *R/alldups.r
@@ -55,7 +55,7 @@ dd6b67eb9ed7c390e54fe64f8ff1346b *R/tcoords.r
 1c91f38bf616edb2017f466b0059179e *R/vicinities.r
 a629e8c27db4ee900c10a630323c8e3f *R/vtcoeffs.r
 07b3c5b0282d9e88d9f5af28589d3cd1 *R/zzz.r
-5808c25cbfd8ddc692006131a3e6acae *TODO
+a6dd3a4c8f2e53d5c4dc60e4e8aa5bc2 *TODO
 968aea23ace8f3cae78e088f57789dbd *data/atmospheres.rda
 43f7bb988677985b9f1ddc705941acf5 *data/chaetocnema.rda
 ba4110c3ddab85b50bcc4252e2c32491 *data/classifs.rda
@@ -100,7 +100,7 @@ de3b1e9def20aa18f9f37ef23098741b *man/Coml.Rd
 aa6e6a1109a9be674edccdab8532f6b9 *man/Cor.vec.Rd
 84f901ff654ca55a29379f84f2298feb *man/DNN.Rd
 958f9a4cb3ad87d033150975635452e2 *man/Ditto.Rd
-d0d7c820eb32e53297a48161f6f3e0dc *man/Dotcharts.Rd
+4f378467313db5bb7e7a6ae1d2d60193 *man/Dotcharts.Rd
 16ddea7369d95d4354c045af781499d7 *man/Ell.Rd
 1d55a2c2fdd20283b573f4dcb7d0df53 *man/Ellipses.Rd
 a8c4958a97e84af353cb81af11b14698 *man/Ex.boxplot.Rd
@@ -126,14 +126,14 @@ fa6cc61294a87739ba5c93c7c1a9b328 *man/Histr.Rd
 7a098e2b62808f2dad848b14fe46703d *man/Infill.Rd
 1f6505322c863ab7bbae43d3a038992d *man/Jclust.Rd
 202879b148a7b0c20e1962cf75f5b37c *man/K.Rd
-c871ced688e9d40a48541eb704419bb8 *man/Life.Rd
+fdbf432b0a3c189dde8d02fa704c15f5 *man/Life.Rd
 2b66a8eb90efb7709164a30b8e9f69c4 *man/Linechart.Rd
 20ee379d86b426760c785971d63feaf0 *man/Ls.Rd
 9e758f60022b95d0fb4c259ece0dbac5 *man/MDSv.Rd
 71534006377161862ac2a804deb058b1 *man/MRH.Rd
 4318b46b3af6d4e3bbc460a801156d66 *man/Mag.Rd
 a4a1f4a621e4b89d91d2cb779fb27066 *man/Miney.Rd
-b7c83f1042cebfb62f03fe6ff8406cbd *man/Minus.names.Rd
+68677468ed641e0da43889a8872fded8 *man/Minus.names.Rd
 f06e361b610187b21455d2f548f41516 *man/Misclass.Rd
 de24af272eba0c05b2eeb2f224dc2298 *man/Missing.map.Rd
 733e546d2dcfcc96a99d1f160b064e4b *man/MrBayes.Rd

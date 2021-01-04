@@ -26,7 +26,9 @@ To stop cycles, use Ctrl-C (Linux, macOS) or Esc (Windows) in the main R
 window.
 
 The code was inspired by the Github gist (which is not available anymore)
-attributed to Vadim Vinichenko.
+attributed to Vadim Vinichenko. Note that margins influence the behavior
+of cells, i.e., the field is not infinite as in the "classic" Game of
+Life.
 
 }
 

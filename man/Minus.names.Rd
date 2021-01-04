@@ -25,7 +25,7 @@ Instead of 'x', the function uses 'names(x)'. If 'x' has no names, they will be 
 \examples{
 str(iris[, iris \%-\% "Species"])
 str(iris[, !names(iris) \%in\% "Species"]) # this is how to make it without \%-\%
-c("apples", "bananas") \%-\% c("apples") # simple character string also works
+c("apples", "bananas") \%-\% "apples" # simple character string also works
 }
 
 \keyword{manip}

@@ -59,9 +59,8 @@ Dotchart1() is a dotchart() corrected for use with 1-dimensional tables.
 If the argument is a 1-dimensional table, Dotchart() converts it into
 numeric vector first and instead of warning, outputs the message. This is
 helpful to the beginners with R, and especially on macOS GUI where
-warnings are in red. It also corrects the bug introduced in dotchart()
-with R 4.0.0. With R > 4.0.2, this function should become (except for
-warning issue) obsolete.
+warnings are in red. It also allows dotcharts to show 'ylab' (this was
+not available in R < 4.0.3 but corrected later).
 
 Dotchart() is a prettified dotchart with the following defaults:
 'lcolor="black", bg="white", pt.cex=1.2'.
@@ -84,8 +83,9 @@ work with grouped data).
 
 ## Compare:
 aa <- table(c(1, 1, 1, 2, 2, 3))
-dotchart(aa, ylab="Ylab") # produces warning; does not show 'ylab' if R version < 4
-Dotchart(aa, ylab="Ylab") # outputs message instead of warning; always shows 'ylab'
+dotchart(aa, ylab="Ylab") # produces warning; does not show 'ylab' if R version < 4.0.3
+Dotchart1(aa, ylab="Ylab") # outputs message instead of warning; always shows 'ylab'
+Dotchart(aa, ylab="Ylab") # in addition to Dotchart1(), dots and grid are more visible
 
 iris1 <- aggregate(iris[, 1], iris[5], function(.x) fivenum(.x)[c(3, 1, 5)])
 iris1x <- iris1$x

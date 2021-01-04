@@ -11,6 +11,12 @@ modularize
 Test experimental Misclass() code, especially with table()-specific
 functions and NAs (but "ignore" seems to work)
 
+With future versions of R (maybe, R > 4) make Dotchart1() a "dummy"
+function like 'Dotchart1 <- finction(...) if (!is.vector(x) &
+!is.matrix(x)) { x <- as.numeric(x); dotchart(...) }'
+
+Think if it is better to make the field in the Life() infinite
+
 Think how to use dichotomousKey::dk_classify() as prototype of the
 function which reads Biokey() key ineractively
 
@@ -57,3 +63,6 @@ pairwise.Rro.test()
 Note: there is a package MRH for Multi-Resolution Estimation of the
 Hazard Rate, and MRH::MRH() so maybe it is worth to rename
 shipunov::MRH() or somehow mention this
+
+Note: suggested packages are better to use conditionally, [and maybe check without
+them via _R_CHECK_DEPENDS_ONLY_=true]
