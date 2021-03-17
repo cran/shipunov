@@ -1,6 +1,6 @@
-7570f751223344b238c51c5f5aa8764b *DESCRIPTION
+5b75e77f8b77e7ed1a646141f1786958 *DESCRIPTION
 e2741bce246b584c1c45e3e96ddfbfd3 *NAMESPACE
-9bff2fc10b719e9c560a5f87ff7f1bc8 *NEWS
+0eb1aaf11773b65a8b511d4f89817b3f *NEWS
 ccf7df03cbed7196f92a59a011abbf9a *R/aaa.r
 69555c9b4912ec227eb1d2b4f7ad6673 *R/adj_rand.r
 16d8c983a5a9f93daa7d726e00022d46 *R/alldups.r
@@ -26,7 +26,7 @@ cc71129f304e2a92f2439e971d6eb8b0 *R/fill.r
 127e3c068677a9ebc10aa7e042947a11 *R/k.r
 e4b7c0bbeaf4f053ef2e78a345df88ec *R/life.r
 cf6400f4c409b424613078f0bee7755c *R/linechart.r
-a460f0011f5569a204b0033039fe3058 *R/mdsv.r
+1d9b3c083b371952ecab98f5415921da *R/mdsv.r
 676960234df898b1d9a67d8709245fa2 *R/miney.r
 9cd125295f4abe62c4c635b64ad64866 *R/minus_names.r
 908c6af125223f593bc421adcb247e1f *R/misclass.r
@@ -55,7 +55,7 @@ dd6b67eb9ed7c390e54fe64f8ff1346b *R/tcoords.r
 1c91f38bf616edb2017f466b0059179e *R/vicinities.r
 a629e8c27db4ee900c10a630323c8e3f *R/vtcoeffs.r
 07b3c5b0282d9e88d9f5af28589d3cd1 *R/zzz.r
-a6dd3a4c8f2e53d5c4dc60e4e8aa5bc2 *TODO
+8173207be94f4383e8f80db9cdf32714 *TODO
 968aea23ace8f3cae78e088f57789dbd *data/atmospheres.rda
 43f7bb988677985b9f1ddc705941acf5 *data/chaetocnema.rda
 ba4110c3ddab85b50bcc4252e2c32491 *data/classifs.rda
@@ -129,7 +129,7 @@ fa6cc61294a87739ba5c93c7c1a9b328 *man/Histr.Rd
 fdbf432b0a3c189dde8d02fa704c15f5 *man/Life.Rd
 2b66a8eb90efb7709164a30b8e9f69c4 *man/Linechart.Rd
 20ee379d86b426760c785971d63feaf0 *man/Ls.Rd
-9e758f60022b95d0fb4c259ece0dbac5 *man/MDSv.Rd
+fe81e811bf4c67d0427db29c5fdbb594 *man/MDSv.Rd
 71534006377161862ac2a804deb058b1 *man/MRH.Rd
 4318b46b3af6d4e3bbc460a801156d66 *man/Mag.Rd
 a4a1f4a621e4b89d91d2cb779fb27066 *man/Miney.Rd

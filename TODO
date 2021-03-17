@@ -1,3 +1,6 @@
+MDSv(): lm() call to data.frame() might fail presumably when some scores
+are NA, unable to reproduce, research more
+
 Rostova.tbl(): probably, make splitting variable independent; think how
 to enhance Topm() with significance of correlations
 
