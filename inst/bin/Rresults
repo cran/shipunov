@@ -11,8 +11,13 @@ fi
 
 Rfname="${Rfile%.*}"
 
-Rscript -e "options(warn=1); source(\"$Rfile\", echo=TRUE, keep.source=TRUE, max.deparse.length=Inf)" 2>&1 | tee "$Rfname"_"$Date"rresults.txt
-RET=${PIPESTATUS[0]}
+if  [[ $1 = "-d" ]]; then
+ Rscript -e "options(warn=1); source(\"$Rfile\", echo=TRUE, keep.source=TRUE, max.deparse.length=Inf); sessionInfo()" 2>&1 | tee "$Rfname"_"$Date"rresults.txt
+ RET=${PIPESTATUS[0]}
+else
+ Rscript -e "options(warn=1); source(\"$Rfile\", echo=TRUE, keep.source=TRUE, max.deparse.length=Inf)" 2>&1 | tee "$Rfname"_"$Date"rresults.txt
+ RET=${PIPESTATUS[0]}
+fi
 
 # to join multiple PDFs, pdftk required
 if [ -x "$(command -v pdftk)" ]; then

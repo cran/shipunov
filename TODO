@@ -1,22 +1,24 @@
-MDSv(): lm() call to data.frame() might fail presumably when some scores
-are NA, unable to reproduce, research more
+Allow MRH(..., method="branches") (e.g., via Hcl2mat) to output cluster
+"height" instead of binary 0 or 1, and/or bootstrap support for each
+cluster
 
-Rostova.tbl(): probably, make splitting variable independent; think how
-to enhance Topm() with significance of correlations
+Think how in MRH(..., method="height") make variable names more readable
 
-Partkey(): interactive stepwise dichotomous key from morphological table
-using rpart::rpart() or tree::tree() as helper
+Possibly, make Dotchart1() a "dummy" function like 'Dotchart1 <-
+finction(...) if (!is.vector(x) & !is.matrix(x)) { x <- as.numeric(x);
+dotchart(...) }'; or modify it further, e.g., allow to add the congruent
+dotchart dots to previuos dotchart
+
+Test MDSv(): lm() call to data.frame() might fail presumably when some
+scores are NA. Unable to reproduce so maybe check equality of length of
+vectors on both sides of lm() formula
 
 Test Biokey() more, fill gaps in conversion pairs, keep node labels
 (descriptions, taxon names) everywhere, add object type checks,
 modularize
 
-Test experimental Misclass() code, especially with table()-specific
+Test more experimental Misclass() code, especially with table()-specific
 functions and NAs (but "ignore" seems to work)
-
-With future versions of R (maybe, R > 4) make Dotchart1() a "dummy"
-function like 'Dotchart1 <- finction(...) if (!is.vector(x) &
-!is.matrix(x)) { x <- as.numeric(x); dotchart(...) }'
 
 Think if it is better to make the field in the Life() infinite
 
@@ -32,6 +34,12 @@ sequence gaps in the union of all gaps
 
 Think how to standardize MrBayes() writing Nexus (now there are two ways,
 "old ips" and "direct")
+
+Think how in Rostova.tbl(): to make splitting variable independent; think
+how to enhance Topm() with significance of correlations
+
+Idea: Partkey() -- interactive stepwise dichotomous key from
+morphological table using rpart::rpart() or tree::tree() as helper
 
 Idea: Booster() analogous to Tapkee(); modify BootA() to use it
 
@@ -67,5 +75,5 @@ Note: there is a package MRH for Multi-Resolution Estimation of the
 Hazard Rate, and MRH::MRH() so maybe it is worth to rename
 shipunov::MRH() or somehow mention this
 
-Note: suggested packages are better to use conditionally, [and maybe check without
-them via _R_CHECK_DEPENDS_ONLY_=true]
+Note: suggested packages are better to use conditionally, [and maybe
+check without them via _R_CHECK_DEPENDS_ONLY_=true]

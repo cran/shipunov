@@ -7,13 +7,20 @@
 
 % \arguments{}
 
-\details{'Rresults' is a bash shell script which allows to gather all R input and R textual output in one text file,
-and (unnamed) R graphical output in another (PDF) file (only if the 'pdftk' utility is installed).
-If graphical output has name(s), it will be saved in its own file(s).
+\details{
 
-Very good for the debugging and other non-interactive activities with R scripts as everything is one place.
+'Rresults' is a bash shell script which allows to gather all R input and
+R textual output into one text file, and (unnamed) R graphical output
+into another (PDF) file (only if the 'pdftk' utility is installed). If
+graphical output has name(s), it will be saved in its own file(s).
 
-The script has one option "-d" which adds the timestamp to the file name of text results.
+Very useful for the debugging and other non-interactive activities with R
+scripts as everything is in one place.
+
+The script has one option "-d" which adds the timestamp to the file name
+of text results. This option also switches R to add sessionInfo() to the
+end of output.
+
 }
 
 % \value{}

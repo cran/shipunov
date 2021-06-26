@@ -1,6 +1,6 @@
-5b75e77f8b77e7ed1a646141f1786958 *DESCRIPTION
-e2741bce246b584c1c45e3e96ddfbfd3 *NAMESPACE
-0eb1aaf11773b65a8b511d4f89817b3f *NEWS
+25a8134a0f850fe612bd55fea4de04a4 *DESCRIPTION
+881fcdfb8dc130d16e38a5dea028501a *NAMESPACE
+b4806d1cfbfc9581ca44650437f9717c *NEWS
 ccf7df03cbed7196f92a59a011abbf9a *R/aaa.r
 69555c9b4912ec227eb1d2b4f7ad6673 *R/adj_rand.r
 16d8c983a5a9f93daa7d726e00022d46 *R/alldups.r
@@ -11,6 +11,7 @@ e98a58098aa42defca42233b5a695068 *R/biokey.r
 e83b0c37aab8b76de3f88edaf5b3e0d1 *R/bootrf.r
 3c68ce663d98617087ea05bea046cbfb *R/class_sample.r
 f72b31269d07f83818fd5a42364cc2ab *R/classproj.r
+f067f1e18650400bdaa6f8c39dea2e16 *R/clustergram.r
 83934ec4892c80eed07a11144d663d24 *R/cor.r
 706f1ac88289791b1e36291231190320 *R/dnn.r
 97739a74613644e87cbe92e3112fcb5c *R/dotcharts.r
@@ -55,7 +56,7 @@ dd6b67eb9ed7c390e54fe64f8ff1346b *R/tcoords.r
 1c91f38bf616edb2017f466b0059179e *R/vicinities.r
 a629e8c27db4ee900c10a630323c8e3f *R/vtcoeffs.r
 07b3c5b0282d9e88d9f5af28589d3cd1 *R/zzz.r
-8173207be94f4383e8f80db9cdf32714 *TODO
+1e412227800bcb52f08ac98985dd585c *TODO
 968aea23ace8f3cae78e088f57789dbd *data/atmospheres.rda
 43f7bb988677985b9f1ddc705941acf5 *data/chaetocnema.rda
 ba4110c3ddab85b50bcc4252e2c32491 *data/classifs.rda
@@ -76,7 +77,7 @@ b0a2e6dcfbae7abf71a7a042580c22a9 *data/plantago.rda
 848b1eb7ec32ca73cf2499cac3060ce2 *data/salix_leaves.rda
 3857097ce31a1ef37941a1fe50a3023c *data/salix_plants.rda
 01da88ba103591339964565eb04ddbd9 *data/salix_pop.rda
-4a89bf543185e72668d41d436bbcd5a9 *inst/bin/Rresults
+62c65bc5104b69c3901074ce8a444aff *inst/bin/Rresults
 a896beaabada57e042ad6b8e468c2ea7 *man/Adj.Rand.Rd
 2ca71ae92af5d827820e1c2ca11564cc *man/Aggregate1.Rd
 20f5eafb1317c93828e8bad7eb1e2475 *man/Alldups.Rd
@@ -94,6 +95,7 @@ faf263c72c38cc77f3fa939a3230d0c4 *man/CVs.Rd
 981b96cfa3a620cff9365a5af1fcef75 *man/Cladd.Rd
 5f3508849194b16d7f7bbf10543046e4 *man/Class.sample.Rd
 7ed4a4b0d707e0fc5358cd425f86c00d *man/Classproj.Rd
+2f840a47ee86d82da6d962f55eed75c7 *man/Clustergram.Rd
 89cde4a63afcfaf408e2e34f1af801ab *man/Coeff.det.Rd
 de3b1e9def20aa18f9f37ef23098741b *man/Coml.Rd
 4a2558ac48b2ac3ead6d4b34549df57e *man/Cor.Rd
@@ -158,7 +160,7 @@ b30ad17e1853543101ee143729fe5497 *man/Recode.Rd
 d3154654d1e3ece34c09beb1f5f7033b *man/Root1.Rd
 95daa40a7f4f0fc637a88c477ec72e57 *man/Rostova.tbl.Rd
 0a392a16df80b69984fd7af5d923e2cb *man/Rpart2newick.Rd
-a1a21e272a4b94a09a623a1009041a0a *man/Rresults.Rd
+9356e57f7a369d50be8e7f9e5e2b3f2e *man/Rresults.Rd
 c095de6fb19d63a3056969f203d927c6 *man/Rro.test.Rd
 e1e511ed9de9f6a1216455083360b0fe *man/S.value.Rd
 295bfa943cfa46e95f04353046fa9a92 *man/SM.dist.Rd

@@ -1,3 +1,7 @@
+shipunov 1.15:
+ Rresults: added sessionInfo();
+ new Clustergram() function.
+
 shipunov 1.14:
  MDSv() improved.
 
