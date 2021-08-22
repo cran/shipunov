@@ -1,6 +1,6 @@
-25a8134a0f850fe612bd55fea4de04a4 *DESCRIPTION
+a6061a4763abe4e32fc73d9eb59e4ac9 *DESCRIPTION
 881fcdfb8dc130d16e38a5dea028501a *NAMESPACE
-b4806d1cfbfc9581ca44650437f9717c *NEWS
+92cdca818acbba92796c6ed1b0e9466c *NEWS
 ccf7df03cbed7196f92a59a011abbf9a *R/aaa.r
 69555c9b4912ec227eb1d2b4f7ad6673 *R/adj_rand.r
 16d8c983a5a9f93daa7d726e00022d46 *R/alldups.r
@@ -33,6 +33,7 @@ cf6400f4c409b424613078f0bee7755c *R/linechart.r
 908c6af125223f593bc421adcb247e1f *R/misclass.r
 0552ee94f28fd4523de0817603e3f275 *R/mrbayes.r
 665b6aa25438cf1235381f83c22ec30c *R/mrh.r
+2b13a9216710a8eb80b868218144cb1e *R/nc_dist.r
 c361d54cfe605a071f497c2bd6185ae8 *R/overlap.r
 c17acaf7995847f0d7ef61c1d97788dc *R/pinhull.r
 b7b6504e1596afd395bd6bc4ba840156 *R/pleiad.r
@@ -95,7 +96,7 @@ faf263c72c38cc77f3fa939a3230d0c4 *man/CVs.Rd
 981b96cfa3a620cff9365a5af1fcef75 *man/Cladd.Rd
 5f3508849194b16d7f7bbf10543046e4 *man/Class.sample.Rd
 7ed4a4b0d707e0fc5358cd425f86c00d *man/Classproj.Rd
-2f840a47ee86d82da6d962f55eed75c7 *man/Clustergram.Rd
+c27fd32ee3c6234bccddd4735e334a65 *man/Clustergram.Rd
 89cde4a63afcfaf408e2e34f1af801ab *man/Coeff.det.Rd
 de3b1e9def20aa18f9f37ef23098741b *man/Coml.Rd
 4a2558ac48b2ac3ead6d4b34549df57e *man/Cor.Rd
@@ -139,6 +140,7 @@ a4a1f4a621e4b89d91d2cb779fb27066 *man/Miney.Rd
 f06e361b610187b21455d2f548f41516 *man/Misclass.Rd
 de24af272eba0c05b2eeb2f224dc2298 *man/Missing.map.Rd
 733e546d2dcfcc96a99d1f160b064e4b *man/MrBayes.Rd
+ce92a31a54ccb7202204483050a15dd3 *man/NC.dist.Rd
 a6851b19a75b315738d7b09caa80ef59 *man/Normality.Rd
 2ba21b913123eefcc79b1f78c24ea667 *man/Overlap.Rd
 da3287196fcc800de1bcc0259cafe2ef *man/Phyllotaxis.Rd

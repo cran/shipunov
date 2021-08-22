@@ -1,3 +1,7 @@
+shipunov 1.16:
+ new function NC.dist();
+ slight changes in help files.
+
 shipunov 1.15:
  Rresults: added sessionInfo();
  new Clustergram() function.

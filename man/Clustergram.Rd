@@ -72,7 +72,7 @@ analyses with clustergrams. Computational Statistics 19, 95-111.
 
 \seealso{
 
- \code{\link{dist}, \link{hclust}, \link{kmeans}}
+ \code{\link{dist}}, \code{\link{hclust}}, \code{\link{kmeans}}
 
 }
 
