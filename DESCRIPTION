@@ -1,8 +1,8 @@
 Package: shipunov
 Type: Package
 Title: Miscellaneous Functions from Alexey Shipunov
-Version: 1.16
-Date: 2021-08-22
+Version: 1.17
+Date: 2022-02-26
 Author: Alexey Shipunov [aut, cre], Paul Murrell [ctb], Marcello D'Orazio [ctb], Stephen Turner [ctb], Eugeny Altshuler [ctb], Roland Rau [ctb], Marcus W Beck [ctb], Sebastian Gibb [ctb], Weiliang Qiu [ctb], Emmanuel Paradis [ctb], Roger Koenker [ctb], R Core Team [ctb]
 Maintainer: Alexey Shipunov <dactylorhiza@gmail.com>
 Description: A collection of functions for data manipulation, plotting and statistical computing,
@@ -15,7 +15,7 @@ Description: A collection of functions for data manipulation, plotting and stati
  Overlap() which measures group separation on any projection;
  Biarrows() which converts any scatterplot into biplot;
  and Pleiad() which is fast and flexible correlogram.
-Imports: PBSmapping
+Imports: PBSmapping, methods
 Suggests: apcluster, ape, class, cluster, dbscan, e1071, effsize, grid,
         ips, kernlab, MASS, mclust, meanShiftR, nnet, phangorn,
         randomForest, rpart, smirnov, StatMatch, tapkee, tree, vegan
@@ -23,6 +23,6 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
 NeedsCompilation: no
-Packaged: 2021-08-22 14:18:22 UTC; alexey
+Packaged: 2022-02-26 13:02:21 UTC; alexey
 Repository: CRAN
-Date/Publication: 2021-08-22 14:40:02 UTC
+Date/Publication: 2022-02-26 13:30:02 UTC

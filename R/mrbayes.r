@@ -4,11 +4,11 @@ MrBayes <- function(x, file="", nst=6, rates="invgamma", ngammacat=4,
  contype="allcompat", run=FALSE,
  simple=TRUE, exec="mb-mpi", method="dna") {                           # three new options
  .write.nex <- function(x, file="", interleave=60, taxblock=FALSE) { # taken from the old ips (v.0.0.7)
-  if (class(x) == "alignment") stop ("Sequence alignment must be of class 'DNAbin'")
+  if (is(x, "alignment")) stop ("Sequence alignment must be of class 'DNAbin'")
   str2cha <- function(x) unlist(strsplit(x, ""))
-  if (class(x) == "DNAbin") datatype <- "dna"
-  if (class(x) == "dist") datatype <- "distances"
-  if (class(x) == "data.frame") datatype <- "standard"
+  if (is(x, "DNAbin")) datatype <- "dna"
+  if (is(x, "dist")) datatype <- "distances"
+  if (is(x, "data.frame")) datatype <- "standard"
   missing <- if("?" %in% x[[1]]) "?" else "N"
   ntax <-  if (datatype == "distances") attr(x, "Size") else dim(x)[[1]]
   nchar <- dim(x)[[2]]

@@ -16,13 +16,15 @@ importFrom("stats", "IQR", "aggregate", "as.dendrogram", "as.dist",
            "ave", "chisq.test", "cmdscale", "cophenetic", "cor",
            "cor.test", "cov", "cutree", "dendrapply", "density",
            "dist", "dnorm", "embed", "fisher.test", "fivenum",
-           "hclust", "is.leaf", "kmeans", "lm", "mad", "median", "model.frame",
-           "na.omit", "pairwise.table", "pf", "pnorm", "prcomp",
-           "predict", "qf", "quantile", "rnorm", "runif", "sd",
-           "shapiro.test", "var", "setNames")
+           "hclust", "is.leaf", "kmeans", "lm", "mad", "median",
+           "model.frame", "na.omit", "pairwise.table", "pf", "pnorm",
+           "prcomp", "predict", "qf", "quantile", "rnorm", "runif",
+           "sd", "shapiro.test", "var", "setNames")
 
 importFrom("utils", "capture.output", "combn", "head", "menu",
            "object.size", "savehistory", "str", "write.table")
+
+importFrom("methods", "is")
 
 # Register S3 methods:
 S3method(plot, Bclust)

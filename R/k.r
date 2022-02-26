@@ -1,25 +1,25 @@
 K <- function(x, y=NULL, data=NULL, mad=FALSE, na.rm=TRUE)
 {
-if(class(x) == "formula")
-{
-mf <- model.frame(formula=x, data=data)
-x <- mf[[2]]
-y <- mf[[1]]
-vals = split(y, x)
-x = vals[[1]]
-y = vals[[2]]
-}
+if(is(x, "formula"))
+ {
+ mf <- model.frame(formula=x, data=data)
+ x <- mf[[2]]
+ y <- mf[[1]]
+ vals = split(y, x)
+ x = vals[[1]]
+ y = vals[[2]]
+ }
 if(na.rm)
-{
-x <- na.omit(x)
-y <- na.omit(y)
-}
+ {
+ x <- na.omit(x)
+ y <- na.omit(y)
+ }
 if(!mad)
-{
-K <- ((mean(x) - mean(y))^2)/(var(x) + var(y))
-} else {
-K <- ((median(x) - median(y))^2)/(mad(x)^2 + mad(y)^2)
-}
+ {
+ K <- ((mean(x) - mean(y))^2)/(var(x) + var(y))
+ } else {
+ K <- ((median(x) - median(y))^2)/(mad(x)^2 + mad(y)^2)
+ }
 class(K) <- "K"
 K
 }

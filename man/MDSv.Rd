@@ -10,7 +10,7 @@ each of derived variables and original data
 \usage{MDSv(scores)}
 
 \arguments{
-\item{scores}{Data frame or matrix with values (e.g., result of 'isoMDS()'}
+\item{scores}{Data frame or matrix with values (e.g., result of isoMDS())}
 }
 
 \details{

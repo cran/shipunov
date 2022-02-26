@@ -315,7 +315,7 @@ if (rug) rug(x)
 
 Cladd <- function(model, data, level=.95, lty=2, ab.lty=0, col="black", ab.col="black")
 {
-if (class(model) != "lm") stop("Not an object of class 'lm'")
+if (!is(model, "lm")) stop("Not an object of class 'lm'")
 var <- names(model$model)[2]
 sel <- data[, var]
 new.var <- seq(min(sel, na.rm=TRUE), max(sel, na.rm=TRUE), length.out=length(sel))

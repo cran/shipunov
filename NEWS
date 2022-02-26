@@ -1,3 +1,8 @@
+shipunov 1.17:
+ slight changes in help files;
+ function Gini() added for the convenience to have Gini coefficient to be calculated without loading additional stuff;
+ function Ttcols() added for text-to-columns operation (amazingly, most of existed R solutions are inconvenient)
+
 shipunov 1.16:
  new function NC.dist();
  slight changes in help files.

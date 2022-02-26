@@ -23,7 +23,7 @@
 
 \details{
 
-If 'centers=TRUE', Hulls() calculates centroids of polygons corrsponding
+If 'centers=TRUE', Hulls() calculates centroids of polygons corresponding
 with convex hulls.
 
 If 'outliers=FALSE', Hulls() uses boxplot.stats() to detect outliers
